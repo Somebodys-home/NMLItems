@@ -18,7 +18,10 @@ public enum ItemType {
     // armor types
     LIGHT,
     MEDIUM,
-    HEAVY;
+    HEAVY,
+
+    // offhand items
+    SHIELD;
 
     public static String getItemTypeString(ItemType type) {
         switch (type) {
@@ -37,6 +40,8 @@ public enum ItemType {
             case MEDIUM -> { return "medium"; }
             case HEAVY -> { return "heavy"; }
 
+            case SHIELD -> { return "shield"; }
+
             default -> { return ""; }
         }
     }
@@ -53,6 +58,7 @@ public enum ItemType {
             case WAND -> { return Material.STICK; }
             case STAFF -> { return Material.WOODEN_HOE; }
             case CATALYST -> { return Material.ENCHANTED_BOOK; }
+            case SHIELD -> { return Material.SHIELD; }
             default -> { return null; }
         }
     }
@@ -78,7 +84,7 @@ public enum ItemType {
         return null;
     }
 
-    public static ItemType getWeaponTypeFromString(String string) {
+    public static ItemType getItemTypeFromString(String string) {
         switch (string) {
             case "sword" -> { return SWORD; }
             case "dagger" -> { return DAGGER; }
@@ -90,12 +96,6 @@ public enum ItemType {
             case "wand" -> { return WAND; }
             case "staff" -> { return STAFF; }
             case "catalyst" -> { return CATALYST; }
-            default -> { return null; }
-        }
-    }
-
-    public static ItemType getArmorTypeFromString(String string) {
-        switch (string) {
             case "light" -> { return LIGHT; }
             case "medium" -> { return MEDIUM; }
             case "heavy" -> { return HEAVY; }

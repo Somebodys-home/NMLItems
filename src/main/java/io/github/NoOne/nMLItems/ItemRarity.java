@@ -7,7 +7,7 @@ public enum ItemRarity {
     UNCOMMON,
     RARE,
     MYTHICAL,
-    RELIC; // not a natural rarity, for custom items only
+    RELIC;
 
     public static String getItemRarityString(ItemRarity rarity) {
         switch (rarity) {
