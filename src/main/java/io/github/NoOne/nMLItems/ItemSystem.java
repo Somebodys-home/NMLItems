@@ -20,8 +20,10 @@ public class ItemSystem {
     }
 
     public void updateUnusableItemName(ItemStack item, boolean usable) {
+        if (item == null || !item.hasItemMeta()) return;
+
         ItemMeta meta = item.getItemMeta();
-        String originalName = getOriginalItemName(item);
+        String originalName = this.getOriginalItemName(item);
         String editedName;
 
         if (!usable) {
@@ -31,8 +33,11 @@ public class ItemSystem {
             editedName = originalName;
         }
 
-        meta.setDisplayName(editedName);
-        item.setItemMeta(meta);
+        // Only update if the name is actually different
+        if (!editedName.equals(meta.getDisplayName())) {
+            meta.setDisplayName(editedName);
+            item.setItemMeta(meta);
+        }
     }
 
     public boolean isItemUsable(ItemStack item, Player player) {
