@@ -24,97 +24,47 @@ public enum ItemType {
     SHIELD;
 
     public static String getItemTypeString(ItemType type) {
+        String itemTypeString;
+
         switch (type) {
-            case SWORD -> {
-                return "sword";
-            }
-            case DAGGER -> {
-                return "dagger";
-            }
-            case AXE -> {
-                return "axe";
-            }
-            case HAMMER -> {
-                return "hammer";
-            }
-            case SPEAR -> {
-                return "spear";
-            }
-            case GLOVE -> {
-                return "glove";
-            }
-            case BOW -> {
-                return "bow";
-            }
-            case WAND -> {
-                return "wand";
-            }
-            case STAFF -> {
-                return "staff";
-            }
-            case CATALYST -> {
-                return "catalyst";
-            }
-
-            case LIGHT -> {
-                return "light";
-            }
-            case MEDIUM -> {
-                return "medium";
-            }
-            case HEAVY -> {
-                return "heavy";
-            }
-
-            case SHIELD -> {
-                return "shield";
-            }
-
-            default -> {
-                return "";
-            }
+            case SWORD -> itemTypeString = "Sword";
+            case DAGGER -> itemTypeString = "Dagger";
+            case AXE -> itemTypeString = "Axe";
+            case HAMMER -> itemTypeString = "Hammer";
+            case SPEAR -> itemTypeString = "Spear";
+            case GLOVE -> itemTypeString = "Glove";
+            case BOW -> itemTypeString = "Bow";
+            case WAND -> itemTypeString = "Wand";
+            case STAFF -> itemTypeString = "Staff";
+            case CATALYST -> itemTypeString = "Catalyst";
+            case LIGHT -> itemTypeString = "Light";
+            case MEDIUM -> itemTypeString = "Medium";
+            case HEAVY -> itemTypeString = "Heavy";
+            case SHIELD -> itemTypeString = "Shield";
+            default -> itemTypeString = "";
         }
+
+        return itemTypeString;
     }
 
     public static Material getItemTypeMaterial(ItemType type) {
+        Material itemTypeMaterial;
+
         switch (type) {
-            case SWORD -> {
-                return Material.IRON_SWORD;
-            }
-            case DAGGER -> {
-                return Material.WOODEN_SWORD;
-            }
-            case AXE -> {
-                return Material.IRON_AXE;
-            }
-            case HAMMER -> {
-                return Material.MACE;
-            }
-            case SPEAR -> {
-                return Material.TRIDENT;
-            }
-            case GLOVE -> {
-                return Material.RED_WOOL;
-            }
-            case BOW -> {
-                return Material.BOW;
-            }
-            case WAND -> {
-                return Material.STICK;
-            }
-            case STAFF -> {
-                return Material.WOODEN_HOE;
-            }
-            case CATALYST -> {
-                return Material.ENCHANTED_BOOK;
-            }
-            case SHIELD -> {
-                return Material.SHIELD;
-            }
-            default -> {
-                return null;
-            }
+            case SWORD -> itemTypeMaterial = Material.IRON_SWORD;
+            case DAGGER -> itemTypeMaterial = Material.WOODEN_SWORD;
+            case AXE -> itemTypeMaterial = Material.IRON_AXE;
+            case HAMMER -> itemTypeMaterial = Material.MACE;
+            case SPEAR -> itemTypeMaterial = Material.TRIDENT;
+            case GLOVE -> itemTypeMaterial = Material.RED_WOOL;
+            case BOW -> itemTypeMaterial = Material.BOW;
+            case WAND -> itemTypeMaterial = Material.STICK;
+            case STAFF -> itemTypeMaterial = Material.WOODEN_HOE;
+            case CATALYST -> itemTypeMaterial = Material.ENCHANTED_BOOK;
+            default -> itemTypeMaterial = null;
         }
+
+        return itemTypeMaterial;
     }
 
     public static Material getItemTypeMaterial(ItemType type, String identifier) {
@@ -139,49 +89,26 @@ public enum ItemType {
     }
 
     public static ItemType getItemTypeFromString(String string) {
-        switch (string) {
-            case "sword" -> {
-                return SWORD;
-            }
-            case "dagger" -> {
-                return DAGGER;
-            }
-            case "axe" -> {
-                return AXE;
-            }
-            case "hammer" -> {
-                return HAMMER;
-            }
-            case "spear" -> {
-                return SPEAR;
-            }
-            case "glove" -> {
-                return GLOVE;
-            }
-            case "bow" -> {
-                return BOW;
-            }
-            case "wand" -> {
-                return WAND;
-            }
-            case "staff" -> {
-                return STAFF;
-            }
-            case "catalyst" -> {
-                return CATALYST;
-            }
-            case "light" -> {
-                return LIGHT;
-            }
-            case "medium" -> {
-                return MEDIUM;
-            }
-            case "heavy" -> {
-                return HEAVY;
-            }
-            default -> {
-                return null;
-            }
+        ItemType itemType;
+
+        switch (string.toLowerCase()) {
+            case "sword" -> itemType = SWORD;
+            case "dagger" -> itemType = DAGGER;
+            case "axe" -> itemType = AXE;
+            case "hammer" -> itemType = HAMMER;
+            case "spear" -> itemType = SPEAR;
+            case "glove" -> itemType = GLOVE;
+            case "bow" -> itemType = BOW;
+            case "wand" -> itemType = WAND;
+            case "staff" -> itemType = STAFF;
+            case "catalyst" -> itemType = CATALYST;
+            case "light" -> itemType = LIGHT;
+            case "medium" -> itemType = MEDIUM;
+            case "heavy" -> itemType = HEAVY;
+            case "shield" -> itemType = SHIELD;
+            default -> itemType = null;
         }
+
+        return itemType;
     }
 }
