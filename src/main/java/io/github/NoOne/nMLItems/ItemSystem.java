@@ -31,6 +31,8 @@ public class ItemSystem {
 
         armorContainer.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
         item.setItemMeta(meta);
+
+        updateLoreWithItemStats(item);
     }
 
     public static boolean hasStat(ItemStack item, ItemStat stat) {
@@ -102,7 +104,7 @@ public class ItemSystem {
                 .forEachOrdered(entry -> {
                     double value = entry.getValue();
                     int valueInt = (int) value;
-                    addedLore.add(ItemStat.getStatColor(entry.getKey()) + "+ " + valueInt + " " + ItemStat.getStatString(entry.getKey()));
+                    addedLore.add(ItemStat.getStatColor(entry.getKey()) + "+ " + valueInt + " " + ItemStat.getStatString(entry.getKey()) + " " + ItemStat.getStatEmoji(entry.getKey()));
                 });
 
         originalLore.addAll(addedLore);
