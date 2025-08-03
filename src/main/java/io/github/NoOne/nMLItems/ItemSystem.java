@@ -169,11 +169,11 @@ public class ItemSystem {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
 
-    public NamespacedKey getLevelKey() {
+    public static NamespacedKey getLevelKey() {
         return levelKey;
     }
 
-    public NamespacedKey getOriginalNameKey() {
+    public static NamespacedKey getOriginalNameKey() {
         return originalNameKey;
     }
 }
