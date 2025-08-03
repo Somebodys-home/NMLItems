@@ -94,7 +94,7 @@ public enum ItemStat {
             case LIGHTDAMAGE, LIGHTRESIST -> statEmoji = "✦";
             case DARKDAMAGE, DARKRESIST -> statEmoji = "\uD83C\uDF00";
             case PUREDAMAGE -> statEmoji = "\uD83D\uDCA2";
-            case BLOCK, DEFENSE -> statEmoji = "\uD83D\uDD30️";
+            case BLOCK, DEFENSE -> statEmoji = "🛡️";
             case OVERHEALTH -> statEmoji = "\uD83D\uDC99";
             case EVASION -> statEmoji = "\uD83D\uDCA8";
             default -> statEmoji = "";
