@@ -31,8 +31,6 @@ public class ItemSystem {
 
         armorContainer.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
         item.setItemMeta(meta);
-
-        updateLoreWithItemStats(item);
     }
 
     public static boolean hasStat(ItemStack item, ItemStat stat) {
