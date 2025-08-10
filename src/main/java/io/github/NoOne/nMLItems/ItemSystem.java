@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ItemSystem {
     private static NMLItems nmlItems;
@@ -31,6 +32,12 @@ public class ItemSystem {
 
         armorContainer.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
         item.setItemMeta(meta);
+    }
+
+    public static void setStats(ItemStack item, HashMap<ItemStat, Double> statMap) {
+        for (Map.Entry<ItemStat, Double> statEntry : statMap.entrySet()) {
+            setStat(item, statEntry.getKey(), statEntry.getValue());
+        }
     }
 
     public static boolean hasStat(ItemStack item, ItemStat stat) {
