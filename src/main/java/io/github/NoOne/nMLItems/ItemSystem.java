@@ -28,15 +28,32 @@ public class ItemSystem {
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        PersistentDataContainer armorContainer = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        armorContainer.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
+        pdc.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
         item.setItemMeta(meta);
     }
 
     public static void setStats(ItemStack item, HashMap<ItemStat, Double> statMap) {
         for (Map.Entry<ItemStat, Double> statEntry : statMap.entrySet()) {
             setStat(item, statEntry.getKey(), statEntry.getValue());
+        }
+    }
+
+    public static void removeStat(ItemStack item, ItemStat stat) {
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.remove(makeKeyForStat(stat));
+        item.setItemMeta(meta);
+    }
+
+    public static void resetStats(ItemStack item) {
+        for (ItemStat stat : ItemStat.values()) {
+            if (hasStat(item, stat)) {
+                removeStat(item, stat);
+            }
         }
     }
 
