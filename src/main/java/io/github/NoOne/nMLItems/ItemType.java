@@ -16,6 +16,10 @@ public enum ItemType {
     CATALYST,
 
     // armor types
+    HELMET,
+    CHESTPLATE,
+    LEGGINGS,
+    BOOTS,
     LIGHT,
     MEDIUM,
     HEAVY,
@@ -37,6 +41,10 @@ public enum ItemType {
             case WAND -> itemTypeString = "Wand";
             case STAFF -> itemTypeString = "Staff";
             case CATALYST -> itemTypeString = "Catalyst";
+            case HELMET -> itemTypeString = "Helmet";
+            case CHESTPLATE -> itemTypeString = "Chestplate";
+            case LEGGINGS -> itemTypeString = "Leggings";
+            case BOOTS -> itemTypeString = "Boots";
             case LIGHT -> itemTypeString = "Light";
             case MEDIUM -> itemTypeString = "Medium";
             case HEAVY -> itemTypeString = "Heavy";
@@ -67,25 +75,37 @@ public enum ItemType {
         return itemTypeMaterial;
     }
 
-    public static Material getItemTypeMaterial(ItemType type, String identifier) {
-        if (type == LIGHT) {
-            if (identifier.equalsIgnoreCase("helmet")) return Material.LEATHER_HELMET;
-            if (identifier.equalsIgnoreCase("chestplate")) return Material.LEATHER_CHESTPLATE;
-            if (identifier.equalsIgnoreCase("leggings")) return Material.LEATHER_LEGGINGS;
-            if (identifier.equalsIgnoreCase("boots")) return Material.LEATHER_BOOTS;
-        } else if (type == MEDIUM) {
-            if (identifier.equalsIgnoreCase("helmet")) return Material.CHAINMAIL_HELMET;
-            if (identifier.equalsIgnoreCase("chestplate")) return Material.CHAINMAIL_CHESTPLATE;
-            if (identifier.equalsIgnoreCase("leggings")) return Material.CHAINMAIL_LEGGINGS;
-            if (identifier.equalsIgnoreCase("boots")) return Material.CHAINMAIL_BOOTS;
-        } else if (type == HEAVY) {
-            if (identifier.equalsIgnoreCase("helmet")) return Material.IRON_HELMET;
-            if (identifier.equalsIgnoreCase("chestplate")) return Material.IRON_CHESTPLATE;
-            if (identifier.equalsIgnoreCase("leggings")) return Material.IRON_LEGGINGS;
-            if (identifier.equalsIgnoreCase("boots")) return Material.IRON_BOOTS;
+    public static Material getItemTypeMaterial(ItemType type, ItemType type2) {
+        Material itemTypeMaterial = null;
+
+        switch (type) {
+            case LIGHT -> {
+                switch (type2) {
+                    case HELMET -> itemTypeMaterial = Material.LEATHER_HELMET;
+                    case CHESTPLATE -> itemTypeMaterial = Material.LEATHER_CHESTPLATE;
+                    case LEGGINGS -> itemTypeMaterial = Material.LEATHER_LEGGINGS;
+                    case BOOTS -> itemTypeMaterial = Material.LEATHER_BOOTS;
+                }
+            }
+            case MEDIUM -> {
+                switch (type2) {
+                    case HELMET -> itemTypeMaterial = Material.CHAINMAIL_HELMET;
+                    case CHESTPLATE -> itemTypeMaterial = Material.CHAINMAIL_CHESTPLATE;
+                    case LEGGINGS -> itemTypeMaterial = Material.CHAINMAIL_LEGGINGS;
+                    case BOOTS -> itemTypeMaterial = Material.CHAINMAIL_BOOTS;
+                }
+            }
+            case HEAVY -> {
+                switch (type2) {
+                    case HELMET -> itemTypeMaterial = Material.IRON_HELMET;
+                    case CHESTPLATE -> itemTypeMaterial = Material.IRON_CHESTPLATE;
+                    case LEGGINGS -> itemTypeMaterial = Material.IRON_LEGGINGS;
+                    case BOOTS -> itemTypeMaterial = Material.IRON_BOOTS;
+                }
+            }
         }
 
-        return null;
+        return itemTypeMaterial;
     }
 
     public static ItemType getItemTypeFromString(String string) {
@@ -102,6 +122,10 @@ public enum ItemType {
             case "wand" -> itemType = WAND;
             case "staff" -> itemType = STAFF;
             case "catalyst" -> itemType = CATALYST;
+            case "helmet" -> itemType = HELMET;
+            case "chestplate" -> itemType = CHESTPLATE;
+            case "leggings" -> itemType = LEGGINGS;
+            case "boots" -> itemType = BOOTS;
             case "light" -> itemType = LIGHT;
             case "medium" -> itemType = MEDIUM;
             case "heavy" -> itemType = HEAVY;
