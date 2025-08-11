@@ -92,6 +92,8 @@ public class ItemSystem {
     }
 
     public static ItemType getItemTypeFromItemStack(ItemStack item) {
+        if (!item.hasItemMeta()) return null;
+
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
