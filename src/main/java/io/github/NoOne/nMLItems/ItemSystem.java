@@ -58,7 +58,7 @@ public class ItemSystem {
     }
 
     public static boolean hasStat(ItemStack item, ItemStat stat) {
-        if (item == null) {
+        if (item == null || !item.hasItemMeta()) {
             return false;
         }
 
