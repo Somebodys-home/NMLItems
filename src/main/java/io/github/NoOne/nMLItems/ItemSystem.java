@@ -92,6 +92,7 @@ public class ItemSystem {
     }
 
     public static ItemType getItemTypeFromItemStack(ItemStack item) {
+        if (item == null) return null;
         if (!item.hasItemMeta()) return null;
 
         ItemMeta meta = item.getItemMeta();
