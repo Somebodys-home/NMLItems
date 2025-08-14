@@ -3,6 +3,7 @@ package io.github.NoOne.nMLItems;
 import org.bukkit.ChatColor;
 
 public enum ItemStat {
+    // todo: shit idk
     // damage stats
     PHYSICALDAMAGE,
     FIREDAMAGE,
