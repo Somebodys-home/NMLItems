@@ -2,8 +2,6 @@ package io.github.NoOne.nMLItems;
 
 import org.bukkit.ChatColor;
 
-import java.util.Map;
-
 public enum ItemStat {
     // damage stats
     PHYSICALDAMAGE,
@@ -20,7 +18,7 @@ public enum ItemStat {
     EVASION,
     DEFENSE,
     OVERHEALTH,
-    BLOCK,
+    GUARD,
     PHYSICALRESIST,
     FIRERESIST,
     COLDRESIST,
@@ -46,7 +44,7 @@ public enum ItemStat {
             case EVASION -> statString = "Evasion";
             case DEFENSE -> statString = "Defense";
             case OVERHEALTH -> statString = "Overhealth";
-            case BLOCK -> statString = "Block";
+            case GUARD -> statString = "Guard";
             case PHYSICALRESIST -> statString = "Physical Resist";
             case FIRERESIST -> statString = "Fire Resist";
             case COLDRESIST -> statString = "Cold Resist";
@@ -65,7 +63,7 @@ public enum ItemStat {
         ChatColor color;
 
         switch (stat) {
-            case EVASION, LIGHTDAMAGE, PUREDAMAGE, LIGHTRESIST, BLOCK -> color = ChatColor.WHITE;
+            case EVASION, LIGHTDAMAGE, PUREDAMAGE, LIGHTRESIST, GUARD -> color = ChatColor.WHITE;
             case DEFENSE -> color = ChatColor.GREEN;
             case OVERHEALTH -> color = ChatColor.DARK_BLUE;
             case PHYSICALDAMAGE, PHYSICALRESIST -> color = ChatColor.DARK_RED;
@@ -94,7 +92,7 @@ public enum ItemStat {
             case LIGHTDAMAGE, LIGHTRESIST -> statEmoji = "✦";
             case DARKDAMAGE, DARKRESIST -> statEmoji = "\uD83C\uDF00";
             case PUREDAMAGE -> statEmoji = "\uD83D\uDCA2";
-            case BLOCK, DEFENSE -> statEmoji = "\uD83D\uDEE1";
+            case GUARD, DEFENSE -> statEmoji = "\uD83D\uDEE1";
             case OVERHEALTH -> statEmoji = "\uD83D\uDC99";
             case EVASION -> statEmoji = "\uD83D\uDCA8";
             default -> statEmoji = "";
