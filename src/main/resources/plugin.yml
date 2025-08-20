@@ -2,3 +2,5 @@ name: NMLItems
 version: '1.0'
 main: io.github.NoOne.nMLItems.NMLItems
 api-version: '1.21'
+depend:
+  - NMLPlayerStats
