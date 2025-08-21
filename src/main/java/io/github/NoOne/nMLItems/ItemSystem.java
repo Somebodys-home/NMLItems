@@ -152,6 +152,33 @@ public class ItemSystem {
         return damageStats;
     }
 
+    public double getTotalDamageOfItem(ItemStack item) {
+        double totalDamage = 0;
+
+        for (ItemStat stat : ItemStat.values()) {
+            if (hasStat(item, stat)) {
+                totalDamage += getStatValue(item, stat);
+            }
+        }
+
+        return totalDamage;
+    }
+
+    public HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack weapon, double multiplier) {
+        if (hasDamageStats(weapon)) {
+            HashMap<ItemStat, Double> damageStats = getAllDamageStats(weapon);
+            HashMap<ItemStat, Double> multipliedStats = new HashMap<>();
+
+            for (Map.Entry<ItemStat, Double> entry : damageStats.entrySet()) {
+                multipliedStats.put(entry.getKey(), entry.getValue() * multiplier);
+            }
+
+            return multipliedStats;
+        }
+
+        return null;
+    }
+
     public static boolean hasDamageStats(ItemStack item) {
         return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
                 hasStat(item, ItemStat.FIREDAMAGE) ||
