@@ -25,6 +25,8 @@ public class ItemSystem {
         levelKey = new NamespacedKey(nmlItems, "level");
     }
 
+    
+
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
@@ -71,10 +73,10 @@ public class ItemSystem {
     public static double getStatValue(ItemStack item, ItemStat stat) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        PersistentDataContainer armorContainer = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         if (hasStat(item, stat)) {
-            return armorContainer.get(makeKeyForStat(stat), PersistentDataType.DOUBLE);
+            return pdc.get(makeKeyForStat(stat), PersistentDataType.DOUBLE);
         }
 
         return 0;
@@ -136,6 +138,30 @@ public class ItemSystem {
         meta.setLore(originalLore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
+    }
+
+    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack weapon) {
+        HashMap<ItemStat, Double> damageStats = new HashMap<>();
+
+        for (ItemStat stat : ItemStat.values()) {
+            if (hasStat(weapon, stat)) {
+                damageStats.put(stat, getStatValue(weapon, stat));
+            }
+        }
+
+        return damageStats;
+    }
+
+    public static boolean hasDamageStats(ItemStack item) {
+        return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
+                hasStat(item, ItemStat.FIREDAMAGE) ||
+                hasStat(item, ItemStat.COLDDAMAGE) ||
+                hasStat(item, ItemStat.EARTHDAMAGE) ||
+                hasStat(item, ItemStat.LIGHTNINGDAMAGE) ||
+                hasStat(item, ItemStat.AIRDAMAGE) ||
+                hasStat(item, ItemStat.LIGHTDAMAGE) ||
+                hasStat(item, ItemStat.DARKDAMAGE) ||
+                hasStat(item, ItemStat.PUREDAMAGE);
     }
 
     public static String getOriginalItemName(ItemStack item) {
