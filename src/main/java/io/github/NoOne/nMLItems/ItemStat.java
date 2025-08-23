@@ -3,8 +3,6 @@ package io.github.NoOne.nMLItems;
 import org.bukkit.ChatColor;
 
 public enum ItemStat {
-    // todo: shit idk
-    // damage stats
     PHYSICALDAMAGE,
     FIREDAMAGE,
     COLDDAMAGE,
@@ -27,7 +25,10 @@ public enum ItemStat {
     LIGHTNINGRESIST,
     AIRRESIST,
     LIGHTRESIST,
-    DARKRESIST;
+    DARKRESIST,
+
+    CRITCHANCE,
+    CRITDAMAGE;
 
     public static String getStatString(ItemStat stat) {
         String statString;
@@ -54,6 +55,8 @@ public enum ItemStat {
             case AIRRESIST -> statString = "Air Resist";
             case LIGHTRESIST -> statString = "Light Resist";
             case DARKRESIST -> statString = "Dark Resist";
+            case CRITCHANCE -> statString = "Crit Chance";
+            case CRITDAMAGE -> statString = "Crit Damage";
             default -> statString = "";
         }
 
@@ -74,6 +77,7 @@ public enum ItemStat {
             case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> color = ChatColor.YELLOW;
             case AIRDAMAGE, AIRRESIST -> color = ChatColor.GRAY;
             case DARKDAMAGE, DARKRESIST -> color = ChatColor.DARK_PURPLE;
+            case CRITCHANCE, CRITDAMAGE -> color = ChatColor.BLUE;
             default -> color = null;
         }
 
@@ -97,6 +101,7 @@ public enum ItemStat {
             case GUARD -> statEmoji = "⛨";
             case OVERHEALTH -> statEmoji = "\uD83D\uDC99";
             case EVASION -> statEmoji = "\uD83D\uDCA8";
+            case CRITCHANCE, CRITDAMAGE -> statEmoji = "☠";
             default -> statEmoji = "";
         }
 
