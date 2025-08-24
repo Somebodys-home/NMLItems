@@ -25,11 +25,10 @@ public class ItemSystem {
         levelKey = new NamespacedKey(nmlItems, "level");
     }
 
-    
-
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
+        if (!item.hasItemMeta()) return;
+
         ItemMeta meta = item.getItemMeta();
-        assert meta != null;
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(makeKeyForStat(stat), PersistentDataType.DOUBLE, amount);
@@ -43,15 +42,16 @@ public class ItemSystem {
     }
 
     public static void removeStat(ItemStack item, ItemStat stat) {
+        if (!item.hasItemMeta()) return;
+
         ItemMeta meta = item.getItemMeta();
-        assert meta != null;
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.remove(makeKeyForStat(stat));
         item.setItemMeta(meta);
     }
 
-    public static void resetStats(ItemStack item) {
+    public static void clearStats(ItemStack item) {
         for (ItemStat stat : ItemStat.values()) {
             if (hasStat(item, stat)) {
                 removeStat(item, stat);
@@ -60,14 +60,12 @@ public class ItemSystem {
     }
 
     public static boolean hasStat(ItemStack item, ItemStat stat) {
-        if (item == null || !item.hasItemMeta()) {
-            return false;
-        }
+        if (item == null || !item.hasItemMeta()) return false;
 
         ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer armorContainer = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        return armorContainer.has(makeKeyForStat(stat), PersistentDataType.DOUBLE);
+        return pdc.has(makeKeyForStat(stat), PersistentDataType.DOUBLE);
     }
 
     public static double getStatValue(ItemStack item, ItemStat stat) {
@@ -93,9 +91,8 @@ public class ItemSystem {
         return stats;
     }
 
-    public static ItemType getItemTypeFromItemStack(ItemStack item) {
-        if (item == null) return null;
-        if (!item.hasItemMeta()) return null;
+    public static ItemType getItemType(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -118,10 +115,10 @@ public class ItemSystem {
         return null;
     }
 
-    public static void updateLoreWithItemStats(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null) return;
+    public static void updateLoreWithStats(ItemStack item) {
+        if (!item.hasItemMeta()) return;
 
+        ItemMeta meta = item.getItemMeta();
         List<String> originalLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
         List<String> addedLore = new ArrayList<>();
         HashMap<ItemStat, Double> itemStats = getAllStats(item);
@@ -140,43 +137,51 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack weapon) {
+    public static void updateLoreWithStat(ItemStack item, ItemStat stat, int value) {
+        if (!item.hasItemMeta()) return;
+
+        ItemMeta meta = item.getItemMeta();
+        List<String> addedLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
+
+        addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+        meta.setLore(addedLore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+    }
+
+    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack item) {
         HashMap<ItemStat, Double> damageStats = new HashMap<>();
 
+        if (!hasDamageStats(item)) return damageStats;
+
         for (ItemStat stat : ItemStat.values()) {
-            if (hasStat(weapon, stat)) {
-                damageStats.put(stat, getStatValue(weapon, stat));
+            if (hasStat(item, stat)) {
+                damageStats.put(stat, getStatValue(item, stat));
             }
         }
 
         return damageStats;
     }
 
-    public double getTotalDamageOfItem(ItemStack item) {
+    public static double getTotalDamageOfItem(ItemStack item) {
+        HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
         double totalDamage = 0;
 
-        for (ItemStat stat : ItemStat.values()) {
-            if (hasStat(item, stat)) {
-                totalDamage += getStatValue(item, stat);
-            }
+        for (Map.Entry<ItemStat, Double> damageEntry : damageStats.entrySet()) {
+            totalDamage += damageEntry.getValue();
         }
 
         return totalDamage;
     }
 
-    public HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack weapon, double multiplier) {
-        if (hasDamageStats(weapon)) {
-            HashMap<ItemStat, Double> damageStats = getAllDamageStats(weapon);
-            HashMap<ItemStat, Double> multipliedStats = new HashMap<>();
+    public static HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack item, double multiplier) {
+        HashMap<ItemStat, Double> multipliedDamage = getAllDamageStats(item);
 
-            for (Map.Entry<ItemStat, Double> entry : damageStats.entrySet()) {
-                multipliedStats.put(entry.getKey(), entry.getValue() * multiplier);
-            }
-
-            return multipliedStats;
+        for (Map.Entry<ItemStat, Double> damageEntry : multipliedDamage.entrySet()) {
+            damageEntry.setValue(damageEntry.getValue() * multiplier);
         }
 
-        return null;
+        return multipliedDamage;
     }
 
     public static boolean hasDamageStats(ItemStack item) {
