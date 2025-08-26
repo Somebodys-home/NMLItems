@@ -25,7 +25,8 @@ public enum ItemType {
     HEAVY,
 
     // offhand items
-    SHIELD;
+    SHIELD,
+    QUIVER;
 
     public static String getItemTypeString(ItemType type) {
         String itemTypeString;
@@ -49,6 +50,7 @@ public enum ItemType {
             case MEDIUM -> itemTypeString = "Medium";
             case HEAVY -> itemTypeString = "Heavy";
             case SHIELD -> itemTypeString = "Shield";
+            case QUIVER -> itemTypeString = "Quiver";
             default -> itemTypeString = "";
         }
 
@@ -69,6 +71,8 @@ public enum ItemType {
             case WAND -> itemTypeMaterial = Material.STICK;
             case STAFF -> itemTypeMaterial = Material.WOODEN_HOE;
             case CATALYST -> itemTypeMaterial = Material.ENCHANTED_BOOK;
+            case SHIELD -> itemTypeMaterial = Material.SHIELD;
+            case QUIVER -> itemTypeMaterial = Material.ARROW;
             default -> itemTypeMaterial = null;
         }
 
@@ -130,6 +134,7 @@ public enum ItemType {
             case "medium" -> itemType = MEDIUM;
             case "heavy" -> itemType = HEAVY;
             case "shield" -> itemType = SHIELD;
+            case "quiver" -> itemType = QUIVER;
             default -> itemType = null;
         }
 
