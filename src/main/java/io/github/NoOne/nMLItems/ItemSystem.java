@@ -200,7 +200,7 @@ public class ItemSystem {
                 hasStat(item, ItemStat.PUREDAMAGE);
     }
 
-    public String generateItemName(ItemType type, ItemType type2, ItemRarity rarity) {
+    public static String generateItemName(ItemType type, ItemType type2, ItemRarity rarity) {
         String[] nameSegments = null;
 
         switch (rarity) {
@@ -266,7 +266,7 @@ public class ItemSystem {
                 nameSegments[nameSegments.length - 1] = axe.get(ThreadLocalRandom.current().nextInt(axe.size()));
             }
             case HAMMER -> {
-                List<String> hammer = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko"));
+                List<String> hammer = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko", "Spike Ball"));
                 nameSegments[nameSegments.length - 1] = hammer.get(ThreadLocalRandom.current().nextInt(hammer.size()));
             }
             case SPEAR -> {
