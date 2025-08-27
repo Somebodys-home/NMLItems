@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
-import static io.github.NoOne.nMLItems.ItemType.HELMET;
+import static io.github.NoOne.nMLItems.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems;
@@ -198,6 +198,15 @@ public class ItemSystem {
                 hasStat(item, ItemStat.LIGHTDAMAGE) ||
                 hasStat(item, ItemStat.DARKDAMAGE) ||
                 hasStat(item, ItemStat.PUREDAMAGE);
+    }
+
+    public static boolean isEquippable(ItemStack item) {
+        return getItemType(item) == HELMET ||
+                getItemType(item) == CHESTPLATE ||
+                getItemType(item) == LEGGINGS ||
+                getItemType(item) == BOOTS ||
+                getItemType(item) == SHIELD ||
+                getItemType(item) == QUIVER;
     }
 
     public static String generateItemName(ItemType type, ItemType type2, ItemRarity rarity) {
