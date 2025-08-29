@@ -8,13 +8,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
-
 import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
 import static io.github.NoOne.nMLItems.ItemType.*;
 
@@ -207,6 +205,19 @@ public class ItemSystem {
                 getItemType(item) == BOOTS ||
                 getItemType(item) == SHIELD ||
                 getItemType(item) == QUIVER;
+    }
+
+    public static boolean isWeapon(ItemStack item) {
+        return getItemType(item) == SWORD ||
+                getItemType(item) == DAGGER ||
+                getItemType(item) == AXE ||
+                getItemType(item) == HAMMER ||
+                getItemType(item) == SPEAR ||
+                getItemType(item) == GLOVE ||
+                getItemType(item) == BOW ||
+                getItemType(item) == WAND ||
+                getItemType(item) == STAFF ||
+                getItemType(item) == CATALYST;
     }
 
     public static String generateItemName(ItemType type, ItemType type2, ItemRarity rarity) {
