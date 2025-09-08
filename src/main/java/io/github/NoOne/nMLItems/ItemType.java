@@ -141,7 +141,7 @@ public enum ItemType {
         return itemType;
     }
 
-    public ItemType[] getAllWeaponTypes() {
+    public static ItemType[] getAllWeaponTypes() {
         return new ItemType[]{SWORD, DAGGER, AXE, HAMMER, SPEAR, GLOVE, BOW, WAND, STAFF, CATALYST};
     }
 }
