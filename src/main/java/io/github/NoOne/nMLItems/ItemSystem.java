@@ -193,8 +193,8 @@ public class ItemSystem {
                 hasStat(item, ItemStat.EARTHDAMAGE) ||
                 hasStat(item, ItemStat.LIGHTNINGDAMAGE) ||
                 hasStat(item, ItemStat.AIRDAMAGE) ||
-                hasStat(item, ItemStat.LIGHTDAMAGE) ||
-                hasStat(item, ItemStat.DARKDAMAGE) ||
+                hasStat(item, ItemStat.RADIANTDAMAGE) ||
+                hasStat(item, ItemStat.NECROTICDAMAGE) ||
                 hasStat(item, ItemStat.PUREDAMAGE);
     }
 
@@ -252,7 +252,7 @@ public class ItemSystem {
             }
             case MYTHICAL -> {
                 nameSegments = new String[3];
-                List<String> greatAdjectives = new ArrayList<>(List.of("Amazing", "Godly", "King's", "Queen's", "Fabled", "Based", "W", "Legendaric", "Goofy Ahh",
+                List<String> greatAdjectives = new ArrayList<>(List.of("Amazing", "Godly", "King's", "Queen's", "Fabled", "Based", "W", "Legendary", "Goofy Ahh",
                                                                         "Nobodies'"));
                 int randomAdjective = ThreadLocalRandom.current().nextInt(greatAdjectives.size());
 

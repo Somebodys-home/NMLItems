@@ -9,8 +9,8 @@ public enum ItemStat {
     EARTHDAMAGE,
     LIGHTNINGDAMAGE,
     AIRDAMAGE,
-    LIGHTDAMAGE,
-    DARKDAMAGE,
+    RADIANTDAMAGE,
+    NECROTICDAMAGE,
     PUREDAMAGE,
 
     // defense stats
@@ -24,8 +24,8 @@ public enum ItemStat {
     EARTHRESIST,
     LIGHTNINGRESIST,
     AIRRESIST,
-    LIGHTRESIST,
-    DARKRESIST,
+    RADIANTRESIST,
+    NECROTICRESIST,
 
     CRITCHANCE,
     CRITDAMAGE;
@@ -40,8 +40,8 @@ public enum ItemStat {
             case EARTHDAMAGE -> statString = "Earth Damage";
             case LIGHTNINGDAMAGE -> statString = "Lightning Damage";
             case AIRDAMAGE -> statString = "Air Damage";
-            case LIGHTDAMAGE -> statString = "Light Damage";
-            case DARKDAMAGE -> statString = "Dark Damage";
+            case RADIANTDAMAGE -> statString = "Radiant Damage";
+            case NECROTICDAMAGE -> statString = "Dark Damage";
             case PUREDAMAGE -> statString = "Pure Damage";
             case EVASION -> statString = "Evasion";
             case DEFENSE -> statString = "Defense";
@@ -53,8 +53,8 @@ public enum ItemStat {
             case EARTHRESIST -> statString = "Earth Resist";
             case LIGHTNINGRESIST -> statString = "Lightning Resist";
             case AIRRESIST -> statString = "Air Resist";
-            case LIGHTRESIST -> statString = "Light Resist";
-            case DARKRESIST -> statString = "Dark Resist";
+            case RADIANTRESIST -> statString = "Radiant Resist";
+            case NECROTICRESIST -> statString = "Necrotic Resist";
             case CRITCHANCE -> statString = "Crit Chance";
             case CRITDAMAGE -> statString = "Crit Damage";
             default -> statString = "";
@@ -67,7 +67,7 @@ public enum ItemStat {
         ChatColor color;
 
         switch (stat) {
-            case EVASION, LIGHTDAMAGE, PUREDAMAGE, LIGHTRESIST, GUARD -> color = ChatColor.WHITE;
+            case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD -> color = ChatColor.WHITE;
             case DEFENSE -> color = ChatColor.GREEN;
             case OVERHEALTH -> color = ChatColor.DARK_BLUE;
             case PHYSICALDAMAGE, PHYSICALRESIST -> color = ChatColor.DARK_RED;
@@ -76,7 +76,7 @@ public enum ItemStat {
             case EARTHDAMAGE, EARTHRESIST -> color = ChatColor.DARK_GREEN;
             case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> color = ChatColor.YELLOW;
             case AIRDAMAGE, AIRRESIST -> color = ChatColor.GRAY;
-            case DARKDAMAGE, DARKRESIST -> color = ChatColor.DARK_PURPLE;
+            case NECROTICDAMAGE, NECROTICRESIST -> color = ChatColor.DARK_PURPLE;
             case CRITCHANCE, CRITDAMAGE -> color = ChatColor.BLUE;
             default -> color = null;
         }
@@ -94,8 +94,8 @@ public enum ItemStat {
             case EARTHDAMAGE, EARTHRESIST -> statEmoji = "\uD83E\uDEA8";
             case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> statEmoji = "\uD83D\uDDF2";
             case AIRDAMAGE, AIRRESIST -> statEmoji = "☁";
-            case LIGHTDAMAGE, LIGHTRESIST -> statEmoji = "✦";
-            case DARKDAMAGE, DARKRESIST -> statEmoji = "\uD83C\uDF00";
+            case RADIANTDAMAGE, RADIANTRESIST -> statEmoji = "✦";
+            case NECROTICDAMAGE, NECROTICRESIST -> statEmoji = "\uD83C\uDF00";
             case PUREDAMAGE -> statEmoji = "\uD83D\uDCA2";
             case DEFENSE -> statEmoji = "\uD83D\uDEE1";
             case GUARD -> statEmoji = "⛨";
