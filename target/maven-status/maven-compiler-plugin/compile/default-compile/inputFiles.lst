@@ -1,5 +1,13 @@
-C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemSystem.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\itemDictionary\ArmorGenerator.java
 C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemStat.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\commands\GenerateArmorCommand.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\commands\GenerateQuiverCommand.java
 C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\NMLItems.java
-C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemType.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\itemDictionary\ShieldGenerator.java
 C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemRarity.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemSystem.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\itemDictionary\NameGenerator.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\itemDictionary\WeaponGenerator.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\commands\GenerateShieldCommand.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\itemDictionary\QuiverGenerator.java
+C:\Users\hypix\OneDrive\Desktop\No Man's Land\plugins\NMLItems\src\main\java\io\github\NoOne\nMLItems\ItemType.java

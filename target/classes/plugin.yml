@@ -4,3 +4,13 @@ main: io.github.NoOne.nMLItems.NMLItems
 api-version: '1.21.8'
 depend:
   - NMLPlayerStats
+commands:
+  generateArmor:
+    description: Generates a random piece of armor
+    usage: /<command> <type> <rarity>
+  generateShield:
+    description: Generates a shield for the user
+    usage: /<command> <level> <rarity>
+  generateQuiver:
+    description: Generates a random quiver
+    usage: /<command> <rarity>
