@@ -1,6 +1,6 @@
 package io.github.NoOne.nMLItems;
 
-import io.github.NoOne.nMLPlayerStats.profileSystem.ProfileManager;
+import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -12,17 +12,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
-import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
+
 import static io.github.NoOne.nMLItems.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems;
+    private static SkillSetManager skillSetManager;
     private static NamespacedKey originalNameKey;
     private static NamespacedKey levelKey;
 
     public ItemSystem(NMLItems nmlItems) {
-        ItemSystem.nmlItems = nmlItems;
+        this.nmlItems = nmlItems;
+        skillSetManager = nmlItems.getSkillSetManager();
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         levelKey = new NamespacedKey(nmlItems, "level");
     }
@@ -236,14 +237,12 @@ public class ItemSystem {
     public static boolean isItemUsable(ItemStack item, Player player) {
         if (item == null || !item.hasItemMeta()) return false;
 
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        Integer itemLevel = pdc.get(levelKey, PersistentDataType.INTEGER);
+        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
 
         if (itemLevel == null) return false;
 
-        int playerLevel = new ProfileManager(NMLItems.getNmlPlayerStats()).getPlayerProfile(player.getUniqueId()).getStats().getLevel();
-        return playerLevel >= itemLevel;
+        int combatLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel();
+        return combatLevel >= itemLevel;
     }
 
     public static void updateUnusableItemName(ItemStack item, boolean usable) {

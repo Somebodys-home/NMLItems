@@ -5,39 +5,29 @@ import io.github.NoOne.nMLItems.commands.GenerateQuiverCommand;
 import io.github.NoOne.nMLItems.commands.GenerateShieldCommand;
 import io.github.NoOne.nMLPlayerStats.NMLPlayerStats;
 import io.github.NoOne.nMLPlayerStats.profileSystem.ProfileManager;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import io.github.NoOne.nMLSkills.NMLSkills;
+import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NMLItems extends JavaPlugin {
     private ItemSystem itemSystem;
-    private static NMLPlayerStats nmlPlayerStats;
-    private ProfileManager profileManager;
+    private SkillSetManager skillSetManager;
 
     @Override
     public void onEnable() {
+        skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
         itemSystem = new ItemSystem(this);
-
-        Plugin plugin = Bukkit.getPluginManager().getPlugin("NMLPlayerStats");
-        if (plugin instanceof NMLPlayerStats statsPlugin) {
-            nmlPlayerStats = statsPlugin;
-            profileManager = nmlPlayerStats.getProfileManager();
-        }
 
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
         getCommand("generateShield").setExecutor(new GenerateShieldCommand());
         getCommand("generateQuiver").setExecutor(new GenerateQuiverCommand());
     }
 
+    public SkillSetManager getSkillSetManager() {
+        return skillSetManager;
+    }
+
     public ItemSystem getItemSystem() {
         return itemSystem;
-    }
-
-    public ProfileManager getProfileManager() {
-        return profileManager;
-    }
-
-    public static NMLPlayerStats getNmlPlayerStats() {
-        return nmlPlayerStats;
     }
 }
