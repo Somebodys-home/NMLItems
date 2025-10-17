@@ -4,6 +4,7 @@ main: io.github.NoOne.nMLItems.NMLItems
 api-version: '1.21.8'
 depend:
   - NMLPlayerStats
+  - NMLSkills
 commands:
   generateArmor:
     description: Generates a random piece of armor
