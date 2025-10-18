@@ -41,7 +41,7 @@ public enum ItemStat {
             case LIGHTNINGDAMAGE -> statString = "Lightning Damage";
             case AIRDAMAGE -> statString = "Air Damage";
             case RADIANTDAMAGE -> statString = "Radiant Damage";
-            case NECROTICDAMAGE -> statString = "Dark Damage";
+            case NECROTICDAMAGE -> statString = "Necrotic Damage";
             case PUREDAMAGE -> statString = "Pure Damage";
             case EVASION -> statString = "Evasion";
             case DEFENSE -> statString = "Defense";
