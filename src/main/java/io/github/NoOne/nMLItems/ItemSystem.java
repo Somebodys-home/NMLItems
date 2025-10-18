@@ -166,17 +166,6 @@ public class ItemSystem {
         return damageStats;
     }
 
-    public static double getTotalDamageOfItem(ItemStack item) {
-        HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
-        double totalDamage = 0;
-
-        for (Map.Entry<ItemStat, Double> damageEntry : damageStats.entrySet()) {
-            totalDamage += damageEntry.getValue();
-        }
-
-        return totalDamage;
-    }
-
     public static HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack item, double multiplier) {
         HashMap<ItemStat, Double> multipliedDamage = getAllDamageStats(item);
 
@@ -187,40 +176,16 @@ public class ItemSystem {
         return multipliedDamage;
     }
 
-    public static boolean hasDamageStats(ItemStack item) {
-        return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
-                hasStat(item, ItemStat.FIREDAMAGE) ||
-                hasStat(item, ItemStat.COLDDAMAGE) ||
-                hasStat(item, ItemStat.EARTHDAMAGE) ||
-                hasStat(item, ItemStat.LIGHTNINGDAMAGE) ||
-                hasStat(item, ItemStat.AIRDAMAGE) ||
-                hasStat(item, ItemStat.RADIANTDAMAGE) ||
-                hasStat(item, ItemStat.NECROTICDAMAGE) ||
-                hasStat(item, ItemStat.PUREDAMAGE);
-    }
+    public static double getTotalDamageOfItem(ItemStack item) {
+        HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
+        double totalDamage = 0;
 
-    public static boolean isEquippable(ItemStack item) {
-        return getItemType(item) == HELMET ||
-                getItemType(item) == CHESTPLATE ||
-                getItemType(item) == LEGGINGS ||
-                getItemType(item) == BOOTS ||
-                getItemType(item) == SHIELD ||
-                getItemType(item) == QUIVER;
-    }
+        for (Map.Entry<ItemStat, Double> damageEntry : damageStats.entrySet()) {
+            totalDamage += damageEntry.getValue();
+        }
 
-    public static boolean isWeapon(ItemStack item) {
-        return getItemType(item) == SWORD ||
-                getItemType(item) == DAGGER ||
-                getItemType(item) == AXE ||
-                getItemType(item) == HAMMER ||
-                getItemType(item) == SPEAR ||
-                getItemType(item) == GLOVE ||
-                getItemType(item) == BOW ||
-                getItemType(item) == WAND ||
-                getItemType(item) == STAFF ||
-                getItemType(item) == CATALYST;
+        return totalDamage;
     }
-
 
     public static String getOriginalItemName(ItemStack item) {
         if (item == null || item.getType().isAir()) return null;
@@ -264,6 +229,51 @@ public class ItemSystem {
             meta.setDisplayName(editedName);
             item.setItemMeta(meta);
         }
+    }
+
+    public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack item) {
+        HashMap<String, Double> playerStatMap = new HashMap<>();
+        HashMap<ItemStat, Double> itemStatMap = getAllStats(item);
+
+        for(Map.Entry<ItemStat, Double> statEntry : itemStatMap.entrySet()) {
+           playerStatMap.put(ItemStat.getStatString(statEntry.getKey()).toLowerCase().replaceAll(" ", ""), statEntry.getValue());
+        }
+
+        return playerStatMap;
+    }
+
+    public static boolean hasDamageStats(ItemStack item) {
+        return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
+                hasStat(item, ItemStat.FIREDAMAGE) ||
+                hasStat(item, ItemStat.COLDDAMAGE) ||
+                hasStat(item, ItemStat.EARTHDAMAGE) ||
+                hasStat(item, ItemStat.LIGHTNINGDAMAGE) ||
+                hasStat(item, ItemStat.AIRDAMAGE) ||
+                hasStat(item, ItemStat.RADIANTDAMAGE) ||
+                hasStat(item, ItemStat.NECROTICDAMAGE) ||
+                hasStat(item, ItemStat.PUREDAMAGE);
+    }
+
+    public static boolean isEquippable(ItemStack item) {
+        return getItemType(item) == HELMET ||
+                getItemType(item) == CHESTPLATE ||
+                getItemType(item) == LEGGINGS ||
+                getItemType(item) == BOOTS ||
+                getItemType(item) == SHIELD ||
+                getItemType(item) == QUIVER;
+    }
+
+    public static boolean isWeapon(ItemStack item) {
+        return getItemType(item) == SWORD ||
+                getItemType(item) == DAGGER ||
+                getItemType(item) == AXE ||
+                getItemType(item) == HAMMER ||
+                getItemType(item) == SPEAR ||
+                getItemType(item) == GLOVE ||
+                getItemType(item) == BOW ||
+                getItemType(item) == WAND ||
+                getItemType(item) == STAFF ||
+                getItemType(item) == CATALYST;
     }
 
     private static NamespacedKey makeKeyForStat(ItemStat stat) {
