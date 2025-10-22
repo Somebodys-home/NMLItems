@@ -229,11 +229,11 @@ public class WeaponGenerator {
 
 
         switch (ItemSystem.getItemType(weapon)) {
-            case SWORD, GLOVE -> attackspeed = 1;
-            case DAGGER -> attackspeed = 4;
-            case AXE, SPEAR -> attackspeed = .5;
-            case HAMMER -> attackspeed = .33;
-            case WAND, STAFF, CATALYST -> attackspeed = .87;
+            case SWORD, GLOVE -> attackspeed = -3;
+            case DAGGER -> attackspeed = 0;
+            case AXE, SPEAR -> attackspeed = -3.5;
+            case HAMMER -> attackspeed = -3.66;
+            case WAND, STAFF, CATALYST -> attackspeed = -3.13;
         }
 
         attackSpeedModifier = new AttributeModifier(new NamespacedKey(nmlItems, "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
