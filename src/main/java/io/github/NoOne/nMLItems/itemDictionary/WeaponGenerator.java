@@ -236,7 +236,7 @@ public class WeaponGenerator {
             case WAND, STAFF, CATALYST -> attackspeed = -1.056;
         }
 
-        attackSpeedModifier = new AttributeModifier(new NamespacedKey(nmlItems, "attack speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
+        attackSpeedModifier = new AttributeModifier(new NamespacedKey(nmlItems, "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
         meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
         weapon.setItemMeta(meta);
     }
