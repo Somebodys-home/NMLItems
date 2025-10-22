@@ -1,17 +1,20 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.ItemStat;
-import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.ItemType;
+import io.github.NoOne.nMLItems.*;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.ItemRarity.*;
@@ -19,8 +22,14 @@ import static io.github.NoOne.nMLItems.ItemStat.*;
 import static io.github.NoOne.nMLItems.ItemType.*;
 
 public class WeaponGenerator {
+    private static NMLItems nmlItems;
+
+    public WeaponGenerator(NMLItems nmlItems) {
+        this.nmlItems = nmlItems;
+    }
+
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
-        ItemStack weapon = new ItemStack(ItemType.getItemTypeMaterial(type));
+        ItemStack weapon = new ItemStack(getItemTypeMaterial(type));
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         List<String> lore = new ArrayList<>();
@@ -39,11 +48,11 @@ public class WeaponGenerator {
         pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
 
         // adding the lore
-        lore.add("§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(type).toUpperCase());
+        lore.add("§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase());
         lore.add("");
         meta.setLore(lore);
         weapon.setItemMeta(meta);
-        ASCIIArt(weapon, type);
+        ASCIIArt(weapon, type); // ascii art
 
         // generating stats
         generateWeaponStats(weapon, type, rarity, level);
@@ -51,9 +60,10 @@ public class WeaponGenerator {
         // is weapon unusable?
         ItemSystem.updateUnusableItemName(weapon, ItemSystem.isItemUsable(weapon, receiver));
 
-        if (type == BOW) {
-            weapon.addEnchantment(Enchantment.INFINITY, 1);
-        }
+        // attack speed
+        setAttackSpeed(weapon);
+
+        if (type == BOW) weapon.addEnchantment(Enchantment.INFINITY, 1);
 
         return weapon;
     }
@@ -62,23 +72,23 @@ public class WeaponGenerator {
         ItemMeta meta = weapon.getItemMeta();
         List<String> lore = meta.getLore();
 
-        if (type == ItemType.SWORD) {
+        if (type == SWORD) {
             lore.add("§7        />______________");
             lore.add("§7♦#####[]______________>");
             lore.add("§7        \\>");
-        } else if (type == ItemType.DAGGER) {
+        } else if (type == DAGGER) {
             lore.add("§7    ʃ                      ʃ");
             lore.add("§7♦##|======-  -======|##♦");
             lore.add("§7    ʃ                      ʃ");
-        } else if (type == ItemType.AXE) {
+        } else if (type == AXE) {
             lore.add("§7                           /\\");
             lore.add("§7♦===============######");
             lore.add("§7                       \\_____/");
-        } else if (type == ItemType.HAMMER) {
+        } else if (type == HAMMER) {
             lore.add("§7             ╔══╗");
             lore.add("§7♦=======♦|███|♦");
             lore.add("§7             ╚══╝");
-        } else if (type == ItemType.SPEAR) {
+        } else if (type == SPEAR) {
             lore.add("§7                           \\`-._");
             lore.add("§7♦========♦========♦   _>");
             lore.add("§7                           /.-'");
@@ -86,19 +96,19 @@ public class WeaponGenerator {
             lore.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
             lore.add("§7\\_   @_|♦|_@   _/");
             lore.add("§7   \\__)    (__/");
-        } else if (type == ItemType.BOW) {
+        } else if (type == BOW) {
             lore.add("§7                  ◁----<<");
             lore.add("§7  ︷__♦__︷        >>----▷");
             lore.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
-        } else if (type == ItemType.WAND) {
+        } else if (type == WAND) {
             lore.add("§7             * ╲ ╱  *");
             lore.add("§7♦========< ⭐ >");
             lore.add("§7          *    ╱ ╲   *");
-        } else if (type == ItemType.STAFF) {
+        } else if (type == STAFF) {
             lore.add("§7                *           ╗ * ╲ ╱  ");
             lore.add("§7♦========♦========♦║ < ⭐ > ");
             lore.add("§7      *                 *   ╝   ╱ ╲   *");
-        } else if (type == ItemType.CATALYST) {
+        } else if (type == CATALYST) {
             lore.add("§7  /‾‾/   \\‾‾\\");
             lore.add("§7 <   |  ♦  |   >");
             lore.add("§7  \\_\\    /_/");
@@ -210,5 +220,24 @@ public class WeaponGenerator {
             ItemSystem.setStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
             ItemSystem.updateLoreWithStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
         }
+    }
+
+    private static void setAttackSpeed(ItemStack weapon) {
+        ItemMeta meta = weapon.getItemMeta();
+        double attackspeed = 0;
+        AttributeModifier attackSpeedModifier = null;
+
+
+        switch (ItemSystem.getItemType(weapon)) {
+            case SWORD, GLOVE -> attackspeed = -1.44;
+            case DAGGER -> attackspeed = -3.36;
+            case AXE, SPEAR -> attackspeed = 1.12;
+            case HAMMER -> attackspeed = 3.68;
+            case WAND, STAFF, CATALYST -> attackspeed = -1.056;
+        }
+
+        attackSpeedModifier = new AttributeModifier(new NamespacedKey(nmlItems, "attack speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
+        weapon.setItemMeta(meta);
     }
 }
