@@ -1,6 +1,7 @@
 package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.commands.GenerateArmorCommand;
+import io.github.NoOne.nMLItems.commands.GenerateHoeCommand;
 import io.github.NoOne.nMLItems.commands.GenerateQuiverCommand;
 import io.github.NoOne.nMLItems.commands.GenerateShieldCommand;
 import io.github.NoOne.nMLItems.itemDictionary.WeaponGenerator;
@@ -24,6 +25,7 @@ public final class NMLItems extends JavaPlugin {
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
         getCommand("generateShield").setExecutor(new GenerateShieldCommand());
         getCommand("generateQuiver").setExecutor(new GenerateQuiverCommand());
+        getCommand("generateHoe").setExecutor(new GenerateHoeCommand());
     }
 
     public SkillSetManager getSkillSetManager() {

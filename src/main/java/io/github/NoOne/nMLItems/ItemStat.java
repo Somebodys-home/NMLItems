@@ -3,6 +3,7 @@ package io.github.NoOne.nMLItems;
 import org.bukkit.ChatColor;
 
 public enum ItemStat {
+    // damage stats
     PHYSICALDAMAGE,
     FIREDAMAGE,
     COLDDAMAGE,
@@ -12,6 +13,8 @@ public enum ItemStat {
     RADIANTDAMAGE,
     NECROTICDAMAGE,
     PUREDAMAGE,
+    CRITCHANCE,
+    CRITDAMAGE,
 
     // defense stats
     EVASION,
@@ -27,8 +30,10 @@ public enum ItemStat {
     RADIANTRESIST,
     NECROTICRESIST,
 
-    CRITCHANCE,
-    CRITDAMAGE;
+    // gathering stats
+    HARVEST,
+    YIELD,
+    ACRE;
 
     public static String getStatString(ItemStat stat) {
         String statString;
@@ -57,6 +62,9 @@ public enum ItemStat {
             case NECROTICRESIST -> statString = "Necrotic Resist";
             case CRITCHANCE -> statString = "Crit Chance";
             case CRITDAMAGE -> statString = "Crit Damage";
+            case HARVEST -> statString = "Harvest";
+            case YIELD -> statString = "Yield";
+            case ACRE -> statString = "Acre";
             default -> statString = "";
         }
 
@@ -68,7 +76,7 @@ public enum ItemStat {
 
         switch (stat) {
             case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD -> color = ChatColor.WHITE;
-            case DEFENSE -> color = ChatColor.GREEN;
+            case DEFENSE, HARVEST, YIELD, ACRE -> color = ChatColor.GREEN;
             case OVERHEALTH -> color = ChatColor.DARK_BLUE;
             case PHYSICALDAMAGE, PHYSICALRESIST -> color = ChatColor.DARK_RED;
             case FIREDAMAGE, FIRERESIST -> color = ChatColor.RED;
@@ -102,6 +110,8 @@ public enum ItemStat {
             case OVERHEALTH -> statEmoji = "\uD83D\uDC99";
             case EVASION -> statEmoji = "\uD83D\uDCA8";
             case CRITCHANCE, CRITDAMAGE -> statEmoji = "☠";
+            case YIELD -> statEmoji = "\uD83E\uDD55";
+            case ACRE -> statEmoji = "⚂";
             default -> statEmoji = "";
         }
 

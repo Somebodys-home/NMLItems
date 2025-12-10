@@ -10,8 +10,11 @@ commands:
     description: Generates a random piece of armor
     usage: /<command> <type> <rarity>
   generateShield:
-    description: Generates a shield for the user
+    description: Generates a random shield
     usage: /<command> <level> <rarity>
   generateQuiver:
     description: Generates a random quiver
+    usage: /<command> <rarity>
+  generateHoe:
+    description: Generates a random hoe
     usage: /<command> <rarity>

@@ -47,11 +47,11 @@ public class ShieldGenerator {
     }
 
     public static void generateShieldStats(ItemStack shield, ItemRarity rarity, int level) {
-        List<ItemStat> possibleSecondDefenseTypes = new ArrayList<>(List.of(GUARD, DEFENSE, OVERHEALTH, PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST,
+        List<ItemStat> possibleDefenseStats = new ArrayList<>(List.of(GUARD, DEFENSE, OVERHEALTH, PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST,
                                                                             AIRRESIST, RADIANTRESIST, NECROTICRESIST));
         int firstDefenseValue = (level * 5) + 10;
-        ItemStat secondType = possibleSecondDefenseTypes.get(ThreadLocalRandom.current().nextInt(possibleSecondDefenseTypes.size()));
-        int secondDefense = level;
+        ItemStat secondType = possibleDefenseStats.get(ThreadLocalRandom.current().nextInt(possibleDefenseStats.size()));
+        int secondDefenseValue = level;
 
         switch (rarity) {
             case COMMON -> {
@@ -59,20 +59,20 @@ public class ShieldGenerator {
             }
             case UNCOMMON, RARE -> {
                 if (secondType == GUARD) {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefense);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
                     ItemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    ItemSystem.setStat(shield, secondType, secondDefense);
+                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
             case MYTHICAL -> {
                 firstDefenseValue = (level * 8) + 10;
 
                 if (secondType == GUARD) {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefense);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
                     ItemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    ItemSystem.setStat(shield, secondType, secondDefense);
+                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
         }

@@ -17,7 +17,7 @@ public class NameGenerator {
             case COMMON -> {
                 nameSegments = new String[2];
                 List<String> badAdjectives = new ArrayList<>(List.of("Garbage", "Awful", "Pitiful", "You Deserve This", "Disgusting", "Be Better",
-                        "Babies' First", "Oh God That", "Rotten", "Poor", "Degrading", "Forgotten", "Racist"));
+                        "Babies' First", "Oh God That", "Rotten", "Poor", "Degrading", "Forgotten", "Racist", "Not Your Average"));
 
                 nameSegments[0] = badAdjectives.get(ThreadLocalRandom.current().nextInt(badAdjectives.size()));
             }
@@ -110,6 +110,10 @@ public class NameGenerator {
             case QUIVER -> {
                 List<String> quiver = new ArrayList<>(List.of("Quiver", "Stick Bag", "Holster"));
                 nameSegments[nameSegments.length - 1] = quiver.get(ThreadLocalRandom.current().nextInt(quiver.size()));
+            }
+            case HOE -> {
+                List<String> hoe = new ArrayList<>(List.of("Hoe"));
+                nameSegments[nameSegments.length - 1] = hoe.get(ThreadLocalRandom.current().nextInt(hoe.size()));
             }
             case LIGHT -> {
                 switch (type2) {

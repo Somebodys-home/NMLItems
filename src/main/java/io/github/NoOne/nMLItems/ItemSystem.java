@@ -210,6 +210,17 @@ public class ItemSystem {
         return combatLevel >= itemLevel;
     }
 
+    public static boolean isHoeUsable(ItemStack item, Player player) {
+        if (item == null || !item.hasItemMeta()) return false;
+
+        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
+
+        if (itemLevel == null) return false;
+
+        int cultivatingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCultivatingLevel();
+        return cultivatingLevel >= itemLevel;
+    }
+
     public static void updateUnusableItemName(ItemStack item, boolean usable) {
         if (item == null || !item.hasItemMeta()) return;
 
