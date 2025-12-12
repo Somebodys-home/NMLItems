@@ -9,9 +9,9 @@ public class SeedCodex {
     private HashMap<SeedType, SeedInformation> seedCodex;
 
     public SeedCodex() {
-        seedCodex = new HashMap<>(){{
-            seedCodex.put(SeedType.WHEAT_SEEDS, new SeedInformation(SeedType.WHEAT_SEEDS, Material.WHEAT));
-        }};
+        seedCodex = new HashMap<>();
+
+        seedCodex.put(SeedType.WHEAT_SEEDS, new SeedInformation(SeedType.WHEAT_SEEDS, Material.WHEAT));
     }
 
     public SeedInformation getSeedInformation(SeedType seedType) {
