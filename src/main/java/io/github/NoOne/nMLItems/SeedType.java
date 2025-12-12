@@ -1,4 +1,4 @@
-package io.github.NoOne.nMLItems.itemClassifiers;
+package io.github.NoOne.nMLItems;
 
 public enum SeedType {
     WHEAT_SEEDS;

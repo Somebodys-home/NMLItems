@@ -1,6 +1,6 @@
 package io.github.NoOne.nMLItems.seedDictionary;
 
-import io.github.NoOne.nMLItems.itemClassifiers.SeedType;
+import io.github.NoOne.nMLItems.SeedType;
 import org.bukkit.Material;
 
 public class SeedInformation {

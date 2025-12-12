@@ -1,8 +1,8 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.itemClassifiers.MaterialStars;
-import io.github.NoOne.nMLItems.itemClassifiers.SeedType;
+import io.github.NoOne.nMLItems.MaterialStars;
+import io.github.NoOne.nMLItems.SeedType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,7 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.itemClassifiers.ItemType.SEED;
+import static io.github.NoOne.nMLItems.ItemType.SEED;
 
 public class Seeds {
     public static ItemStack wheatSeeds(int level, double stars, int amount) {

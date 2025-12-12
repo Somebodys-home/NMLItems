@@ -1,6 +1,5 @@
 package io.github.NoOne.nMLItems;
 
-import io.github.NoOne.nMLItems.itemClassifiers.*;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.NoOne.nMLItems.itemClassifiers.ItemType.*;
+import static io.github.NoOne.nMLItems.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems;
