@@ -1,4 +1,4 @@
-package io.github.NoOne.nMLItems;
+package io.github.NoOne.nMLItems.itemClassifiers;
 
 import org.bukkit.ChatColor;
 

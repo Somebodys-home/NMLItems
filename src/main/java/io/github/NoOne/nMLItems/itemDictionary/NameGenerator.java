@@ -1,13 +1,13 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.ItemType;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemRarity;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemType;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
+import static io.github.NoOne.nMLItems.itemClassifiers.ItemRarity.COMMON;
 
 public class NameGenerator {
     public static String generateItemName(ItemType type, ItemType type2, ItemRarity rarity) {

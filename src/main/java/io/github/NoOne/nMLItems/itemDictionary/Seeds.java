@@ -1,7 +1,8 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.MaterialStars;
+import io.github.NoOne.nMLItems.itemClassifiers.MaterialStars;
+import io.github.NoOne.nMLItems.itemClassifiers.SeedType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,13 +12,13 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.ItemType.SEED;
+import static io.github.NoOne.nMLItems.itemClassifiers.ItemType.SEED;
 
 public class Seeds {
     public static ItemStack wheatSeeds(int level, double stars, int amount) {
         ItemStack wheatSeeds = new ItemStack(Material.WHEAT_SEEDS, amount);
 
-        setSeedKeys(wheatSeeds, level, stars);
+        setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
 
         ItemMeta meta = wheatSeeds.getItemMeta();
         List<String> lore = new ArrayList<>();
@@ -34,13 +35,14 @@ public class Seeds {
         return wheatSeeds;
     }
 
-    private static void setSeedKeys(ItemStack itemStack, int level, double stars) {
+    private static void setSeedKeys(ItemStack itemStack, SeedType seedType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.makeMaterialStarKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
 
         itemStack.setItemMeta(meta);
     }

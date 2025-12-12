@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems;
 
+import io.github.NoOne.nMLItems.itemClassifiers.*;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -13,19 +14,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.NoOne.nMLItems.ItemType.*;
+import static io.github.NoOne.nMLItems.itemClassifiers.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems;
     private static SkillSetManager skillSetManager;
     private static NamespacedKey originalNameKey;
     private static NamespacedKey levelKey;
+    private static NamespacedKey seedKey;
+    private static NamespacedKey starsKey;
 
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
         skillSetManager = nmlItems.getSkillSetManager();
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         levelKey = new NamespacedKey(nmlItems, "level");
+        seedKey = new NamespacedKey(nmlItems, "seed");
+        starsKey = new NamespacedKey(nmlItems, "stars");
     }
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
@@ -199,28 +204,6 @@ public class ItemSystem {
         return pdc.get(originalNameKey, PersistentDataType.STRING);
     }
 
-    public static boolean isItemUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) return false;
-
-        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
-
-        if (itemLevel == null) return false;
-
-        int combatLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel();
-        return combatLevel >= itemLevel;
-    }
-
-    public static boolean isHoeUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) return false;
-
-        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
-
-        if (itemLevel == null) return false;
-
-        int cultivatingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCultivatingLevel();
-        return cultivatingLevel >= itemLevel;
-    }
-
     public static void updateUnusableItemName(ItemStack item, boolean usable) {
         if (item == null || !item.hasItemMeta()) return;
 
@@ -251,6 +234,38 @@ public class ItemSystem {
         }
 
         return playerStatMap;
+    }
+
+    public static SeedType getSeedType(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(seedKey)) {
+            return SeedType.getSeedType(pdc.get(seedKey, PersistentDataType.STRING));
+        }
+
+        return null;
+    }
+
+    public static boolean isItemUsable(ItemStack item, Player player) {
+        if (item == null || !item.hasItemMeta()) return false;
+
+        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
+
+        if (itemLevel == null) return false;
+
+        int combatLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel();
+        return combatLevel >= itemLevel;
+    }
+
+    public static boolean isHoeUsable(ItemStack item, Player player) {
+        if (item == null || !item.hasItemMeta()) return false;
+
+        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
+
+        if (itemLevel == null) return false;
+
+        int cultivatingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCultivatingLevel();
+        return cultivatingLevel >= itemLevel;
     }
 
     public static boolean hasDamageStats(ItemStack item) {
@@ -299,15 +314,19 @@ public class ItemSystem {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
 
-    public static NamespacedKey makeMaterialStarKey() {
-        return new NamespacedKey(nmlItems, "stars");
-    }
-
     public static NamespacedKey getLevelKey() {
         return levelKey;
     }
 
     public static NamespacedKey getOriginalNameKey() {
         return originalNameKey;
+    }
+
+    public static NamespacedKey getStarsKey() {
+        return starsKey;
+    }
+
+    public static NamespacedKey getSeedKey() {
+        return seedKey;
     }
 }

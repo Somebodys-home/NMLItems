@@ -1,7 +1,7 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.MaterialStars;
+import io.github.NoOne.nMLItems.itemClassifiers.MaterialStars;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,8 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.ItemType.CROP;
-import static io.github.NoOne.nMLItems.ItemType.SEED;
+import static io.github.NoOne.nMLItems.itemClassifiers.ItemType.CROP;
 
 public class Crops {
     public static ItemStack wheatBundle(int level, double stars, int amount) {
@@ -41,7 +40,7 @@ public class Crops {
 
         pdc.set(ItemSystem.makeItemTypeKey(CROP), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.makeMaterialStarKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
 
         itemStack.setItemMeta(meta);
     }

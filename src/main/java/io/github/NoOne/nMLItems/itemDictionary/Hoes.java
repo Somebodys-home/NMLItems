@@ -1,9 +1,9 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.ItemStat;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemRarity;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.ItemType;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static io.github.NoOne.nMLItems.ItemStat.*;
+import static io.github.NoOne.nMLItems.itemClassifiers.ItemStat.*;
 
 public class Hoes {
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {

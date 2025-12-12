@@ -1,6 +1,6 @@
 package io.github.NoOne.nMLItems.commands;
 
-import io.github.NoOne.nMLItems.ItemRarity;
+import io.github.NoOne.nMLItems.itemClassifiers.ItemRarity;
 import io.github.NoOne.nMLItems.itemDictionary.Shields;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
