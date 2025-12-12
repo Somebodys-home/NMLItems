@@ -25,8 +25,12 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
             int amount = Integer.parseInt(args[3]);
 
             switch (name) {
-                case "wheat-seeds": player.getInventory().setItemInMainHand(Seeds.wheatSeeds(level, stars, amount));
-                case "wheat-bundle": player.getInventory().setItemInMainHand(Crops.wheatBundle(level, stars, amount));
+                case "wheat_seeds":
+                    player.getInventory().setItemInMainHand(Seeds.wheatSeeds(level, stars, amount));
+                    break;
+                case "wheat_bundle":
+                    player.getInventory().setItemInMainHand(Crops.wheatBundle(level, stars, amount));
+                    break;
             }
         }
 
@@ -36,7 +40,7 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("wheat-seeds", "wheat-bundle")).stream()
+            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {
