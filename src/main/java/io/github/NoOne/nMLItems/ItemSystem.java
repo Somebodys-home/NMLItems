@@ -236,7 +236,7 @@ public class ItemSystem {
         }
 
         // Only update if the name is actually different
-        if (!editedName.equals(meta.getDisplayName())) {
+        if (editedName != null && !editedName.equals(meta.getDisplayName())) {
             meta.setDisplayName(editedName);
             item.setItemMeta(meta);
         }

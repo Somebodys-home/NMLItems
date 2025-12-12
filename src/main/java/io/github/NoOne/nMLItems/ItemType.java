@@ -58,7 +58,7 @@ public enum ItemType {
             case HEAVY -> itemTypeString = "Heavy";
             case SHIELD -> itemTypeString = "Shield";
             case QUIVER -> itemTypeString = "Quiver";
-            case HOE -> itemTypeString = "Hoes";
+            case HOE -> itemTypeString = "Hoe";
             case SEED -> itemTypeString = "Seed";
             case CROP ->  itemTypeString = "Crop";
             default -> itemTypeString = "";

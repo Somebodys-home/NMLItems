@@ -112,7 +112,7 @@ public class NameGenerator {
                 nameSegments[nameSegments.length - 1] = quiver.get(ThreadLocalRandom.current().nextInt(quiver.size()));
             }
             case HOE -> {
-                List<String> hoe = new ArrayList<>(List.of("Hoes"));
+                List<String> hoe = new ArrayList<>(List.of("Hoe"));
                 nameSegments[nameSegments.length - 1] = hoe.get(ThreadLocalRandom.current().nextInt(hoe.size()));
             }
             case LIGHT -> {
