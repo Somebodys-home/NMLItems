@@ -1,7 +1,7 @@
 package io.github.NoOne.nMLItems.commands;
 
 import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.itemDictionary.ShieldGenerator;
+import io.github.NoOne.nMLItems.itemDictionary.Shields;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +22,7 @@ public class GenerateShieldCommand implements CommandExecutor, TabCompleter {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
 
-            ItemStack shield = ShieldGenerator.generateShield(player, ItemRarity.getItemRarityFromString(rarity), level);
+            ItemStack shield = Shields.generateShield(player, ItemRarity.getItemRarityFromString(rarity), level);
 
             player.getInventory().setItemInMainHand(shield);
         }

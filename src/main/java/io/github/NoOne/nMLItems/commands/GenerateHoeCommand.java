@@ -1,7 +1,7 @@
 package io.github.NoOne.nMLItems.commands;
 
 import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.itemDictionary.HoeGenerator;
+import io.github.NoOne.nMLItems.itemDictionary.Hoes;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +23,7 @@ public class GenerateHoeCommand implements CommandExecutor, TabCompleter {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
 
-            ItemStack hoe = HoeGenerator.generateHoe(player, ItemRarity.getItemRarityFromString(rarity), level);
+            ItemStack hoe = Hoes.generateHoe(player, ItemRarity.getItemRarityFromString(rarity), level);
 
             player.getInventory().setItemInMainHand(hoe);
         }

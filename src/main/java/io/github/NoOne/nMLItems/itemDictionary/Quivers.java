@@ -18,7 +18,7 @@ import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
 import static io.github.NoOne.nMLItems.ItemStat.*;
 import static io.github.NoOne.nMLItems.ItemType.*;
 
-public class QuiverGenerator {
+public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
         ItemStack quiver = new ItemStack(ItemType.getItemTypeMaterial(QUIVER));
         ItemMeta meta = quiver.getItemMeta();

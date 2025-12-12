@@ -29,7 +29,11 @@ public enum ItemType {
     QUIVER,
 
     // tools
-    HOE;
+    HOE,
+
+    // misc
+    SEED,
+    CROP;
 
     public static String getItemTypeString(ItemType type) {
         String itemTypeString;
@@ -54,7 +58,9 @@ public enum ItemType {
             case HEAVY -> itemTypeString = "Heavy";
             case SHIELD -> itemTypeString = "Shield";
             case QUIVER -> itemTypeString = "Quiver";
-            case HOE -> itemTypeString = "Hoe";
+            case HOE -> itemTypeString = "Hoes";
+            case SEED -> itemTypeString = "Seed";
+            case CROP ->  itemTypeString = "Crop";
             default -> itemTypeString = "";
         }
 
@@ -141,6 +147,8 @@ public enum ItemType {
             case "shield" -> itemType = SHIELD;
             case "quiver" -> itemType = QUIVER;
             case "hoe" -> itemType = HOE;
+            case "seed" -> itemType = SEED;
+            case "crop" -> itemType = CROP;
             default -> itemType = null;
         }
 

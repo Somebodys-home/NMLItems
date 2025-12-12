@@ -299,6 +299,10 @@ public class ItemSystem {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
 
+    public static NamespacedKey makeMaterialStarKey() {
+        return new NamespacedKey(nmlItems, "stars");
+    }
+
     public static NamespacedKey getLevelKey() {
         return levelKey;
     }

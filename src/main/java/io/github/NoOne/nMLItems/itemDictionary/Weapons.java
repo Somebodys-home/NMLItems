@@ -1,6 +1,7 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.*;
+import io.github.NoOne.nMLItems.ItemSystem;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -13,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,10 +21,10 @@ import static io.github.NoOne.nMLItems.ItemRarity.*;
 import static io.github.NoOne.nMLItems.ItemStat.*;
 import static io.github.NoOne.nMLItems.ItemType.*;
 
-public class WeaponGenerator {
+public class Weapons {
     private static NMLItems nmlItems;
 
-    public WeaponGenerator(NMLItems nmlItems) {
+    public Weapons(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
     }
 

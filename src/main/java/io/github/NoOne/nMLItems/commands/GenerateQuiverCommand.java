@@ -1,7 +1,7 @@
 package io.github.NoOne.nMLItems.commands;
 
 import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.itemDictionary.QuiverGenerator;
+import io.github.NoOne.nMLItems.itemDictionary.Quivers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +21,7 @@ public class GenerateQuiverCommand implements CommandExecutor, TabCompleter {
         if (sender instanceof Player player) {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
-            ItemStack quiver = QuiverGenerator.generateQuiver(player, ItemRarity.getItemRarityFromString(rarity), level);
+            ItemStack quiver = Quivers.generateQuiver(player, ItemRarity.getItemRarityFromString(rarity), level);
 
             player.getInventory().setItemInMainHand(quiver);
         }

@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.ItemStat.*;
 
-public class HoeGenerator {
+public class Hoes {
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {
         ItemStack hoe = new ItemStack(ItemType.getItemTypeMaterial(ItemType.HOE));
         ItemMeta meta = hoe.getItemMeta();

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.ItemStat.*;
 
-public class ArmorGenerator {
+public class Armor {
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType type, ItemType armorPiece, int level) {
         ItemStack armor = new ItemStack(ItemType.getItemTypeMaterial(type, armorPiece));
         ItemMeta meta = armor.getItemMeta();

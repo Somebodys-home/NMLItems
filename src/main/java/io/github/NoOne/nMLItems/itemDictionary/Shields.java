@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.ItemStat.*;
 import static io.github.NoOne.nMLItems.ItemType.SHIELD;
 
-public class ShieldGenerator {
+public class Shields {
     public static ItemStack generateShield(Player receiver, ItemRarity rarity, int level) {
         ItemStack shield = new ItemStack(Material.SHIELD);
         ItemMeta meta = shield.getItemMeta();
