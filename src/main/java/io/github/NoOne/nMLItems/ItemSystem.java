@@ -30,7 +30,8 @@ public class ItemSystem {
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         levelKey = new NamespacedKey(nmlItems, "level");
         starsKey = new NamespacedKey(nmlItems, "stars");
-        seedKey = new NamespacedKey(nmlItems, "crop");
+        seedKey = new NamespacedKey(nmlItems, "seed");
+        cropKey = new NamespacedKey(nmlItems, "crop");
     }
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
