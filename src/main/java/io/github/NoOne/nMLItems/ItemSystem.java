@@ -256,6 +256,16 @@ public class ItemSystem {
         return 0;
     }
 
+    public static double getStars(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(starsKey)) {
+            return pdc.get(starsKey, PersistentDataType.DOUBLE);
+        }
+
+        return 0;
+    }
+
     public static boolean isItemUsable(ItemStack item, Player player) {
         if (item == null || !item.hasItemMeta()) return false;
 
