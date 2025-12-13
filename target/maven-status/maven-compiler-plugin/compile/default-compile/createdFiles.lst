@@ -14,14 +14,12 @@ io\github\NoOne\nMLItems\commands\GenerateMaterialCommand.class
 io\github\NoOne\nMLItems\NMLItems.class
 io\github\NoOne\nMLItems\ItemRarity.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
-io\github\NoOne\nMLItems\seedDictionary\SeedInformation.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\ItemType.class
 io\github\NoOne\nMLItems\itemDictionary\Armor.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$2.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$3.class
 io\github\NoOne\nMLItems\itemDictionary\Seeds.class
-io\github\NoOne\nMLItems\seedDictionary\SeedCodex.class
 io\github\NoOne\nMLItems\commands\GenerateHoeCommand.class
 io\github\NoOne\nMLItems\commands\GenerateQuiverCommand.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator$1.class

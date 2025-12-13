@@ -2,7 +2,6 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.commands.*;
 import io.github.NoOne.nMLItems.itemDictionary.Weapons;
-import io.github.NoOne.nMLItems.seedDictionary.SeedCodex;
 import io.github.NoOne.nMLSkills.NMLSkills;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,14 +10,12 @@ public final class NMLItems extends JavaPlugin {
     private ItemSystem itemSystem;
     private SkillSetManager skillSetManager;
     private Weapons weapons;
-    private SeedCodex seedCodex;
 
     @Override
     public void onEnable() {
         skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
         itemSystem = new ItemSystem(this);
         weapons = new Weapons(this);
-        seedCodex = new SeedCodex();
 
         getCommand("generateMaterial").setExecutor(new GenerateMaterialCommand());
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
@@ -37,9 +34,5 @@ public final class NMLItems extends JavaPlugin {
 
     public Weapons getWeaponGenerator() {
         return weapons;
-    }
-
-    public SeedCodex getSeedCodex() {
-        return seedCodex;
     }
 }
