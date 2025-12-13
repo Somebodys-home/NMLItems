@@ -20,16 +20,17 @@ public class ItemSystem {
     private static SkillSetManager skillSetManager;
     private static NamespacedKey originalNameKey;
     private static NamespacedKey levelKey;
-    private static NamespacedKey seedKey;
     private static NamespacedKey starsKey;
+    private static NamespacedKey seedKey;
+    private static NamespacedKey cropKey;
 
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
         skillSetManager = nmlItems.getSkillSetManager();
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         levelKey = new NamespacedKey(nmlItems, "level");
-        seedKey = new NamespacedKey(nmlItems, "seed");
         starsKey = new NamespacedKey(nmlItems, "stars");
+        seedKey = new NamespacedKey(nmlItems, "crop");
     }
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
@@ -327,5 +328,9 @@ public class ItemSystem {
 
     public static NamespacedKey getSeedKey() {
         return seedKey;
+    }
+
+    public static NamespacedKey getCropKey() {
+        return cropKey;
     }
 }

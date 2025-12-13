@@ -1,7 +1,9 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
+import io.github.NoOne.nMLItems.CropType;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.MaterialStars;
+import io.github.NoOne.nMLItems.SeedType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,7 +19,7 @@ public class Crops {
     public static ItemStack wheatBundle(int level, double stars, int amount) {
         ItemStack wheatBundle = new ItemStack(Material.WHEAT, amount);
 
-        setCropKeys(wheatBundle, level, stars);
+        setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
 
         ItemMeta meta = wheatBundle.getItemMeta();
         List<String> lore = new ArrayList<>();
@@ -34,13 +36,14 @@ public class Crops {
         return wheatBundle;
     }
 
-    private static void setCropKeys(ItemStack itemStack, int level, double stars) {
+    private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(ItemSystem.makeItemTypeKey(CROP), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.getCropTypeString(cropType));
 
         itemStack.setItemMeta(meta);
     }
