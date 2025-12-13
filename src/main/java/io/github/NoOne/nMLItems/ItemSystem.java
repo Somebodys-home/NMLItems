@@ -246,6 +246,16 @@ public class ItemSystem {
         return null;
     }
 
+    public static int getLevel(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(levelKey)) {
+            return pdc.get(levelKey, PersistentDataType.INTEGER);
+        }
+
+        return 0;
+    }
+
     public static boolean isItemUsable(ItemStack item, Player player) {
         if (item == null || !item.hasItemMeta()) return false;
 
