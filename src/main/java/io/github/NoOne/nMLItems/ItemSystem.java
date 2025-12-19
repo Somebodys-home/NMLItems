@@ -285,8 +285,8 @@ public class ItemSystem {
 
         if (itemLevel == null) return false;
 
-        int cultivatingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCultivatingLevel();
-        return cultivatingLevel >= itemLevel;
+        int farmingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel();
+        return farmingLevel >= itemLevel;
     }
 
     public static boolean hasDamageStats(ItemStack item) {
