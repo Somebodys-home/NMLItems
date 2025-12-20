@@ -32,6 +32,7 @@ public enum ItemType {
     HOE,
 
     // garden modifiers
+    GARDEN_MODIFIER,
     FERTILIZER,
 
     // misc
@@ -64,6 +65,7 @@ public enum ItemType {
             case HOE -> itemTypeString = "Hoe";
             case SEED -> itemTypeString = "Seed";
             case CROP ->  itemTypeString = "Crop";
+            case GARDEN_MODIFIER -> itemTypeString = "Garden_Modifier";
             case FERTILIZER -> itemTypeString = "Fertilizer";
             default -> itemTypeString = "";
         }

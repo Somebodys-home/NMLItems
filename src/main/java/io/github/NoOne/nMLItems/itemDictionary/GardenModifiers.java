@@ -11,8 +11,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.ItemType.FERTILIZER;
-import static io.github.NoOne.nMLItems.ItemType.SEED;
+import static io.github.NoOne.nMLItems.ItemType.*;
 
 public class GardenModifiers {
     public static ItemStack fertilizer() {
@@ -30,6 +29,7 @@ public class GardenModifiers {
         lore.add("§8§ofor all you know.");
 
         pdc.set(ItemSystem.makeItemTypeKey(FERTILIZER), PersistentDataType.INTEGER, 1);
+        pdc.set(ItemSystem.makeItemTypeKey(GARDEN_MODIFIER), PersistentDataType.INTEGER, 1);
 
         meta.setLore(lore);
         fertilizer.setItemMeta(meta);
