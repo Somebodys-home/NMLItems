@@ -117,5 +117,10 @@
             <version>595897bafa</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.MatrixCreations</groupId>
+            <artifactId>MatrixColorAPI</artifactId>
+            <version>v1.0.7</version>
+        </dependency>
     </dependencies>
 </project>

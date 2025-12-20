@@ -21,3 +21,6 @@ commands:
   generateMaterial:
     description: Generates a material item
     usage: /<command> <name> <level> <stars> <amount>
+  generateItem:
+    description: Generates an item
+    usage: /<command> <name>

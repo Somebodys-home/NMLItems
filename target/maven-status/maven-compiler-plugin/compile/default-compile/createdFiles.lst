@@ -12,11 +12,13 @@ io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$4.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes.class
 io\github\NoOne\nMLItems\commands\GenerateMaterialCommand.class
+io\github\NoOne\nMLItems\itemDictionary\GardenModifiers.class
 io\github\NoOne\nMLItems\NMLItems.class
 io\github\NoOne\nMLItems\ItemRarity.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\ItemType.class
+io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Armor.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$2.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$3.class

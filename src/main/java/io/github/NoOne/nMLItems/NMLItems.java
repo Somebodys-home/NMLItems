@@ -17,6 +17,7 @@ public final class NMLItems extends JavaPlugin {
         itemSystem = new ItemSystem(this);
         weapons = new Weapons(this);
 
+        getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateMaterial").setExecutor(new GenerateMaterialCommand());
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
         getCommand("generateShield").setExecutor(new GenerateShieldCommand());

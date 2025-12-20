@@ -112,6 +112,7 @@ public enum ItemStat {
             case CRITCHANCE, CRITDAMAGE -> statEmoji = "☠";
             case YIELD -> statEmoji = "\uD83E\uDD55";
             case ACRE -> statEmoji = "⚂";
+            case HARVEST -> statEmoji = "\uD83E\uDEB4";
             default -> statEmoji = "";
         }
 
