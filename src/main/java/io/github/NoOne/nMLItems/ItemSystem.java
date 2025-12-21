@@ -289,6 +289,10 @@ public class ItemSystem {
         return farmingLevel >= itemLevel;
     }
 
+    public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
+        return itemStack.getItemMeta().getPersistentDataContainer().has(makeItemTypeKey(itemType));
+    }
+
     public static boolean hasDamageStats(ItemStack item) {
         return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
                 hasStat(item, ItemStat.FIREDAMAGE) ||
