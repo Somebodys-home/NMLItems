@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
+import io.github.NoOne.nMLItems.ItemRarity;
 import io.github.NoOne.nMLItems.ItemSystem;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
@@ -30,6 +31,7 @@ public class GardenModifiers {
 
         pdc.set(ItemSystem.makeItemTypeKey(FERTILIZER), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemTypeKey(GARDEN_MODIFIER), PersistentDataType.INTEGER, 1);
+        pdc.set(ItemSystem.makeItemRarityKey(ItemRarity.COMMON), PersistentDataType.INTEGER, 1);
 
         meta.setLore(lore);
         fertilizer.setItemMeta(meta);
