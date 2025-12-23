@@ -34,6 +34,7 @@ public enum ItemType {
     // garden modifiers
     GARDEN_MODIFIER,
     FERTILIZER,
+    WATERING_CAN,
 
     // misc
     SEED,
@@ -67,6 +68,7 @@ public enum ItemType {
             case CROP ->  itemTypeString = "Crop";
             case GARDEN_MODIFIER -> itemTypeString = "Garden_Modifier";
             case FERTILIZER -> itemTypeString = "Fertilizer";
+            case WATERING_CAN -> itemTypeString = "Watering_Can";
             default -> itemTypeString = "";
         }
 

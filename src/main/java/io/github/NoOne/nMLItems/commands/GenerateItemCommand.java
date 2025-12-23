@@ -25,6 +25,7 @@ public class GenerateItemCommand implements CommandExecutor, TabCompleter {
 
             switch (item) {
                 case "fertilizer" -> player.getInventory().setItemInMainHand(GardenModifiers.fertilizer());
+                case "watering_can" -> player.getInventory().setItemInMainHand(GardenModifiers.wateringCan());
             }
         }
         return true;
@@ -33,7 +34,7 @@ public class GenerateItemCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("fertilizer")).stream()
+            return new ArrayList<>(List.of("fertilizer", "watering_can")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         }
