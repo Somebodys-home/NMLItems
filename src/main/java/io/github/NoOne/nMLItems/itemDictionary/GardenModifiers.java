@@ -47,7 +47,7 @@ public class GardenModifiers {
                 "",
                 "§6 < Adds §a+20 Yield \uD83E\uDD55 §r§6to your garden. >",
                 "",
-                "§8§oStay Hydrated!"));
+                "§8§oStay hydrated!"));
 
         pdc.set(ItemSystem.makeItemTypeKey(WATERING_CAN), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemTypeKey(GARDEN_MODIFIER), PersistentDataType.INTEGER, 1);
