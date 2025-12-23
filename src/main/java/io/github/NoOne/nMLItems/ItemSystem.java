@@ -306,25 +306,25 @@ public class ItemSystem {
     }
 
     public static boolean isEquippable(ItemStack item) {
-        return getItemType(item) == HELMET ||
-                getItemType(item) == CHESTPLATE ||
-                getItemType(item) == LEGGINGS ||
-                getItemType(item) == BOOTS ||
-                getItemType(item) == SHIELD ||
-                getItemType(item) == QUIVER;
+        return isItemType(item, HELMET) ||
+                isItemType(item, CHESTPLATE) ||
+                isItemType(item, LEGGINGS) ||
+                isItemType(item, BOOTS) ||
+                isItemType(item, SHIELD) ||
+                isItemType(item, QUIVER);
     }
 
     public static boolean isWeapon(ItemStack item) {
-        return getItemType(item) == SWORD ||
-                getItemType(item) == DAGGER ||
-                getItemType(item) == AXE ||
-                getItemType(item) == HAMMER ||
-                getItemType(item) == SPEAR ||
-                getItemType(item) == GLOVE ||
-                getItemType(item) == BOW ||
-                getItemType(item) == WAND ||
-                getItemType(item) == STAFF ||
-                getItemType(item) == CATALYST;
+        return isItemType(item, SWORD) ||
+                isItemType(item, DAGGER) ||
+                isItemType(item, AXE) ||
+                isItemType(item, HAMMER) ||
+                isItemType(item, SPEAR) ||
+                isItemType(item, GLOVE) ||
+                isItemType(item, BOW) ||
+                isItemType(item, WAND) ||
+                isItemType(item, STAFF) ||
+                isItemType(item, CATALYST);
     }
 
     private static NamespacedKey makeKeyForStat(ItemStat stat) {
