@@ -306,6 +306,8 @@ public class ItemSystem {
     }
 
     public static boolean isEquippable(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return false;
+
         return isItemType(item, HELMET) ||
                 isItemType(item, CHESTPLATE) ||
                 isItemType(item, LEGGINGS) ||
@@ -315,6 +317,8 @@ public class ItemSystem {
     }
 
     public static boolean isWeapon(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return false;
+
         return isItemType(item, SWORD) ||
                 isItemType(item, DAGGER) ||
                 isItemType(item, AXE) ||
