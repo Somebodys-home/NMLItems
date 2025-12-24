@@ -290,6 +290,8 @@ public class ItemSystem {
     }
 
     public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+
         return itemStack.getItemMeta().getPersistentDataContainer().has(makeItemTypeKey(itemType));
     }
 
