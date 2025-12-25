@@ -23,7 +23,7 @@ public class GardenModifiers {
         meta.setLore(List.of(
                 "§7§lCommon Garden Modifier",
                 "",
-                "§6 < Adds §a+20 Harvest \uD83E\uDEB4 §r§6to your garden. >",
+                "§6 < Adds §a+20 Yield \uD83E\uDD55 §r§6to your garden. >",
                 "",
                 "§8§oMade from demonic excrements,",
                 "§8§ofor all you know."));
@@ -45,7 +45,7 @@ public class GardenModifiers {
         meta.setLore(List.of(
                 "§7§lCommon Garden Modifier",
                 "",
-                "§6 < Adds §a+20 Yield \uD83E\uDD55 §r§6to your garden. >",
+                "§6 < Adds §a+20 Harvest \uD83E\uDEB4 §r§6to your garden. >",
                 "",
                 "§8§oStay hydrated!"));
 
