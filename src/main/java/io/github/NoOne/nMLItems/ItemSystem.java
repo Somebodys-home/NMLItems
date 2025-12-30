@@ -333,6 +333,12 @@ public class ItemSystem {
                 isItemType(item, CATALYST);
     }
 
+    public static boolean hasLevelKey(ItemStack itemStack) {
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+
+        return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
+    }
+
     private static NamespacedKey makeKeyForStat(ItemStat stat) {
         return new NamespacedKey(nmlItems, ItemStat.getStatString(stat).replaceAll(" ", ""));
     }
