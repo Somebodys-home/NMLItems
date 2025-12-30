@@ -6,7 +6,6 @@ io\github\NoOne\nMLItems\ItemSystem.class
 io\github\NoOne\nMLItems\CropType.class
 io\github\NoOne\nMLItems\commands\GenerateArmorCommand.class
 io\github\NoOne\nMLItems\MaterialStars.class
-io\github\NoOne\nMLItems\commands\GenerateShieldCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$4.class
