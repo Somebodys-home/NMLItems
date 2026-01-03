@@ -26,10 +26,13 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
 
             switch (name) {
                 case "wheat_seeds":
-                    player.getInventory().setItemInMainHand(Seeds.wheatSeeds(level, stars, amount));
+                    player.getInventory().addItem(Seeds.wheatSeeds(level, stars, amount));
                     break;
                 case "wheat_bundle":
-                    player.getInventory().setItemInMainHand(Crops.wheatBundle(level, stars, amount));
+                    player.getInventory().addItem(Crops.wheatBundle(level, stars, amount));
+                    break;
+                case "sugar_cane":
+                    player.getInventory().addItem(Crops.sugarCane(level, stars, amount));
                     break;
             }
         }
@@ -40,20 +43,20 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle")).stream()
+            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {
             return new ArrayList<>(List.of("<level>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 3) {
             return new ArrayList<>(List.of("<stars>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .filter(s -> s.toLowerCase().startsWith(args[2].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 4) {
             return new ArrayList<>(List.of("<amount>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
+                    .filter(s -> s.toLowerCase().startsWith(args[3].toLowerCase()))
                     .collect(Collectors.toList());
         }
 

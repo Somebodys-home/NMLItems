@@ -24,8 +24,8 @@ public class GenerateItemCommand implements CommandExecutor, TabCompleter {
             String item = args[0];
 
             switch (item) {
-                case "fertilizer" -> player.getInventory().setItemInMainHand(GardenModifiers.fertilizer());
-                case "watering_can" -> player.getInventory().setItemInMainHand(GardenModifiers.wateringCan());
+                case "fertilizer" -> player.getInventory().addItem(GardenModifiers.fertilizer());
+                case "watering_can" -> player.getInventory().addItem(GardenModifiers.wateringCan());
             }
         }
         return true;

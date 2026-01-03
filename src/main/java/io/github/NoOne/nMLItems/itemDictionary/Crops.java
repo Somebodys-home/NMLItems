@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.github.NoOne.nMLItems.ItemType.CROP;
+import static io.github.NoOne.nMLItems.ItemType.SEED;
 
 public class Crops {
     public static ItemStack wheatBundle(int level, double stars, int amount) {
@@ -22,18 +23,39 @@ public class Crops {
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
 
         ItemMeta meta = wheatBundle.getItemMeta();
-        List<String> lore = new ArrayList<>();
-        String name = "§6Wheat Bundle";
 
-        meta.setDisplayName(name);
-        lore.add("§8Lv. " + level + " Crop");
-        lore.add("");
-        lore.add("§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >");
-
-        meta.setLore(lore);
+        meta.setDisplayName("§6Wheat Bundle");
+        meta.setLore(List.of(
+                "§8Lv. " + level + " Crop",
+                "",
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+        ));
         wheatBundle.setItemMeta(meta);
 
         return wheatBundle;
+    }
+
+    public static ItemStack sugarCane(int level, double stars, int amount) {
+        ItemStack sugarCane = new ItemStack(Material.SUGAR_CANE, amount);
+
+        setCropKeys(sugarCane, CropType.SUGAR_CANE, level, stars);
+
+        ItemMeta meta = sugarCane.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        meta.setDisplayName("§aSugar Cane");
+        meta.setLore(List.of(
+                "§8Lv. " + level + " Crop",
+                "",
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+        ));
+
+        pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
+        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
+
+        sugarCane.setItemMeta(meta);
+
+        return sugarCane;
     }
 
     private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {

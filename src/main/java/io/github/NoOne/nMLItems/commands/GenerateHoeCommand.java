@@ -25,7 +25,7 @@ public class GenerateHoeCommand implements CommandExecutor, TabCompleter {
 
             ItemStack hoe = Hoes.generateHoe(player, ItemRarity.getItemRarityFromString(rarity), level);
 
-            player.getInventory().setItemInMainHand(hoe);
+            player.getInventory().addItem(hoe);
         }
         return true;
     }
