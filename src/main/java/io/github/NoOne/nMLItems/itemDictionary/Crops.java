@@ -1,9 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.CropType;
-import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.MaterialStars;
-import io.github.NoOne.nMLItems.SeedType;
+import io.github.NoOne.nMLItems.*;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -52,6 +49,7 @@ public class Crops {
 
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
+        pdc.set(ItemSystem.getCropConditionKey(), PersistentDataType.STRING, CropCondition.getCropConditionString(CropCondition.WATERED));
 
         sugarCane.setItemMeta(meta);
 
