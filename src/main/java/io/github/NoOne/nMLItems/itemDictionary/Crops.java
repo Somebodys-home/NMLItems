@@ -49,7 +49,7 @@ public class Crops {
 
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
-        pdc.set(ItemSystem.getCropConditionKey(), PersistentDataType.STRING, CropCondition.getCropConditionString(CropCondition.WATERED));
+        pdc.set(ItemSystem.makeCropConditionKey(CropCondition.WATERED), PersistentDataType.INTEGER, 15);
 
         sugarCane.setItemMeta(meta);
 

@@ -23,7 +23,6 @@ public class ItemSystem {
     private static NamespacedKey starsKey;
     private static NamespacedKey seedKey;
     private static NamespacedKey cropKey;
-    private static NamespacedKey cropConditionKey;
 
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
@@ -33,7 +32,6 @@ public class ItemSystem {
         starsKey = new NamespacedKey(nmlItems, "stars");
         seedKey = new NamespacedKey(nmlItems, "seed");
         cropKey = new NamespacedKey(nmlItems, "crop");
-        cropConditionKey = new NamespacedKey(nmlItems, "crop_condition");
     }
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
@@ -353,6 +351,10 @@ public class ItemSystem {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
 
+    public static NamespacedKey makeCropConditionKey(CropCondition cropCondition) {
+        return new NamespacedKey(nmlItems, CropCondition.getCropConditionString(cropCondition));
+    }
+
     public static NamespacedKey getLevelKey() {
         return levelKey;
     }
@@ -371,9 +373,5 @@ public class ItemSystem {
 
     public static NamespacedKey getCropKey() {
         return cropKey;
-    }
-
-    public static NamespacedKey getCropConditionKey() {
-        return cropConditionKey;
     }
 }
