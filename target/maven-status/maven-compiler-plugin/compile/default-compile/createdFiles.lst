@@ -15,7 +15,6 @@ io\github\NoOne\nMLItems\itemDictionary\GardenModifiers.class
 io\github\NoOne\nMLItems\NMLItems.class
 io\github\NoOne\nMLItems\ItemRarity.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
-io\github\NoOne\nMLItems\CropCondition.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\ItemType.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class

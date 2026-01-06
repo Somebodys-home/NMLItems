@@ -351,9 +351,6 @@ public class ItemSystem {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
 
-    public static NamespacedKey makeCropConditionKey(CropCondition cropCondition) {
-        return new NamespacedKey(nmlItems, CropCondition.getCropConditionString(cropCondition));
-    }
 
     public static NamespacedKey getLevelKey() {
         return levelKey;
