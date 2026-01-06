@@ -14,16 +14,21 @@ import static io.github.NoOne.nMLItems.ItemType.CROP;
 import static io.github.NoOne.nMLItems.ItemType.SEED;
 
 public class Crops {
-    public static ItemStack wheatBundle(int level, double stars, int amount) {
+    public static ItemStack wheatBundle(int level, double stars, int amount, boolean displayItem) {
         ItemStack wheatBundle = new ItemStack(Material.WHEAT, amount);
 
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
 
         ItemMeta meta = wheatBundle.getItemMeta();
+        String levelLine = "§8Lv. " + level + " Crop";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Crop";
+        }
 
         meta.setDisplayName("§6Wheat Bundle");
         meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
+                levelLine,
                 "",
                 "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
         ));
@@ -32,17 +37,22 @@ public class Crops {
         return wheatBundle;
     }
 
-    public static ItemStack sugarCane(int level, double stars, int amount) {
+    public static ItemStack sugarCane(int level, double stars, int amount, boolean displayItem) {
         ItemStack sugarCane = new ItemStack(Material.SUGAR_CANE, amount);
 
         setCropKeys(sugarCane, CropType.SUGAR_CANE, level, stars);
 
         ItemMeta meta = sugarCane.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        String levelLine = "§8Lv. " + level + " Crop";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Crop";
+        }
 
         meta.setDisplayName("§aSugar Cane");
         meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
+                levelLine,
                 "",
                 "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
         ));
