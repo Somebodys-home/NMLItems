@@ -28,7 +28,7 @@ public class Crops {
             starLine = "§6 < §kaaaaa §r§6>";
         }
 
-        meta.setDisplayName("§aSugar Cane");
+        meta.setDisplayName("§6Wheat Bundle");
         meta.setLore(List.of(
                 levelLine,
                 "",
