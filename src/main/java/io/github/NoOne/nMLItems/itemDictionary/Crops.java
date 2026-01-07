@@ -21,16 +21,18 @@ public class Crops {
 
         ItemMeta meta = wheatBundle.getItemMeta();
         String levelLine = "§8Lv. " + level + " Crop";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
 
         if (displayItem) {
             levelLine = "§8Lv. §kX §r§8Crop";
+            starLine = "§6 < §kaaaaa §r§6>";
         }
 
-        meta.setDisplayName("§6Wheat Bundle");
+        meta.setDisplayName("§aSugar Cane");
         meta.setLore(List.of(
                 levelLine,
                 "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                starLine
         ));
         wheatBundle.setItemMeta(meta);
 
@@ -45,21 +47,22 @@ public class Crops {
         ItemMeta meta = sugarCane.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
         String levelLine = "§8Lv. " + level + " Crop";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
 
         if (displayItem) {
             levelLine = "§8Lv. §kX §r§8Crop";
+            starLine = "§6 < §kaaaaa §r§6>";
         }
 
         meta.setDisplayName("§aSugar Cane");
         meta.setLore(List.of(
                 levelLine,
                 "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                starLine
         ));
 
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
-
         sugarCane.setItemMeta(meta);
 
         return sugarCane;
