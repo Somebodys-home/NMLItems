@@ -34,6 +34,12 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
                 case "sugar_cane":
                     player.getInventory().addItem(Crops.sugarCane(level, stars, amount, false));
                     break;
+                case "jade_seeds":
+                    player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount));
+                    break;
+                case "jade_flower_bush":
+                    player.getInventory().addItem(Crops.jadeFlowerBundle(level, stars, amount, false));
+                    break;
             }
         }
 
@@ -43,7 +49,7 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane")).stream()
+            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower_bush")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {

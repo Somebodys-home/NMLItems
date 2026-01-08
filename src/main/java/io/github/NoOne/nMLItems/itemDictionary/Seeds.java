@@ -3,6 +3,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.MaterialStars;
 import io.github.NoOne.nMLItems.SeedType;
+import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,18 +22,36 @@ public class Seeds {
         setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
 
         ItemMeta meta = wheatSeeds.getItemMeta();
-        List<String> lore = new ArrayList<>();
         String name = "§6Wheat Seeds";
 
         meta.setDisplayName(name);
-        lore.add("§8Lv. " + level + " Seed");
-        lore.add("");
-        lore.add("§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >");
-
-        meta.setLore(lore);
+        meta.setLore(List.of(
+                "§8Lv. " + level + " Seed",
+                "",
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+        ));
         wheatSeeds.setItemMeta(meta);
 
         return wheatSeeds;
+    }
+
+    public static ItemStack jadeSeeds(int level, double stars, int amount) {
+        ItemStack jadeSeeds = new ItemStack(Material.WHEAT_SEEDS, amount);
+
+        setSeedKeys(jadeSeeds, SeedType.JADE_SEEDS, level, stars);
+
+        ItemMeta meta = jadeSeeds.getItemMeta();
+        String name = MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds");
+
+        meta.setDisplayName(name);
+        meta.setLore(List.of(
+                "§8Lv. " + level + " Seed",
+                "",
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+        ));
+        jadeSeeds.setItemMeta(meta);
+
+        return jadeSeeds;
     }
 
     private static void setSeedKeys(ItemStack itemStack, SeedType seedType, int level, double stars) {
