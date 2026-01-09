@@ -22,9 +22,8 @@ public class Seeds {
         setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
 
         ItemMeta meta = wheatSeeds.getItemMeta();
-        String name = "§6Wheat Seeds";
 
-        meta.setDisplayName(name);
+        meta.setDisplayName("§6Wheat Seeds");
         meta.setLore(List.of(
                 "§8Lv. " + level + " Seed",
                 "",
@@ -41,9 +40,8 @@ public class Seeds {
         setSeedKeys(jadeSeeds, SeedType.JADE_SEEDS, level, stars);
 
         ItemMeta meta = jadeSeeds.getItemMeta();
-        String name = MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds");
 
-        meta.setDisplayName(name);
+        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds"));
         meta.setLore(List.of(
                 "§8Lv. " + level + " Seed",
                 "",
