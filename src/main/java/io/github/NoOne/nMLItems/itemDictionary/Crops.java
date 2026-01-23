@@ -1,17 +1,13 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import com.destroystokyo.paper.profile.PlayerProfile;
-import com.destroystokyo.paper.profile.ProfileProperty;
 import io.github.NoOne.nMLItems.*;
 import io.github.NoOne.nMLItems.enums.CropType;
 import io.github.NoOne.nMLItems.enums.MaterialStars;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import net.matrixcreations.libraries.MatrixColorAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -75,38 +71,29 @@ public class Crops {
         return sugarCane;
     }
 
-    public static ItemStack jadeFlowerBundle(int level, double stars, int amount, boolean displayItem) {
-        ItemStack jadeFlowerBundle = new ItemStack(Material.PLAYER_HEAD, amount);
+    public static ItemStack jadeFlower(int level, double stars, int amount, boolean displayItem) {
+        ItemStack jadeFlower = new ItemStack(Material.AZURE_BLUET, amount);
 
-        setCropKeys(jadeFlowerBundle, CropType.JADE_FLOWER_BUNDLE, level, stars);
+        setCropKeys(jadeFlower, CropType.JADE_FLOWER, level, stars);
 
-        SkullMeta meta = (SkullMeta) jadeFlowerBundle.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        PlayerProfile playerProfile = Bukkit.createProfile(CropType.getPlayerProfileString(CropType.JADE_FLOWER_BUNDLE));
+        ItemMeta meta = jadeFlower.getItemMeta();
         String levelLine = "§8Lv. " + level + " Crop";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        playerProfile.setProperty(new ProfileProperty(
-                "textures",
-                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTk4NzBkZjIyZGI5MGUyNDExNTE3Zjg2MjUyMjUzOWRlZmEwYmJlMzBlNDFmNTRhYTE4ZDUwMzkzMjM0ZDYwIn19fQ=="));
-        pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
 
         if (displayItem) {
             levelLine = "§8Lv. §kX §r§8Crop";
             starLine = "§6 < §kaaaaa §r§6>";
         }
 
-        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Flower Bush"));
+        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Flower"));
         meta.setLore(List.of(
                 levelLine,
                 "",
                 starLine
         ));
-        meta.setPlayerProfile(playerProfile);
-        jadeFlowerBundle.setItemMeta(meta);
+        jadeFlower.setItemMeta(meta);
 
-        return jadeFlowerBundle;
+        return jadeFlower;
     }
 
     private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {
