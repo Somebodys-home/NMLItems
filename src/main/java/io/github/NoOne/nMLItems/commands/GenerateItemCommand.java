@@ -1,14 +1,11 @@
 package io.github.NoOne.nMLItems.commands;
 
-import io.github.NoOne.nMLItems.ItemRarity;
 import io.github.NoOne.nMLItems.itemDictionary.GardenModifiers;
-import io.github.NoOne.nMLItems.itemDictionary.Hoes;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

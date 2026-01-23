@@ -1,5 +1,9 @@
 package io.github.NoOne.nMLItems;
 
+import io.github.NoOne.nMLItems.enums.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemStat;
+import io.github.NoOne.nMLItems.enums.ItemType;
+import io.github.NoOne.nMLItems.enums.SeedType;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -13,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.NoOne.nMLItems.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems;

@@ -1,6 +1,6 @@
 package io.github.NoOne.nMLItems.commands;
 
-import io.github.NoOne.nMLItems.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.itemDictionary.Quivers;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

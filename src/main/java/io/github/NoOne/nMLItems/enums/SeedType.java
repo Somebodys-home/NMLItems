@@ -1,4 +1,4 @@
-package io.github.NoOne.nMLItems;
+package io.github.NoOne.nMLItems.enums;
 
 public enum SeedType {
     WHEAT_SEEDS,

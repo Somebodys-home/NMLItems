@@ -2,9 +2,9 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.*;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.ItemStat;
-import io.github.NoOne.nMLItems.ItemType;
+import io.github.NoOne.nMLItems.enums.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemStat;
+import io.github.NoOne.nMLItems.enums.ItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -20,9 +20,9 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
-import static io.github.NoOne.nMLItems.ItemRarity.*;
-import static io.github.NoOne.nMLItems.ItemStat.*;
-import static io.github.NoOne.nMLItems.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemRarity.*;
+import static io.github.NoOne.nMLItems.enums.ItemStat.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Weapons {
     private static NMLItems nmlItems;

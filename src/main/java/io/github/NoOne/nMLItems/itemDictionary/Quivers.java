@@ -1,9 +1,9 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.ItemRarity;
-import io.github.NoOne.nMLItems.ItemStat;
+import io.github.NoOne.nMLItems.enums.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.ItemType;
+import io.github.NoOne.nMLItems.enums.ItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -14,9 +14,9 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static io.github.NoOne.nMLItems.ItemRarity.COMMON;
-import static io.github.NoOne.nMLItems.ItemStat.*;
-import static io.github.NoOne.nMLItems.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemRarity.COMMON;
+import static io.github.NoOne.nMLItems.enums.ItemStat.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
