@@ -15,36 +15,50 @@ import java.util.List;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Seeds {
-    public static ItemStack wheatSeeds(int level, double stars, int amount) {
+    public static ItemStack wheatSeeds(int level, double stars, int amount, boolean displayItem) {
         ItemStack wheatSeeds = new ItemStack(Material.WHEAT_SEEDS, amount);
 
         setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
 
         ItemMeta meta = wheatSeeds.getItemMeta();
+        String levelLine = "§8Lv. " + level + " Seed";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Seed";
+            starLine = "§6 < §kaaaaa §r§6>";
+        }
 
         meta.setDisplayName("§6Wheat Seeds");
         meta.setLore(List.of(
-                "§8Lv. " + level + " Seed",
+                levelLine,
                 "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                starLine
         ));
         wheatSeeds.setItemMeta(meta);
 
         return wheatSeeds;
     }
 
-    public static ItemStack jadeSeeds(int level, double stars, int amount) {
+    public static ItemStack jadeSeeds(int level, double stars, int amount, boolean displayItem) {
         ItemStack jadeSeeds = new ItemStack(Material.WHEAT_SEEDS, amount);
 
         setSeedKeys(jadeSeeds, SeedType.JADE_SEEDS, level, stars);
 
         ItemMeta meta = jadeSeeds.getItemMeta();
+        String levelLine = "§8Lv. " + level + " Seed";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Seed";
+            starLine = "§6 < §kaaaaa §r§6>";
+        }
 
         meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds"));
         meta.setLore(List.of(
-                "§8Lv. " + level + " Seed",
+                levelLine,
                 "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                starLine
         ));
         jadeSeeds.setItemMeta(meta);
 

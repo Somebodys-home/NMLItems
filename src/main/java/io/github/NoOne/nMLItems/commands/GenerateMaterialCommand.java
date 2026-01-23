@@ -26,19 +26,19 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
 
             switch (name) {
                 case "wheat_seeds":
-                    player.getInventory().addItem(Seeds.wheatSeeds(level, stars, amount));
+                    player.getInventory().addItem(Seeds.wheatSeeds(level, stars, amount, false));
                     break;
                 case "wheat_bundle":
-                    player.getInventory().addItem(Crops.wheatBundle(level, stars, amount, false));
+                    player.getInventory().addItem(Crops.wheatBundle(level, stars, amount));
                     break;
                 case "sugar_cane":
-                    player.getInventory().addItem(Crops.sugarCane(level, stars, amount, false));
+                    player.getInventory().addItem(Crops.sugarCane(level, stars, amount));
                     break;
                 case "jade_seeds":
-                    player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount));
+                    player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount, false));
                     break;
                 case "jade_flower":
-                    player.getInventory().addItem(Crops.jadeFlower(level, stars, amount, false));
+                    player.getInventory().addItem(Crops.jadeFlower(level, stars, amount));
                     break;
             }
         }

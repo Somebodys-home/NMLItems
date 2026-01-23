@@ -17,51 +17,37 @@ import static io.github.NoOne.nMLItems.enums.ItemType.CROP;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Crops {
-    public static ItemStack wheatBundle(int level, double stars, int amount, boolean displayItem) {
+    public static ItemStack wheatBundle(int level, double stars, int amount) {
         ItemStack wheatBundle = new ItemStack(Material.WHEAT, amount);
 
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
 
         ItemMeta meta = wheatBundle.getItemMeta();
-        String levelLine = "§8Lv. " + level + " Crop";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Crop";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
 
         meta.setDisplayName("§6Wheat Bundle");
         meta.setLore(List.of(
-                levelLine,
+                "§8Lv. " + level + " Crop",
                 "",
-                starLine
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
         ));
         wheatBundle.setItemMeta(meta);
 
         return wheatBundle;
     }
 
-    public static ItemStack sugarCane(int level, double stars, int amount, boolean displayItem) {
+    public static ItemStack sugarCane(int level, double stars, int amount) {
         ItemStack sugarCane = new ItemStack(Material.SUGAR_CANE, amount);
 
         setCropKeys(sugarCane, CropType.SUGAR_CANE, level, stars);
 
         ItemMeta meta = sugarCane.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        String levelLine = "§8Lv. " + level + " Crop";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Crop";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
 
         meta.setDisplayName("§aSugar Cane");
         meta.setLore(List.of(
-                levelLine,
+                "§8Lv. " + level + " Crop",
                 "",
-                starLine
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
         ));
 
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
@@ -71,25 +57,18 @@ public class Crops {
         return sugarCane;
     }
 
-    public static ItemStack jadeFlower(int level, double stars, int amount, boolean displayItem) {
+    public static ItemStack jadeFlower(int level, double stars, int amount) {
         ItemStack jadeFlower = new ItemStack(Material.AZURE_BLUET, amount);
 
         setCropKeys(jadeFlower, CropType.JADE_FLOWER, level, stars);
 
         ItemMeta meta = jadeFlower.getItemMeta();
-        String levelLine = "§8Lv. " + level + " Crop";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Crop";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
 
         meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Flower"));
         meta.setLore(List.of(
-                levelLine,
+                "§8Lv. " + level + " Crop",
                 "",
-                starLine
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
         ));
         jadeFlower.setItemMeta(meta);
 
