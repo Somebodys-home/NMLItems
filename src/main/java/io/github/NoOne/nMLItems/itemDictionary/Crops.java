@@ -35,21 +35,27 @@ public class Crops {
         return wheatBundle;
     }
 
-    public static ItemStack sugarCane(int level, double stars, int amount) {
+    public static ItemStack sugarCane(int level, double stars, int amount, boolean displayItem) {
         ItemStack sugarCane = new ItemStack(Material.SUGAR_CANE, amount);
 
         setCropKeys(sugarCane, CropType.SUGAR_CANE, level, stars);
 
         ItemMeta meta = sugarCane.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        String levelLine = "§8Lv. " + level + " Crop";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Crop";
+            starLine = "§6 < §kaaaaa §r§6>";
+        }
 
         meta.setDisplayName("§aSugar Cane");
         meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
+                levelLine,
                 "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                starLine
         ));
-
         pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
         sugarCane.setItemMeta(meta);
