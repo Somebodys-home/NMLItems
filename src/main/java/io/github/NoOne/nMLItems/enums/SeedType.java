@@ -3,13 +3,15 @@ package io.github.NoOne.nMLItems.enums;
 public enum SeedType {
     WHEAT_SEEDS,
     SUGAR_CANE,
-    JADE_SEEDS;
+    JADE_SEEDS,
+    RHUBARB_SEEDS;
 
     public static String getSeedTypeString(SeedType seedType) {
         switch (seedType) {
             case WHEAT_SEEDS: return "wheat_seeds";
             case SUGAR_CANE: return "sugar_cane";
             case JADE_SEEDS: return "jade_seeds";
+            case RHUBARB_SEEDS: return "rhubarb_seeds";
         }
 
         return "";
@@ -20,6 +22,7 @@ public enum SeedType {
             case "wheat_seeds": return WHEAT_SEEDS;
             case "sugar_cane": return SUGAR_CANE;
             case "jade_seeds": return JADE_SEEDS;
+            case "rhubarb_seeds": return RHUBARB_SEEDS;
         }
 
         return null;

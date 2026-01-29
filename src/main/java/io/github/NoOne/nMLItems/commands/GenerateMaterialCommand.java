@@ -25,21 +25,13 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
             int amount = Integer.parseInt(args[3]);
 
             switch (name) {
-                case "wheat_seeds":
-                    player.getInventory().addItem(Seeds.wheatSeeds(level, stars, amount, false));
-                    break;
-                case "wheat_bundle":
-                    player.getInventory().addItem(Crops.wheatBundle(level, stars, amount));
-                    break;
-                case "sugar_cane":
-                    player.getInventory().addItem(Crops.sugarCane(level, stars, amount, false));
-                    break;
-                case "jade_seeds":
-                    player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount, false));
-                    break;
-                case "jade_flower":
-                    player.getInventory().addItem(Crops.jadeFlower(level, stars, amount));
-                    break;
+                case "wheat_seeds" -> player.getInventory().addItem(Seeds.wheatSeeds(level, stars, amount, false));
+                case "wheat_bundle" -> player.getInventory().addItem(Crops.wheatBundle(level, stars, amount));
+                case "sugar_cane" -> player.getInventory().addItem(Crops.sugarCane(level, stars, amount, false));
+                case "jade_seeds" -> player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount, false));
+                case "jade_flower" -> player.getInventory().addItem(Crops.jadeFlower(level, stars, amount));
+                case "rhubarb_seeds" -> player.getInventory().addItem(Seeds.rhubarbSeeds(level, stars, amount, false));
+                case "rhubarb" -> player.getInventory().addItem(Crops.rhubarb(level, stars, amount));
             }
         }
 
@@ -49,7 +41,7 @@ public class GenerateMaterialCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower")).stream()
+            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower", "rhubarb_seeds", "rhubarb")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {

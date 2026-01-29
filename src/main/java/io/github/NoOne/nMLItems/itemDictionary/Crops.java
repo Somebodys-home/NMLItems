@@ -81,6 +81,26 @@ public class Crops {
         return jadeFlower;
     }
 
+    public static ItemStack rhubarb(int level, double stars, int amount) {
+        ItemStack rhubarb = new ItemStack(Material.MANGROVE_PROPAGULE, amount);
+
+        setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
+
+        ItemMeta meta = rhubarb.getItemMeta();
+
+        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb"));
+        meta.setLore(List.of(
+                "§8Lv. " + level + " Crop",
+                "",
+                "§7§oRhuBARB indeed. Ow.",
+                "",
+                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+        ));
+        rhubarb.setItemMeta(meta);
+
+        return rhubarb;
+    }
+
     private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();

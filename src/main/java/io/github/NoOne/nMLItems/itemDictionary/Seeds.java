@@ -65,6 +65,31 @@ public class Seeds {
         return jadeSeeds;
     }
 
+    public static ItemStack rhubarbSeeds(int level, double stars, int amount, boolean displayItem) {
+        ItemStack rhubarbSeeds = new ItemStack(Material.MELON_SEEDS, amount);
+
+        setSeedKeys(rhubarbSeeds, SeedType.RHUBARB_SEEDS, level, stars);
+
+        ItemMeta meta = rhubarbSeeds.getItemMeta();
+        String levelLine = "§8Lv. " + level + " Seed";
+        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
+
+        if (displayItem) {
+            levelLine = "§8Lv. §kX §r§8Seed";
+            starLine = "§6 < §kaaaaa §r§6>";
+        }
+
+        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb Seeds"));
+        meta.setLore(List.of(
+                levelLine,
+                "",
+                starLine
+        ));
+        rhubarbSeeds.setItemMeta(meta);
+
+        return rhubarbSeeds;
+    }
+
     private static void setSeedKeys(ItemStack itemStack, SeedType seedType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
