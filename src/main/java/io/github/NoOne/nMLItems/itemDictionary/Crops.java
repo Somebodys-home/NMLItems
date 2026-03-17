@@ -18,30 +18,22 @@ import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Crops {
     public static ItemStack wheatBundle(int level, double stars, int amount) {
-        ItemStack wheatBundle = new ItemStack(Material.WHEAT, amount);
+        ItemStack wheatBundle = ItemCreator.createItem(
+                Material.WHEAT,
+                amount,
+                "§6Wheat Bundle",
+                List.of(
+                        "§8Lv. " + level + " Crop",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
 
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
-
-        ItemMeta meta = wheatBundle.getItemMeta();
-
-        meta.setDisplayName("§6Wheat Bundle");
-        meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
-                "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
-        ));
-        wheatBundle.setItemMeta(meta);
-
         return wheatBundle;
     }
 
     public static ItemStack sugarCane(int level, double stars, int amount, boolean displayItem) {
-        ItemStack sugarCane = new ItemStack(Material.SUGAR_CANE, amount);
-
-        setCropKeys(sugarCane, CropType.SUGAR_CANE, level, stars);
-
-        ItemMeta meta = sugarCane.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
         String levelLine = "§8Lv. " + level + " Crop";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
 
@@ -50,54 +42,52 @@ public class Crops {
             starLine = "§6 < §kaaaaa §r§6>";
         }
 
-        meta.setDisplayName("§aSugar Cane");
-        meta.setLore(List.of(
-                levelLine,
-                "",
-                starLine
-        ));
-        pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(SeedType.SUGAR_CANE));
-        sugarCane.setItemMeta(meta);
+        ItemStack sugarCane = ItemCreator.createItem(
+                Material.SUGAR_CANE,
+                amount,
+                "§aSugar Cane",
+                List.of(
+                        levelLine,
+                        "",
+                        starLine
+                )
+        );
 
+        setCropAndSeedKeys(sugarCane, CropType.SUGAR_CANE, SeedType.SUGAR_CANE, level, stars);
         return sugarCane;
     }
 
     public static ItemStack jadeFlower(int level, double stars, int amount) {
-        ItemStack jadeFlower = new ItemStack(Material.AZURE_BLUET, amount);
+        ItemStack jadeFlower = ItemCreator.createItem(
+                Material.AZURE_BLUET,
+                amount,
+                MatrixColorAPI.process("<SOLID:#00A86B>Jade Flower"),
+                List.of(
+                        "§8Lv. " + level + " Crop",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
 
         setCropKeys(jadeFlower, CropType.JADE_FLOWER, level, stars);
-
-        ItemMeta meta = jadeFlower.getItemMeta();
-
-        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#00A86B>Jade Flower"));
-        meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
-                "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
-        ));
-        jadeFlower.setItemMeta(meta);
-
         return jadeFlower;
     }
 
     public static ItemStack rhubarb(int level, double stars, int amount) {
-        ItemStack rhubarb = new ItemStack(Material.MANGROVE_PROPAGULE, amount);
+        ItemStack rhubarb = ItemCreator.createItem(
+                Material.MANGROVE_PROPAGULE,
+                amount,
+                MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb"),
+                List.of(
+                        "§8Lv. " + level + " Crop",
+                        "",
+                        "§7§oRhuBARB indeed. Ow.",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
-
-        ItemMeta meta = rhubarb.getItemMeta();
-
-        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb"));
-        meta.setLore(List.of(
-                "§8Lv. " + level + " Crop",
-                "",
-                "§7§oRhuBARB indeed. Ow.",
-                "",
-                "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
-        ));
-        rhubarb.setItemMeta(meta);
-
         return rhubarb;
     }
 
@@ -109,7 +99,19 @@ public class Crops {
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
         pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.getCropTypeString(cropType));
+        itemStack.setItemMeta(meta);
+    }
 
+    private static void setCropAndSeedKeys(ItemStack itemStack, CropType cropType, SeedType seedType, int level, double stars) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(ItemSystem.makeItemTypeKey(CROP), PersistentDataType.INTEGER, 1);
+        pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.getCropTypeString(cropType));
+        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
         itemStack.setItemMeta(meta);
     }
 }

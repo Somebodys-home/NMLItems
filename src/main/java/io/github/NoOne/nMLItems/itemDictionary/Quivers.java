@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
+import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
@@ -20,39 +21,36 @@ import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
-        ItemStack quiver = new ItemStack(ItemType.getItemTypeMaterial(QUIVER));
+        String name = NameGenerator.generateItemName(QUIVER, null, rarity);
+        ItemStack quiver = ItemCreator.createItem(
+                ItemType.getItemTypeMaterial(QUIVER),
+                1,
+                name,
+                List.of(
+                        "§o§fLv. " + level + "§r " + ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() +
+                                " " + ItemType.getItemTypeString(QUIVER).toUpperCase(),
+                        ""
+                )
+        );
+
         ItemMeta meta = quiver.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        List<String> lore = new ArrayList<>();
 
         pdc.set(ItemSystem.makeItemTypeKey(QUIVER), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         quiver.setItemMeta(meta);
 
-        String name = NameGenerator.generateItemName(QUIVER, null, rarity);
-        meta.setDisplayName(name);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
-
-        lore.add("§o§fLv. " + level + "§r " + ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(QUIVER).toUpperCase());
-        lore.add("");
-        meta.setLore(lore);
-        quiver.setItemMeta(meta);
-
-        generateQuiverStats(quiver, rarity, level);
+        generateMainStats(quiver, rarity, level);
+        generateSecondaryStats(quiver, rarity, level);
         ItemSystem.updateUnusableItemName(quiver, ItemSystem.isItemUsable(quiver, receiver));
-
         return quiver;
     }
 
-    public static void generateQuiverStats(ItemStack quiver, ItemRarity rarity, int level) {
-        generateDamage(quiver, rarity, level);
-        generateSecondaryStats(quiver, rarity, level);
-    }
-
-    private static void generateDamage(ItemStack weapon, ItemRarity rarity, int level) {
+    private static void generateMainStats(ItemStack weapon, ItemRarity rarity, int level) {
         List<ItemStat> possibleFirstStats = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
                                                                     NECROTICDAMAGE, PUREDAMAGE, CRITCHANCE, CRITDAMAGE));
         List<ItemStat> possibleSecondStats = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,

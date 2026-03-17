@@ -2,6 +2,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.ItemSystem;
+import io.github.NoOne.nMLItems.ItemCreator;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,46 +16,48 @@ import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class GardenModifiers {
     public static ItemStack fertilizer() {
-        ItemStack fertilizer = new ItemStack(Material.BROWN_WOOL);
+        ItemStack fertilizer = ItemCreator.createItem(
+                Material.BROWN_WOOL,
+                1,
+                MatrixColorAPI.process("<SOLID:#5C4033>Fertilizer"),
+                List.of(
+                        "§7§lCommon Garden Modifier",
+                        "",
+                        "§6 < Adds §a+15 Yield \uD83E\uDD55 §r§6to your garden. >",
+                        "",
+                        "§8§oMade from demonic excrements,",
+                        "§8§ofor all you know."));
+
         ItemMeta meta = fertilizer.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        meta.setDisplayName(MatrixColorAPI.process("<SOLID:#5C4033>Fertilizer"));
-        meta.setLore(List.of(
-                "§7§lCommon Garden Modifier",
-                "",
-                "§6 < Adds §a+15 Yield \uD83E\uDD55 §r§6to your garden. >",
-                "",
-                "§8§oMade from demonic excrements,",
-                "§8§ofor all you know."));
 
         pdc.set(ItemSystem.makeItemTypeKey(FERTILIZER), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemTypeKey(GARDEN_MODIFIER), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(ItemRarity.COMMON), PersistentDataType.INTEGER, 1);
         fertilizer.setItemMeta(meta);
-
         return fertilizer;
     }
 
     public static ItemStack wateringCan() {
-        ItemStack wateringCan = new ItemStack(Material.WATER_BUCKET);
+        ItemStack wateringCan = ItemCreator.createItem(
+                Material.WATER_BUCKET,
+                1,
+                MatrixColorAPI.process("§bWatering Can"),
+                List.of(
+                        "§7§lCommon Garden Modifier",
+                        "",
+                        "§6 < Adds §a+15 Harvest \uD83E\uDEB4 §r§6to your garden. >",
+                        "§6 <  §r§9Waters \uD83D\uDCA7 §r§6all crops in your garden.  >",
+                        "",
+                        "§8§oStay hydrated!"));
+
         ItemMeta meta = wateringCan.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        meta.setDisplayName(MatrixColorAPI.process("§bWatering Can"));
-        meta.setLore(List.of(
-                "§7§lCommon Garden Modifier",
-                "",
-                "§6 < Adds §a+15 Harvest \uD83E\uDEB4 §r§6to your garden. >",
-                "§6 <  §r§9Waters \uD83D\uDCA7 §r§6all crops in your garden.  >",
-                "",
-                "§8§oStay hydrated!"));
 
         pdc.set(ItemSystem.makeItemTypeKey(WATERING_CAN), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemTypeKey(GARDEN_MODIFIER), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(ItemRarity.COMMON), PersistentDataType.INTEGER, 1);
         wateringCan.setItemMeta(meta);
-
         return wateringCan;
     }
 }

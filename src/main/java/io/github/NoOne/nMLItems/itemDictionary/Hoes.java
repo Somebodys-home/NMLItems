@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
+import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
@@ -22,31 +23,31 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 
 public class Hoes {
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {
-        ItemStack hoe = new ItemStack(ItemType.getItemTypeMaterial(ItemType.HOE));
+        String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
+        ItemStack hoe = ItemCreator.createItem(
+                ItemType.getItemTypeMaterial(ItemType.HOE),
+                1,
+                name,
+                List.of(
+                        "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " +
+                                ItemType.getItemTypeString(ItemType.HOE).toUpperCase(),
+                        ""
+                )
+        );
+
         ItemMeta meta = hoe.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        List<String> lore = new ArrayList<>();
 
         pdc.set(ItemSystem.makeItemTypeKey(ItemType.HOE), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         hoe.setItemMeta(meta);
 
-        String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
-        meta.setDisplayName(name);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
-
-        lore.add("§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " +
-                ItemType.getItemTypeString(ItemType.HOE).toUpperCase());
-        lore.add("");
-        meta.setLore(lore);
-        hoe.setItemMeta(meta);
-
         generateHoeStats(hoe, rarity, level);
         ItemSystem.updateUnusableItemName(hoe, ItemSystem.isHoeUsable(hoe, receiver));
-
         return hoe;
     }
 

@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
+import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
@@ -17,30 +18,30 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 
 public class Armor {
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType type, ItemType armorPiece, int level) {
-        ItemStack armor = new ItemStack(ItemType.getItemTypeMaterial(type, armorPiece));
+        String name = "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD +
+                ItemRarity.getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(type).toUpperCase() + " " +
+                ItemType.getItemTypeString(armorPiece).toUpperCase();
+
+        ItemStack armor = ItemCreator.createItem(
+                ItemType.getItemTypeMaterial(type, armorPiece),
+                1,
+                NameGenerator.generateItemName(type, armorPiece, rarity),
+                List.of(name, "")
+        );
+
         ItemMeta meta = armor.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        List<String> lore = new ArrayList<>();
 
         pdc.set(ItemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemTypeKey(armorPiece), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        meta.setUnbreakable(true);
-        armor.setItemMeta(meta);
-
-        String name = NameGenerator.generateItemName(type, armorPiece, rarity);
-        meta.setDisplayName(name);
         pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
-
-        lore.add("§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(type).toUpperCase() + " " + ItemType.getItemTypeString(armorPiece).toUpperCase());
-        lore.add("");
-        meta.setLore(lore);
+        meta.setUnbreakable(true);
         armor.setItemMeta(meta);
 
         generateArmorStats(armor, type, rarity, level);
         ItemSystem.updateUnusableItemName(armor, ItemSystem.isItemUsable(armor, receiver));
-
         return armor;
     }
 

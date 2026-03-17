@@ -32,99 +32,86 @@ public class Weapons {
     }
 
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
-        ItemStack weapon = new ItemStack(getItemTypeMaterial(type));
+        String name = NameGenerator.generateItemName(type, null, rarity);
+        List<String> lore = List.of(
+                "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " +
+                        getItemTypeString(type).toUpperCase(),
+                ""
+        );
+
+        lore.addAll(makeWeaponASCIIArt(type));
+
+        ItemStack weapon = ItemCreator.createItem(getItemTypeMaterial(type), 1, name, lore);
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        List<String> lore = new ArrayList<>();
 
-        // setting keys
         pdc.set(ItemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
         pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         weapon.setItemMeta(meta);
 
-        // making name
-        String name = NameGenerator.generateItemName(type, null, rarity);
-        meta.setDisplayName(name);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
-
-        // adding the lore
-        lore.add("§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase());
-        lore.add("");
-        meta.setLore(lore);
-        weapon.setItemMeta(meta);
-        ASCIIArt(weapon, type); // ascii art
-
-        // generating stats
-        generateWeaponStats(weapon, type, rarity, level);
-
-        // is weapon unusable?
+        generateDamage(weapon, type, rarity, level);
+        generateSecondaryStats(weapon, rarity, level);
         ItemSystem.updateUnusableItemName(weapon, ItemSystem.isItemUsable(weapon, receiver));
-
-        // attack speed
         setAttackSpeed(weapon);
 
-        if (type == BOW) weapon.addEnchantment(Enchantment.INFINITY, 1);
+        if (type == BOW) {
+            weapon.addEnchantment(Enchantment.INFINITY, 1);
+        }
 
         return weapon;
     }
 
-    public static void ASCIIArt(ItemStack weapon, ItemType type) {
-        ItemMeta meta = weapon.getItemMeta();
-        List<String> lore = meta.getLore();
+    public static List<String> makeWeaponASCIIArt(ItemType type) {
+        List<String> ASCII = new ArrayList<>();
 
         if (type == SWORD) {
-            lore.add("§7        />______________");
-            lore.add("§7♦#####[]______________>");
-            lore.add("§7        \\>");
+            ASCII.add("§7        />______________");
+            ASCII.add("§7♦#####[]______________>");
+            ASCII.add("§7        \\>");
         } else if (type == DAGGER) {
-            lore.add("§7    ʃ                      ʃ");
-            lore.add("§7♦##|======-  -======|##♦");
-            lore.add("§7    ʃ                      ʃ");
+            ASCII.add("§7    ʃ                      ʃ");
+            ASCII.add("§7♦##|======-  -======|##♦");
+            ASCII.add("§7    ʃ                      ʃ");
         } else if (type == AXE) {
-            lore.add("§7                           /\\");
-            lore.add("§7♦===============######");
-            lore.add("§7                       \\_____/");
+            ASCII.add("§7                           /\\");
+            ASCII.add("§7♦===============######");
+            ASCII.add("§7                       \\_____/");
         } else if (type == HAMMER) {
-            lore.add("§7             ╔══╗");
-            lore.add("§7♦=======♦|███|♦");
-            lore.add("§7             ╚══╝");
+            ASCII.add("§7             ╔══╗");
+            ASCII.add("§7♦=======♦|███|♦");
+            ASCII.add("§7             ╚══╝");
         } else if (type == SPEAR) {
-            lore.add("§7                           \\`-._");
-            lore.add("§7♦========♦========♦   _>");
-            lore.add("§7                           /.-'");
+            ASCII.add("§7                           \\`-._");
+            ASCII.add("§7♦========♦========♦   _>");
+            ASCII.add("§7                           /.-'");
         } else if (type == GLOVE) {
-            lore.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
-            lore.add("§7\\_   @_|♦|_@   _/");
-            lore.add("§7   \\__)    (__/");
+            ASCII.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
+            ASCII.add("§7\\_   @_|♦|_@   _/");
+            ASCII.add("§7   \\__)    (__/");
         } else if (type == BOW) {
-            lore.add("§7                  ◁----<<");
-            lore.add("§7  ︷__♦__︷        >>----▷");
-            lore.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
+            ASCII.add("§7                  ◁----<<");
+            ASCII.add("§7  ︷__♦__︷        >>----▷");
+            ASCII.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
         } else if (type == WAND) {
-            lore.add("§7             * ╲ ╱  *");
-            lore.add("§7♦========< ⭐ >");
-            lore.add("§7          *    ╱ ╲   *");
+            ASCII.add("§7             * ╲ ╱  *");
+            ASCII.add("§7♦========< ⭐ >");
+            ASCII.add("§7          *    ╱ ╲   *");
         } else if (type == STAFF) {
-            lore.add("§7                *           ╗ * ╲ ╱  ");
-            lore.add("§7♦========♦========♦║ < ⭐ > ");
-            lore.add("§7      *                 *   ╝   ╱ ╲   *");
+            ASCII.add("§7                *           ╗ * ╲ ╱  ");
+            ASCII.add("§7♦========♦========♦║ < ⭐ > ");
+            ASCII.add("§7      *                 *   ╝   ╱ ╲   *");
         } else if (type == CATALYST) {
-            lore.add("§7  /‾‾/   \\‾‾\\");
-            lore.add("§7 <   |  ♦  |   >");
-            lore.add("§7  \\_\\    /_/");
+            ASCII.add("§7  /‾‾/   \\‾‾\\");
+            ASCII.add("§7 <   |  ♦  |   >");
+            ASCII.add("§7  \\_\\    /_/");
         }
 
-        lore.add("");
-        meta.setLore(lore);
-        weapon.setItemMeta(meta);
-    }
-
-    public static void generateWeaponStats(ItemStack weapon, ItemType type, ItemRarity rarity, int level) {
-        generateDamage(weapon, type, rarity, level);
-        generateSecondaryStats(weapon, rarity, level);
+        ASCII.add("");
+        return ASCII;
     }
 
     private static void generateDamage(ItemStack weapon, ItemType type, ItemRarity rarity, int level) {
@@ -228,7 +215,7 @@ public class Weapons {
     private static void setAttackSpeed(ItemStack weapon) {
         ItemMeta meta = weapon.getItemMeta();
         double attackspeed = 0;
-        AttributeModifier attackSpeedModifier = null;
+        AttributeModifier attackSpeedModifier;
 
 
         switch (ItemSystem.getItemType(weapon)) {

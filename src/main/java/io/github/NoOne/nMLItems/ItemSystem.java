@@ -39,8 +39,6 @@ public class ItemSystem {
     }
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
-        if (!item.hasItemMeta()) return;
-
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -48,14 +46,7 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static void setStats(ItemStack item, HashMap<ItemStat, Double> statMap) {
-        for (Map.Entry<ItemStat, Double> statEntry : statMap.entrySet()) {
-            setStat(item, statEntry.getKey(), statEntry.getValue());
-        }
-    }
-
     public static void removeStat(ItemStack item, ItemStat stat) {
-        if (!item.hasItemMeta()) return;
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -129,8 +120,6 @@ public class ItemSystem {
     }
 
     public static void updateLoreWithStats(ItemStack item) {
-        if (!item.hasItemMeta()) return;
-
         ItemMeta meta = item.getItemMeta();
         List<String> originalLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
         List<String> addedLore = new ArrayList<>();
@@ -141,7 +130,8 @@ public class ItemSystem {
                 .forEachOrdered(entry -> {
                     double value = entry.getValue();
                     int valueInt = (int) value;
-                    addedLore.add(ItemStat.getStatColor(entry.getKey()) + "+ " + valueInt + " " + ItemStat.getStatString(entry.getKey()) + " " + ItemStat.getStatEmoji(entry.getKey()));
+                    addedLore.add(ItemStat.getStatColor(entry.getKey()) + "+ " + valueInt + " " + ItemStat.getStatString(entry.getKey()) + " " +
+                            ItemStat.getStatEmoji(entry.getKey()));
                 });
 
         originalLore.addAll(addedLore);
@@ -151,8 +141,6 @@ public class ItemSystem {
     }
 
     public static void updateLoreWithStat(ItemStack item, ItemStat stat, int value) {
-        if (!item.hasItemMeta()) return;
-
         ItemMeta meta = item.getItemMeta();
         List<String> addedLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
 
@@ -198,20 +186,17 @@ public class ItemSystem {
     }
 
     public static String getOriginalItemName(ItemStack item) {
-        if (item == null || item.getType().isAir()) return null;
-
         ItemMeta meta = item.getItemMeta();
-        if (meta == null) return null;
-
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        if (!pdc.has(originalNameKey, PersistentDataType.STRING)) return null;
+
+        if (!pdc.has(originalNameKey, PersistentDataType.STRING)) {
+            return null;
+        }
 
         return pdc.get(originalNameKey, PersistentDataType.STRING);
     }
 
     public static void updateUnusableItemName(ItemStack item, boolean usable) {
-        if (item == null || !item.hasItemMeta()) return;
-
         ItemMeta meta = item.getItemMeta();
         String originalName = getOriginalItemName(item);
         String editedName;
@@ -272,14 +257,13 @@ public class ItemSystem {
     }
 
     public static boolean isItemUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) return false;
-
         Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
 
-        if (itemLevel == null) return false;
+        if (itemLevel == null) {
+            return false;
+        }
 
-        int combatLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel();
-        return combatLevel >= itemLevel;
+        return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
     }
 
     public static boolean isHoeUsable(ItemStack item, Player player) {
