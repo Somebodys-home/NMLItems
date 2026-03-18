@@ -16,4 +16,8 @@ public class ItemCreator {
         item.setItemMeta(itemMeta);
         return item;
     }
+
+    public static ItemStack createBackoutButton() {
+        return createItem(Material.BARRIER, 1, "§cBack", List.of());
+    }
 }
