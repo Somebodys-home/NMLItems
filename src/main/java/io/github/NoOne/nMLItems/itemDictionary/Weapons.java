@@ -33,11 +33,11 @@ public class Weapons {
 
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
-        List<String> lore = List.of(
+        List<String> lore = new ArrayList<>(List.of(
                 "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " +
                         getItemTypeString(type).toUpperCase(),
                 ""
-        );
+        ));
 
         lore.addAll(makeWeaponASCIIArt(type));
 
