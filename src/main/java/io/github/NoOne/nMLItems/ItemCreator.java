@@ -18,6 +18,6 @@ public class ItemCreator {
     }
 
     public static ItemStack createBackoutButton() {
-        return createItem(Material.BARRIER, 1, "§cBack", List.of());
+        return createItem(Material.BARRIER, 1, "§c§l<- §r§cBack", List.of());
     }
 }
