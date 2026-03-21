@@ -257,6 +257,10 @@ public class ItemSystem {
     }
 
     public static boolean isItemUsable(ItemStack item, Player player) {
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
+
         Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
 
         if (itemLevel == null) {
@@ -267,13 +271,18 @@ public class ItemSystem {
     }
 
     public static boolean isHoeUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) return false;
+        if (item == null || !item.hasItemMeta()) {
+            return false;
+        }
 
         Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
 
-        if (itemLevel == null) return false;
+        if (itemLevel == null) {
+            return false;
+        }
 
         int farmingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel();
+
         return farmingLevel >= itemLevel;
     }
 
