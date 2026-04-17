@@ -17,7 +17,17 @@ public class ItemCreator {
         return item;
     }
 
+    public static ItemStack createItem(Material material, String displayName, List<String> lore) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName(displayName);
+        itemMeta.setLore(lore);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     public static ItemStack createBackoutButton() {
-        return createItem(Material.BARRIER, 1, "§c§l<- §r§cBack", List.of());
+        return createItem(Material.BARRIER, "§c§l<- §r§cBack", List.of());
     }
 }

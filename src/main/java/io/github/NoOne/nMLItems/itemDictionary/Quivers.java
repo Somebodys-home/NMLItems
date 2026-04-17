@@ -24,7 +24,6 @@ public class Quivers {
         String name = NameGenerator.generateItemName(QUIVER, null, rarity);
         ItemStack quiver = ItemCreator.createItem(
                 ItemType.getItemTypeMaterial(QUIVER),
-                1,
                 name,
                 List.of(
                         "§o§fLv. " + level + "§r " + ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() +

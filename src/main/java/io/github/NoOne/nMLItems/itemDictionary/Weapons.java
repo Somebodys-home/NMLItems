@@ -41,7 +41,7 @@ public class Weapons {
 
         lore.addAll(makeWeaponASCIIArt(type));
 
-        ItemStack weapon = ItemCreator.createItem(getItemTypeMaterial(type), 1, name, lore);
+        ItemStack weapon = ItemCreator.createItem(getItemTypeMaterial(type), name, lore);
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 

@@ -23,7 +23,6 @@ public class Shields {
         String name = NameGenerator.generateItemName(SHIELD, null, rarity);
         ItemStack shield = ItemCreator.createItem(
                 Material.SHIELD,
-                1,
                 name,
                 List.of(
                         "§o§fLv. " + level + "§r " + ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() +

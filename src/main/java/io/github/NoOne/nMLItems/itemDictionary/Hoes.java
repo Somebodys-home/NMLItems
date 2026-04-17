@@ -26,7 +26,6 @@ public class Hoes {
         String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
         ItemStack hoe = ItemCreator.createItem(
                 ItemType.getItemTypeMaterial(ItemType.HOE),
-                1,
                 name,
                 List.of(
                         "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " +

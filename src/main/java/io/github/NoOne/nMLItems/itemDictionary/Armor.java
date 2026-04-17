@@ -24,7 +24,6 @@ public class Armor {
 
         ItemStack armor = ItemCreator.createItem(
                 ItemType.getItemTypeMaterial(type, armorPiece),
-                1,
                 NameGenerator.generateItemName(type, armorPiece, rarity),
                 List.of(name, "")
         );
