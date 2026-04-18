@@ -128,10 +128,15 @@ public class ItemSystem {
         itemStats.entrySet().stream()
                 .sorted((a, b) -> Double.compare(b.getValue(), a.getValue())) // Descending sort
                 .forEachOrdered(entry -> {
+                    ItemStat stat = entry.getKey();
                     double value = entry.getValue();
                     int valueInt = (int) value;
-                    addedLore.add(ItemStat.getStatColor(entry.getKey()) + "+ " + valueInt + " " + ItemStat.getStatString(entry.getKey()) + " " +
-                            ItemStat.getStatEmoji(entry.getKey()));
+
+                    switch (stat) {
+                        case CRITCHANCE, CRITDAMAGE -> addedLore.add(ItemStat.getStatColor(stat) + "+ " + valueInt + "% " +
+                                                                    ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+                        default ->  addedLore.add(ItemStat.getStatColor(stat) + "+ " + valueInt + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+                    }
                 });
 
         originalLore.addAll(addedLore);

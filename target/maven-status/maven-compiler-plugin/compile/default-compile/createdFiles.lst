@@ -4,8 +4,10 @@ io\github\NoOne\nMLItems\itemDictionary\Hoes$1.class
 io\github\NoOne\nMLItems\itemDictionary\Shields.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons$1.class
 io\github\NoOne\nMLItems\itemDictionary\Armor$1.class
+io\github\NoOne\nMLItems\ItemSystem$1.class
 io\github\NoOne\nMLItems\ItemSystem.class
 io\github\NoOne\nMLItems\commands\GenerateArmorCommand.class
+io\github\NoOne\nMLItems\commands\GenerateWeaponCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$4.class

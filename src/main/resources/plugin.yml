@@ -8,16 +8,19 @@ depend:
 commands:
   generateArmor:
     description: Generates a random piece of armor
-    usage: /<command> <type> <rarity>
+    usage: /<command> <level> <rarity> <weight> <type>
   generateQuiver:
     description: Generates a random quiver
-    usage: /<command> <rarity>
+    usage: /<command> <level> <rarity>
   generateHoe:
     description: Generates a random hoe
-    usage: /<command> <rarity>
+    usage: /<command> <level> <rarity>
   generateMaterial:
     description: Generates a material item
     usage: /<command> <name> <level> <stars> <amount>
   generateItem:
     description: Generates an item
     usage: /<command> <name>
+  generateWeapon:
+    description: Generates a random weapon
+    usage: /<command> <level> <rarity> <type>

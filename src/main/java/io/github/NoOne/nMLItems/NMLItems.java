@@ -17,12 +17,12 @@ public final class NMLItems extends JavaPlugin {
         itemSystem = new ItemSystem(this);
         weapons = new Weapons(this);
 
-        // generating weapons / shields dealt with in their respective plugins
         getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateMaterial").setExecutor(new GenerateMaterialCommand());
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
         getCommand("generateQuiver").setExecutor(new GenerateQuiverCommand());
         getCommand("generateHoe").setExecutor(new GenerateHoeCommand());
+        getCommand("generateWeapon").setExecutor(new GenerateWeaponCommand());
     }
 
     public SkillSetManager getSkillSetManager() {
