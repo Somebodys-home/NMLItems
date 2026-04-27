@@ -20,23 +20,13 @@ import java.util.Map;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class ItemSystem {
-    private static NMLItems nmlItems;
-    private static SkillSetManager skillSetManager;
-    private static NamespacedKey originalNameKey;
-    private static NamespacedKey levelKey;
-    private static NamespacedKey starsKey;
-    private static NamespacedKey seedKey;
-    private static NamespacedKey cropKey;
-
-    public ItemSystem(NMLItems nmlItems) {
-        this.nmlItems = nmlItems;
-        skillSetManager = nmlItems.getSkillSetManager();
-        originalNameKey = new NamespacedKey(nmlItems, "original_name");
-        levelKey = new NamespacedKey(nmlItems, "level");
-        starsKey = new NamespacedKey(nmlItems, "stars");
-        seedKey = new NamespacedKey(nmlItems, "seed");
-        cropKey = new NamespacedKey(nmlItems, "crop");
-    }
+    private static NMLItems nmlItems = NMLItems.getInstance();
+    private static SkillSetManager skillSetManager = nmlItems.getSkillSetManager();
+    private static NamespacedKey originalNameKey = new NamespacedKey(nmlItems, "original_name");
+    private static NamespacedKey levelKey = new NamespacedKey(nmlItems, "level");
+    private static NamespacedKey starsKey = new NamespacedKey(nmlItems, "stars");
+    private static NamespacedKey seedKey = new NamespacedKey(nmlItems, "seed");
+    private static NamespacedKey cropKey = new NamespacedKey(nmlItems, "crop");
 
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();

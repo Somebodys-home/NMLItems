@@ -25,11 +25,7 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Weapons {
-    private static NMLItems nmlItems;
-
-    public Weapons(NMLItems nmlItems) {
-        this.nmlItems = nmlItems;
-    }
+    private static NMLItems nmlItems = NMLItems.getInstance();
 
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
