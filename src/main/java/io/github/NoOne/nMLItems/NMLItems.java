@@ -15,6 +15,8 @@ public final class NMLItems extends JavaPlugin {
         instance = this;
         skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
 
+        ItemSystem.initialize();
+
         getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateMaterial").setExecutor(new GenerateMaterialCommand());
         getCommand("generateArmor").setExecutor(new GenerateArmorCommand());
