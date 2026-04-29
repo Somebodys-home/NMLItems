@@ -5,6 +5,7 @@ import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -12,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,7 @@ public class ItemSystem {
         seedKey = new NamespacedKey(nmlItems, "seed");
         cropKey = new NamespacedKey(nmlItems, "crop");
     }
+
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -345,6 +349,9 @@ public class ItemSystem {
     }
 
     public static NamespacedKey makeItemTypeKey(ItemType type) {
+        System.out.println("ClassLoader: " + ItemSystem.class.getClassLoader());
+        System.out.println("Plugin instance: " + nmlItems);
+
         return new NamespacedKey(nmlItems, ItemType.getItemTypeString(type));
     }
 
