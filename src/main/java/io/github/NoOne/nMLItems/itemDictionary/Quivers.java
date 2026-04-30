@@ -1,6 +1,7 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
+import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
@@ -20,6 +21,8 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Quivers {
+    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
+
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(QUIVER, null, rarity);
         ItemStack quiver = ItemCreator.createItem(
@@ -35,17 +38,17 @@ public class Quivers {
         ItemMeta meta = quiver.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.makeItemTypeKey(QUIVER), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(itemSystem.makeItemTypeKey(QUIVER), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         quiver.setItemMeta(meta);
 
         generateMainStats(quiver, rarity, level);
         generateSecondaryStats(quiver, rarity, level);
-        ItemSystem.updateUnusableItemName(quiver, ItemSystem.isItemUsable(quiver, receiver));
+        itemSystem.updateUnusableItemName(quiver, itemSystem.isItemUsable(quiver, receiver));
         return quiver;
     }
 
@@ -62,29 +65,29 @@ public class Quivers {
 
         switch (rarity) {
             case COMMON -> {
-                ItemSystem.setStat(weapon, firstStat, firstStatValue);
+                itemSystem.setStat(weapon, firstStat, firstStatValue);
             }
             case UNCOMMON, RARE -> {
                 if (firstStat == secondStat) {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
+                    itemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
                 } else {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue);
-                    ItemSystem.setStat(weapon, secondStat, secondStatValue);
+                    itemSystem.setStat(weapon, firstStat, firstStatValue);
+                    itemSystem.setStat(weapon, secondStat, secondStatValue);
                 }
             }
             case MYTHICAL -> {
                 firstStatValue = level * 3;
 
                 if (firstStat == secondStat) {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
+                    itemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
                 } else {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue);
-                    ItemSystem.setStat(weapon, secondStat, secondStatValue);
+                    itemSystem.setStat(weapon, firstStat, firstStatValue);
+                    itemSystem.setStat(weapon, secondStat, secondStatValue);
                 }
             }
         }
 
-        ItemSystem.updateLoreWithStats(weapon);
+        itemSystem.updateLoreWithStats(weapon);
     }
 
     private static void generateSecondaryStats(ItemStack quiver, ItemRarity rarity, int level) {
@@ -123,8 +126,8 @@ public class Quivers {
 
         // update stats
         for (Map.Entry<ItemStat, Integer> selectedStatEntry : selectedStats.entrySet()) {
-            ItemSystem.setStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
-            ItemSystem.updateLoreWithStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
+            itemSystem.setStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
+            itemSystem.updateLoreWithStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
         }
     }
 }

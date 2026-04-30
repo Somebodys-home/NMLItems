@@ -1,6 +1,7 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
+import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.ItemSystem;
@@ -19,6 +20,8 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.SHIELD;
 
 public class Shields {
+    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
+
     public static ItemStack generateShield(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(SHIELD, null, rarity);
         ItemStack shield = ItemCreator.createItem(
@@ -35,16 +38,16 @@ public class Shields {
         ItemMeta meta = shield.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.makeItemTypeKey(SHIELD), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(itemSystem.makeItemTypeKey(SHIELD), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         shield.setItemMeta(meta);
 
         generateShieldStats(shield, rarity, level);
-        ItemSystem.updateUnusableItemName(shield, ItemSystem.isItemUsable(shield, receiver));
+        itemSystem.updateUnusableItemName(shield, itemSystem.isItemUsable(shield, receiver));
         return shield;
     }
 
@@ -57,28 +60,28 @@ public class Shields {
 
         switch (rarity) {
             case COMMON -> {
-                ItemSystem.setStat(shield, GUARD, firstDefenseValue);
+                itemSystem.setStat(shield, GUARD, firstDefenseValue);
             }
             case UNCOMMON, RARE -> {
                 if (secondType == GUARD) {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
+                    itemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
+                    itemSystem.setStat(shield, GUARD, firstDefenseValue);
+                    itemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
             case MYTHICAL -> {
                 firstDefenseValue = (level * 8) + 10;
 
                 if (secondType == GUARD) {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
+                    itemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
-                    ItemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
+                    itemSystem.setStat(shield, GUARD, firstDefenseValue);
+                    itemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
         }
 
-        ItemSystem.updateLoreWithStats(shield);
+        itemSystem.updateLoreWithStats(shield);
     }
 }

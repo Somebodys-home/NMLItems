@@ -1,7 +1,6 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.*;
-import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.enums.ItemType;
@@ -25,7 +24,7 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Weapons {
-    private static NMLItems nmlItems = NMLItems.getInstance();
+    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
 
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
@@ -41,17 +40,17 @@ public class Weapons {
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(itemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         weapon.setItemMeta(meta);
 
         generateDamage(weapon, type, rarity, level);
         generateSecondaryStats(weapon, rarity, level);
-        ItemSystem.updateUnusableItemName(weapon, ItemSystem.isItemUsable(weapon, receiver));
+        itemSystem.updateUnusableItemName(weapon, itemSystem.isItemUsable(weapon, receiver));
         setAttackSpeed(weapon);
 
         if (type == BOW) {
@@ -138,29 +137,29 @@ public class Weapons {
 
         switch (rarity) {
             case COMMON -> {
-                ItemSystem.setStat(weapon, firstType, firstDamageValue);
+                itemSystem.setStat(weapon, firstType, firstDamageValue);
             }
             case UNCOMMON, RARE -> {
                 if (firstType == secondType) {
-                    ItemSystem.setStat(weapon, firstType, firstDamageValue + secondDamageValue);
+                    itemSystem.setStat(weapon, firstType, firstDamageValue + secondDamageValue);
                 } else {
-                    ItemSystem.setStat(weapon, firstType, firstDamageValue);
-                    ItemSystem.setStat(weapon, secondType, secondDamageValue);
+                    itemSystem.setStat(weapon, firstType, firstDamageValue);
+                    itemSystem.setStat(weapon, secondType, secondDamageValue);
                 }
             }
             case MYTHICAL -> {
                 firstDamageValue = level * 3;
 
                 if (firstType == secondType) {
-                    ItemSystem.setStat(weapon, firstType, firstDamageValue + secondDamageValue);
+                    itemSystem.setStat(weapon, firstType, firstDamageValue + secondDamageValue);
                 } else {
-                    ItemSystem.setStat(weapon, firstType, firstDamageValue);
-                    ItemSystem.setStat(weapon, secondType, secondDamageValue);
+                    itemSystem.setStat(weapon, firstType, firstDamageValue);
+                    itemSystem.setStat(weapon, secondType, secondDamageValue);
                 }
             }
         }
 
-        ItemSystem.updateLoreWithStats(weapon);
+        itemSystem.updateLoreWithStats(weapon);
     }
 
     private static void generateSecondaryStats(ItemStack weapon, ItemRarity rarity, int level) {
@@ -194,7 +193,7 @@ public class Weapons {
             ItemStat randomItemStat = randomEntry.getKey();
             int randomStatValue = randomEntry.getValue();
 
-            if (ItemSystem.getItemType(weapon) == GLOVE && randomItemStat == CRITDAMAGE) {
+            if (itemSystem.getItemType(weapon) == GLOVE && randomItemStat == CRITDAMAGE) {
                 randomEntry.setValue(randomStatValue * 2);
             }
 
@@ -203,8 +202,8 @@ public class Weapons {
 
         // update stats
         for (Map.Entry<ItemStat, Integer> selectedStatEntry : selectedStats.entrySet()) {
-            ItemSystem.setStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
-            ItemSystem.updateLoreWithStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
+            itemSystem.setStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
+            itemSystem.updateLoreWithStat(weapon, selectedStatEntry.getKey(), selectedStatEntry.getValue());
         }
     }
 
@@ -214,7 +213,7 @@ public class Weapons {
         AttributeModifier attackSpeedModifier;
 
 
-        switch (ItemSystem.getItemType(weapon)) {
+        switch (itemSystem.getItemType(weapon)) {
             case SWORD, GLOVE -> attackspeed = -3;
             case DAGGER -> attackspeed = 0;
             case AXE, SPEAR -> attackspeed = -3.5;
@@ -222,7 +221,7 @@ public class Weapons {
             case WAND, STAFF, CATALYST -> attackspeed = -3.13;
         }
 
-        attackSpeedModifier = new AttributeModifier(new NamespacedKey(nmlItems, "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
+        attackSpeedModifier = new AttributeModifier(new NamespacedKey(NMLItems.getInstance(), "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
         meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
         weapon.setItemMeta(meta);
     }

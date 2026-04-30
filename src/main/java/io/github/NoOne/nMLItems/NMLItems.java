@@ -9,13 +9,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class NMLItems extends JavaPlugin {
     private static NMLItems instance;
     private SkillSetManager skillSetManager;
+    private ItemSystem itemSystem;
 
     @Override
     public void onEnable() {
         instance = this;
+        itemSystem = new ItemSystem(this);
         skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
-
-        ItemSystem.initialize();
 
         getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateMaterial").setExecutor(new GenerateMaterialCommand());
@@ -27,6 +27,10 @@ public final class NMLItems extends JavaPlugin {
 
     public static NMLItems getInstance() {
         return instance;
+    }
+
+    public ItemSystem getItemSystem() {
+        return itemSystem;
     }
 
     public SkillSetManager getSkillSetManager() {

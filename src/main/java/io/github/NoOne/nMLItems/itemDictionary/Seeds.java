@@ -2,6 +2,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
+import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.MaterialStars;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import net.matrixcreations.libraries.MatrixColorAPI;
@@ -16,6 +17,8 @@ import java.util.List;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Seeds {
+    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
+
     public static ItemStack wheatSeeds(int level, double stars, int amount, boolean displayItem) {
         String levelLine = "§8Lv. " + level + " Seed";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
@@ -92,10 +95,10 @@ public class Seeds {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
+        pdc.set(itemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
         itemStack.setItemMeta(meta);
     }
 }

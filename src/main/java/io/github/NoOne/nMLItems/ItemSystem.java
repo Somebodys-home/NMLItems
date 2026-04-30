@@ -5,7 +5,6 @@ import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -13,26 +12,27 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.NoOne.nMLItems.enums.ItemType.*;
+
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class ItemSystem {
-    private static NMLItems nmlItems;
-    private static SkillSetManager skillSetManager;
-    private static NamespacedKey originalNameKey;
-    private static NamespacedKey levelKey;
-    private static NamespacedKey starsKey;
-    private static NamespacedKey seedKey;
-    private static NamespacedKey cropKey;
+    private NMLItems nmlItems;
+    private SkillSetManager skillSetManager;
+    private NamespacedKey originalNameKey;
+    private NamespacedKey levelKey;
+    private NamespacedKey starsKey;
+    private NamespacedKey seedKey;
+    private NamespacedKey cropKey;
 
-    public static void initialize() {
-        nmlItems = NMLItems.getInstance();
+    public ItemSystem(NMLItems nmlItems) {
+        this.nmlItems = nmlItems;
         skillSetManager = nmlItems.getSkillSetManager();
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         levelKey = new NamespacedKey(nmlItems, "level");
@@ -41,7 +41,7 @@ public class ItemSystem {
         cropKey = new NamespacedKey(nmlItems, "crop");
     }
 
-    public static void setStat(ItemStack item, ItemStat stat, double amount) {
+    public void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -49,7 +49,7 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static void removeStat(ItemStack item, ItemStat stat) {
+    public void removeStat(ItemStack item, ItemStat stat) {
 
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -58,7 +58,7 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static void clearStats(ItemStack item) {
+    public void clearStats(ItemStack item) {
         for (ItemStat stat : ItemStat.values()) {
             if (hasStat(item, stat)) {
                 removeStat(item, stat);
@@ -66,7 +66,7 @@ public class ItemSystem {
         }
     }
 
-    public static boolean hasStat(ItemStack item, ItemStat stat) {
+    public boolean hasStat(ItemStack item, ItemStat stat) {
         if (item == null || !item.hasItemMeta()) return false;
 
         ItemMeta meta = item.getItemMeta();
@@ -75,7 +75,7 @@ public class ItemSystem {
         return pdc.has(makeKeyForStat(stat), PersistentDataType.DOUBLE);
     }
 
-    public static double getStatValue(ItemStack item, ItemStat stat) {
+    public double getStatValue(ItemStack item, ItemStat stat) {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -87,7 +87,7 @@ public class ItemSystem {
         return 0;
     }
 
-    public static HashMap<ItemStat, Double> getAllStats(ItemStack item) {
+    public HashMap<ItemStat, Double> getAllStats(ItemStack item) {
         HashMap<ItemStat, Double> stats = new HashMap<>();
 
         for (ItemStat stat : ItemStat.values()) {
@@ -98,7 +98,7 @@ public class ItemSystem {
         return stats;
     }
 
-    public static ItemType getItemType(ItemStack item) {
+    public ItemType getItemType(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return null;
 
         ItemMeta meta = item.getItemMeta();
@@ -111,7 +111,7 @@ public class ItemSystem {
         return null;
     }
 
-    public static ItemRarity getItemRarity(ItemStack item) {
+    public ItemRarity getItemRarity(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -122,7 +122,7 @@ public class ItemSystem {
         return null;
     }
 
-    public static void updateLoreWithStats(ItemStack item) {
+    public void updateLoreWithStats(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         List<String> originalLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
         List<String> addedLore = new ArrayList<>();
@@ -148,7 +148,7 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static void updateLoreWithStat(ItemStack item, ItemStat stat, int value) {
+    public void updateLoreWithStat(ItemStack item, ItemStat stat, int value) {
         ItemMeta meta = item.getItemMeta();
         List<String> addedLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
 
@@ -158,7 +158,7 @@ public class ItemSystem {
         item.setItemMeta(meta);
     }
 
-    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack item) {
+    public HashMap<ItemStat, Double> getAllDamageStats(ItemStack item) {
         HashMap<ItemStat, Double> damageStats = new HashMap<>();
 
         if (!hasDamageStats(item)) return damageStats;
@@ -172,7 +172,7 @@ public class ItemSystem {
         return damageStats;
     }
 
-    public static HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack item, double multiplier) {
+    public HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack item, double multiplier) {
         HashMap<ItemStat, Double> multipliedDamage = getAllDamageStats(item);
 
         for (Map.Entry<ItemStat, Double> damageEntry : multipliedDamage.entrySet()) {
@@ -182,7 +182,7 @@ public class ItemSystem {
         return multipliedDamage;
     }
 
-    public static double getTotalDamageOfItem(ItemStack item) {
+    public double getTotalDamageOfItem(ItemStack item) {
         HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
         double totalDamage = 0;
 
@@ -193,7 +193,7 @@ public class ItemSystem {
         return totalDamage;
     }
 
-    public static String getOriginalItemName(ItemStack item) {
+    public String getOriginalItemName(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -204,7 +204,7 @@ public class ItemSystem {
         return pdc.get(originalNameKey, PersistentDataType.STRING);
     }
 
-    public static void updateUnusableItemName(ItemStack item, boolean usable) {
+    public void updateUnusableItemName(ItemStack item, boolean usable) {
         ItemMeta meta = item.getItemMeta();
         String originalName = getOriginalItemName(item);
         String editedName;
@@ -223,7 +223,7 @@ public class ItemSystem {
         }
     }
 
-    public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack item) {
+    public HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack item) {
         HashMap<String, Double> playerStatMap = new HashMap<>();
         HashMap<ItemStat, Double> itemStatMap = getAllStats(item);
 
@@ -234,7 +234,7 @@ public class ItemSystem {
         return playerStatMap;
     }
 
-    public static SeedType getSeedType(ItemStack item) {
+    public SeedType getSeedType(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(seedKey)) {
@@ -244,7 +244,7 @@ public class ItemSystem {
         return null;
     }
 
-    public static int getLevel(ItemStack item) {
+    public int getLevel(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(levelKey)) {
@@ -254,7 +254,7 @@ public class ItemSystem {
         return 0;
     }
 
-    public static double getStars(ItemStack item) {
+    public double getStars(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(starsKey)) {
@@ -264,7 +264,7 @@ public class ItemSystem {
         return 0;
     }
 
-    public static boolean isItemUsable(ItemStack item, Player player) {
+    public boolean isItemUsable(ItemStack item, Player player) {
         if (item == null || !item.hasItemMeta()) {
             return false;
         }
@@ -278,7 +278,7 @@ public class ItemSystem {
         return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
     }
 
-    public static boolean isHoeUsable(ItemStack item, Player player) {
+    public boolean isHoeUsable(ItemStack item, Player player) {
         if (item == null || !item.hasItemMeta()) {
             return false;
         }
@@ -294,13 +294,13 @@ public class ItemSystem {
         return farmingLevel >= itemLevel;
     }
 
-    public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
+    public boolean isItemType(ItemStack itemStack, ItemType itemType) {
         if (itemStack == null || !itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(makeItemTypeKey(itemType));
     }
 
-    public static boolean hasDamageStats(ItemStack item) {
+    public boolean hasDamageStats(ItemStack item) {
         return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
                 hasStat(item, ItemStat.FIREDAMAGE) ||
                 hasStat(item, ItemStat.COLDDAMAGE) ||
@@ -312,7 +312,7 @@ public class ItemSystem {
                 hasStat(item, ItemStat.PUREDAMAGE);
     }
 
-    public static boolean isEquippable(ItemStack item) {
+    public boolean isEquippable(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return false;
 
         return isItemType(item, HELMET) ||
@@ -323,7 +323,7 @@ public class ItemSystem {
                 isItemType(item, QUIVER);
     }
 
-    public static boolean isWeapon(ItemStack item) {
+    public boolean isWeapon(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return false;
 
         return isItemType(item, SWORD) ||
@@ -338,44 +338,44 @@ public class ItemSystem {
                 isItemType(item, CATALYST);
     }
 
-    public static boolean hasLevelKey(ItemStack itemStack) {
+    public boolean hasLevelKey(ItemStack itemStack) {
         if (itemStack == null || !itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
     }
 
-    private static NamespacedKey makeKeyForStat(ItemStat stat) {
+    private NamespacedKey makeKeyForStat(ItemStat stat) {
         return new NamespacedKey(nmlItems, ItemStat.getStatString(stat).replaceAll(" ", ""));
     }
 
-    public static NamespacedKey makeItemTypeKey(ItemType type) {
+    public NamespacedKey makeItemTypeKey(ItemType type) {
         System.out.println("ClassLoader: " + ItemSystem.class.getClassLoader());
         System.out.println("Plugin instance: " + nmlItems);
 
         return new NamespacedKey(nmlItems, ItemType.getItemTypeString(type));
     }
 
-    public static NamespacedKey makeItemRarityKey(ItemRarity rarity) {
+    public NamespacedKey makeItemRarityKey(ItemRarity rarity) {
         return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
     }
     
-    public static NamespacedKey getLevelKey() {
+    public NamespacedKey getLevelKey() {
         return levelKey;
     }
 
-    public static NamespacedKey getOriginalNameKey() {
+    public NamespacedKey getOriginalNameKey() {
         return originalNameKey;
     }
 
-    public static NamespacedKey getStarsKey() {
+    public NamespacedKey getStarsKey() {
         return starsKey;
     }
 
-    public static NamespacedKey getSeedKey() {
+    public NamespacedKey getSeedKey() {
         return seedKey;
     }
 
-    public static NamespacedKey getCropKey() {
+    public NamespacedKey getCropKey() {
         return cropKey;
     }
 }
