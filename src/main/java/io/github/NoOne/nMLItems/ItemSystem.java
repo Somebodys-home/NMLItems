@@ -349,9 +349,6 @@ public class ItemSystem {
     }
 
     public NamespacedKey makeItemTypeKey(ItemType type) {
-        System.out.println("ClassLoader: " + ItemSystem.class.getClassLoader());
-        System.out.println("Plugin instance: " + nmlItems);
-
         return new NamespacedKey(nmlItems, ItemType.getItemTypeString(type));
     }
 
