@@ -30,7 +30,6 @@ public class Weapons {
         String name = NameGenerator.generateItemName(type, null, rarity);
         List<String> lore = new ArrayList<>(List.of(
                 "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase(),
-                "",
                 ""
         ));
 

@@ -8,6 +8,7 @@ import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -21,16 +22,16 @@ public class Armor {
     private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
 
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType type, ItemType armorPiece, int level) {
-        String name = "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD +
+        String name = NameGenerator.generateItemName(type, armorPiece, rarity);
+        String title = "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD +
                 ItemRarity.getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(type).toUpperCase() + " " +
                 ItemType.getItemTypeString(armorPiece).toUpperCase();
 
         ItemStack armor = ItemCreator.createItem(
                 ItemType.getItemTypeMaterial(type, armorPiece),
-                NameGenerator.generateItemName(type, armorPiece, rarity),
-                List.of(name, "")
+                name,
+                List.of(title, "")
         );
-
         ItemMeta meta = armor.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -39,6 +40,7 @@ public class Armor {
         pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         meta.setUnbreakable(true);
         armor.setItemMeta(meta);
 
