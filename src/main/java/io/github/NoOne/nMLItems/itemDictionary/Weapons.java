@@ -29,14 +29,18 @@ public class Weapons {
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
         List<String> lore = new ArrayList<>(List.of(
-                "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " +
-                        getItemTypeString(type).toUpperCase(),
+                "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase(),
+                "",
                 ""
         ));
 
         lore.addAll(makeWeaponASCIIArt(type));
 
-        ItemStack weapon = ItemCreator.createItem(getItemTypeMaterial(type), name, lore);
+        ItemStack weapon = ItemCreator.createItem(
+                getItemTypeMaterial(type),
+                name,
+                lore
+        );
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -58,55 +62,6 @@ public class Weapons {
         }
 
         return weapon;
-    }
-
-    public static List<String> makeWeaponASCIIArt(ItemType type) {
-        List<String> ASCII = new ArrayList<>();
-
-        if (type == SWORD) {
-            ASCII.add("§7        />______________");
-            ASCII.add("§7♦#####[]______________>");
-            ASCII.add("§7        \\>");
-        } else if (type == DAGGER) {
-            ASCII.add("§7    ʃ                      ʃ");
-            ASCII.add("§7♦##|======-  -======|##♦");
-            ASCII.add("§7    ʃ                      ʃ");
-        } else if (type == AXE) {
-            ASCII.add("§7                           /\\");
-            ASCII.add("§7♦===============######");
-            ASCII.add("§7                       \\_____/");
-        } else if (type == HAMMER) {
-            ASCII.add("§7             ╔══╗");
-            ASCII.add("§7♦=======♦|███|♦");
-            ASCII.add("§7             ╚══╝");
-        } else if (type == SPEAR) {
-            ASCII.add("§7                           \\`-._");
-            ASCII.add("§7♦========♦========♦   _>");
-            ASCII.add("§7                           /.-'");
-        } else if (type == GLOVE) {
-            ASCII.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
-            ASCII.add("§7\\_   @_|♦|_@   _/");
-            ASCII.add("§7   \\__)    (__/");
-        } else if (type == BOW) {
-            ASCII.add("§7                  ◁----<<");
-            ASCII.add("§7  ︷__♦__︷        >>----▷");
-            ASCII.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
-        } else if (type == WAND) {
-            ASCII.add("§7             * ╲ ╱  *");
-            ASCII.add("§7♦========< ⭐ >");
-            ASCII.add("§7          *    ╱ ╲   *");
-        } else if (type == STAFF) {
-            ASCII.add("§7                *           ╗ * ╲ ╱  ");
-            ASCII.add("§7♦========♦========♦║ < ⭐ > ");
-            ASCII.add("§7      *                 *   ╝   ╱ ╲   *");
-        } else if (type == CATALYST) {
-            ASCII.add("§7  /‾‾/   \\‾‾\\");
-            ASCII.add("§7 <   |  ♦  |   >");
-            ASCII.add("§7  \\_\\    /_/");
-        }
-
-        ASCII.add("");
-        return ASCII;
     }
 
     private static void generateDamage(ItemStack weapon, ItemType type, ItemRarity rarity, int level) {
@@ -224,5 +179,54 @@ public class Weapons {
         attackSpeedModifier = new AttributeModifier(new NamespacedKey(NMLItems.getInstance(), "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
         meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
         weapon.setItemMeta(meta);
+    }
+
+    private static List<String> makeWeaponASCIIArt(ItemType type) {
+        List<String> ASCII = new ArrayList<>();
+
+        if (type == SWORD) {
+            ASCII.add("§7        />______________");
+            ASCII.add("§7♦#####[]______________>");
+            ASCII.add("§7        \\>");
+        } else if (type == DAGGER) {
+            ASCII.add("§7    ʃ                      ʃ");
+            ASCII.add("§7♦##|======-  -======|##♦");
+            ASCII.add("§7    ʃ                      ʃ");
+        } else if (type == AXE) {
+            ASCII.add("§7                           /\\");
+            ASCII.add("§7♦===============######");
+            ASCII.add("§7                       \\_____/");
+        } else if (type == HAMMER) {
+            ASCII.add("§7             ╔══╗");
+            ASCII.add("§7♦=======♦|███|♦");
+            ASCII.add("§7             ╚══╝");
+        } else if (type == SPEAR) {
+            ASCII.add("§7                           \\`-._");
+            ASCII.add("§7♦========♦========♦   _>");
+            ASCII.add("§7                           /.-'");
+        } else if (type == GLOVE) {
+            ASCII.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
+            ASCII.add("§7\\_   @_|♦|_@   _/");
+            ASCII.add("§7   \\__)    (__/");
+        } else if (type == BOW) {
+            ASCII.add("§7                  ◁----<<");
+            ASCII.add("§7  ︷__♦__︷        >>----▷");
+            ASCII.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
+        } else if (type == WAND) {
+            ASCII.add("§7             * ╲ ╱  *");
+            ASCII.add("§7♦========< ⭐ >");
+            ASCII.add("§7          *    ╱ ╲   *");
+        } else if (type == STAFF) {
+            ASCII.add("§7                *           ╗ * ╲ ╱  ");
+            ASCII.add("§7♦========♦========♦║ < ⭐ > ");
+            ASCII.add("§7      *                 *   ╝   ╱ ╲   *");
+        } else if (type == CATALYST) {
+            ASCII.add("§7  /‾‾/   \\‾‾\\");
+            ASCII.add("§7 <   |  ♦  |   >");
+            ASCII.add("§7  \\_\\    /_/");
+        }
+
+        ASCII.add("");
+        return ASCII;
     }
 }
