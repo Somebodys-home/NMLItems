@@ -49,6 +49,7 @@ public class Weapons {
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
+        meta.setMaxStackSize(1);
         weapon.setItemMeta(meta);
 
         generateDamage(weapon, type, rarity, level);
