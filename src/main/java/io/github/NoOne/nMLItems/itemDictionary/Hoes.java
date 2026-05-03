@@ -49,7 +49,7 @@ public class Hoes {
         hoe.setItemMeta(meta);
 
         generateHoeStats(hoe, rarity, level);
-        itemSystem.updateUnusableItemName(hoe, itemSystem.isHoeUsable(hoe, receiver));
+        itemSystem.updateUnusableItemName(hoe, itemSystem.isItemUsable(hoe, receiver));
         return hoe;
     }
 

@@ -275,23 +275,10 @@ public class ItemSystem {
             return false;
         }
 
-        return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
-    }
-
-    public boolean isHoeUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) {
-            return false;
+        switch (getItemType(item)) {
+            case HOE: return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel() >= itemLevel;
+            default: return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
         }
-
-        Integer itemLevel = item.getItemMeta().getPersistentDataContainer().get(levelKey, PersistentDataType.INTEGER);
-
-        if (itemLevel == null) {
-            return false;
-        }
-
-        int farmingLevel = skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel();
-
-        return farmingLevel >= itemLevel;
     }
 
     public boolean isItemType(ItemStack itemStack, ItemType itemType) {
