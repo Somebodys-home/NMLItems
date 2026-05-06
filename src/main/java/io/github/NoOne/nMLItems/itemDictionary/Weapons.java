@@ -171,7 +171,7 @@ public class Weapons {
         switch (itemSystem.getItemType(weapon)) {
             case SWORD, GLOVE -> attackspeed = -3;
             case DAGGER -> attackspeed = 0;
-            case AXE, SPEAR -> attackspeed = -3.5;
+            case AXE -> attackspeed = -3.5;
             case HAMMER -> attackspeed = -3.66;
             case WAND, STAFF, CATALYST -> attackspeed = -3.13;
         }
