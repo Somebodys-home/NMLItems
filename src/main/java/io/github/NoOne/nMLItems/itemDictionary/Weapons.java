@@ -213,17 +213,17 @@ public class Weapons {
             ASCII.add("§7  ︷__♦__︷        >>----▷");
             ASCII.add("§7/ˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍˍ\\  ◁----<<");
         } else if (type == WAND) {
-            ASCII.add("§7             * ╲ ╱  *");
+            ASCII.add("§7            * ╲  ╱  *");
             ASCII.add("§7♦========< ⭐ >");
-            ASCII.add("§7          *    ╱ ╲   *");
+            ASCII.add("§7          *   ╱  ╲   *");
         } else if (type == STAFF) {
-            ASCII.add("§7                *           ╗ * ╲ ╱  ");
+            ASCII.add("§7                   *        ╗  ╲  ╱  ");
             ASCII.add("§7♦========♦========♦║ < ⭐ > ");
-            ASCII.add("§7      *                 *   ╝   ╱ ╲   *");
+            ASCII.add("§7      *                 *   ╝  ╱  ╲   *");
         } else if (type == CATALYST) {
-            ASCII.add("§7  /‾‾/   \\‾‾\\");
-            ASCII.add("§7 <   |  ♦  |   >");
-            ASCII.add("§7  \\_\\    /_/");
+            ASCII.add("§7           /‾‾/   \\‾‾\\");
+            ASCII.add("§7          <   |  ♦  |   >");
+            ASCII.add("§7           \\_\\    /_/");
         }
 
         ASCII.add("");

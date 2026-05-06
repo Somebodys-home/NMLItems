@@ -23,7 +23,7 @@ public class NameGenerator {
                 nameSegments = new String[2];
                 possibleAdjectives = new ArrayList<>(List.of("Garbage", "Awful", "Pitiful", "You Deserve This", "Disgusting", "Be Better",
                         "Babies' First", "Oh God That", "Rotten", "Poor", "Degrading", "Forgotten", "Racist", "Not Your Average", "Beguiled", "Exiled", "Rusty",
-                        "Nobodies'", "Cheap"));
+                        "Nobodies'", "Cheap", "Cringe"));
             }
             case UNCOMMON -> {
                 nameSegments = new String[2];

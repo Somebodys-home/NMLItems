@@ -83,7 +83,7 @@ public enum ItemType {
             case DAGGER -> itemTypeMaterial = Material.WOODEN_SWORD;
             case AXE -> itemTypeMaterial = Material.IRON_AXE;
             case HAMMER -> itemTypeMaterial = Material.MACE;
-            case SPEAR -> itemTypeMaterial = Material.TRIDENT;
+            case SPEAR -> itemTypeMaterial = Material.IRON_SPEAR;
             case GLOVE -> itemTypeMaterial = Material.RED_WOOL;
             case BOW -> itemTypeMaterial = Material.BOW;
             case WAND -> itemTypeMaterial = Material.STICK;

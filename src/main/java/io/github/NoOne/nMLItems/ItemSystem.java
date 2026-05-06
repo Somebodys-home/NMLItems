@@ -152,7 +152,12 @@ public class ItemSystem {
         ItemMeta meta = item.getItemMeta();
         List<String> addedLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
 
-        addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+        if (stat == ItemStat.CRITCHANCE || stat == ItemStat.CRITDAMAGE) {
+            addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + "% " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+        } else {
+            addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+        }
+
         meta.setLore(addedLore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
