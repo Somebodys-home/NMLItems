@@ -27,7 +27,7 @@ public class NameGenerator {
             }
             case UNCOMMON -> {
                 nameSegments = new String[2];
-                possibleAdjectives = new ArrayList<>(List.of("Pretty Alright", "Lifelong", "Based", "Neato Dorito", "Goofy Ass", "Nobodies'", "Knave's"));
+                possibleAdjectives = new ArrayList<>(List.of("Pretty Alright", "Lifelong", "Based", "Neato Dorito", "Goofy Ass", "Nobodies'", "Knave's", "Swood"));
             }
             case RARE -> {
                 nameSegments = new String[3];
@@ -102,6 +102,7 @@ public class NameGenerator {
                 }
             }
         }
+
         // choosing adjectives
         for (int i = 0; i < nameSegments.length - 1; i++) {
             if (i > 0) { // make sure that belonging adjectives can only be the first adjective of the item
@@ -117,6 +118,7 @@ public class NameGenerator {
 
             nameSegments[i] =  possibleAdjectives.get(ThreadLocalRandom.current().nextInt(possibleAdjectives.size()));
         }
+
         // choosing name
         nameSegments[nameSegments.length - 1] = possibleNames.get(ThreadLocalRandom.current().nextInt(possibleNames.size()));
 
