@@ -44,16 +44,16 @@ public class NameGenerator {
         assert nameSegments != null;
         switch (type) {
             case SWORD -> {
-                possibleNames = new ArrayList<>(List.of("Sword", "Seax", "Scimitar", "Bigger Knife", "Falchion", "Long Sword"));
+                possibleNames = new ArrayList<>(List.of("Sword", "Seax", "Scimitar", "Bigger Knife", "Falchion", "Long Sword", "Katana", "Sord"));
 
                 switch (rarity) {
                     case COMMON -> possibleNames.add("Bastard Sword");
                     case MYTHICAL -> possibleNames.add("Dragon Slayer");
                 }
             }
-            case DAGGER -> possibleNames = new ArrayList<>(List.of("Dagger", "Knife", "Cutlery", "Gillete Razor", "Beard Splitter", "Box Cutter"));
+            case DAGGER -> possibleNames = new ArrayList<>(List.of("Dagger", "Knife", "Cutlery", "Razor", "Beard Splitter", "Box Cutter", "Black Shard", "Shank", "Shiv"));
             case AXE -> possibleNames = new ArrayList<>(List.of("Axe", "Cleaver", "Battle Axe", "Tomahawk", "Chopper", "Box Cutter"));
-            case HAMMER -> possibleNames = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko", "Spike Ball"));
+            case HAMMER -> possibleNames = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko", "Spike Ball", "Ham-mer"));
             case SPEAR -> {
                 possibleNames = new ArrayList<>(List.of("Giant Arrow", "Javelin", "Military Fork", "Trident", "Spear", "Spork"));
 
@@ -68,7 +68,7 @@ public class NameGenerator {
             case CATALYST -> possibleNames = new ArrayList<>(List.of("Catalyst", "Grimoire", "Reading Material", "Textbook", "Smut"));
             case SHIELD -> possibleNames = new ArrayList<>(List.of("Shield", "Buckler", "Kite", "Wall", "Aegis"));
             case QUIVER -> possibleNames = new ArrayList<>(List.of("Quiver", "Stick Bag", "Holster"));
-            case HOE -> possibleNames = new ArrayList<>(List.of("Hoe"));
+            case HOE -> possibleNames = new ArrayList<>(List.of("Hoe", "Krystal", "Reaper"));
             case LIGHT -> {
                 switch (type2) {
                     case HELMET -> possibleNames = new ArrayList<>(List.of("Cap"));

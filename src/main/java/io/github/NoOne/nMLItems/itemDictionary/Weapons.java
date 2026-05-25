@@ -28,7 +28,7 @@ public class Weapons {
 
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
-        List<String> lore = new ArrayList<>(List.of(
+        ArrayList<String> lore = new ArrayList<>(List.of(
                 "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase(),
                 ""
         ));
@@ -205,9 +205,9 @@ public class Weapons {
             ASCII.add("§7♦========♦========♦   _>");
             ASCII.add("§7                           /.-'");
         } else if (type == GLOVE) {
-            ASCII.add("§7‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
-            ASCII.add("§7\\_   @_|♦|_@   _/");
-            ASCII.add("§7   \\__)    (__/");
+            ASCII.add("§7    ‾‾‾‾‾‾‾‾‾|♦|‾‾‾‾‾‾‾‾‾");
+            ASCII.add("§7    \\_   @_|♦|_@   _/");
+            ASCII.add("§7       \\__)    (__/");
         } else if (type == BOW) {
             ASCII.add("§7                  ◁----<<");
             ASCII.add("§7  ︷__♦__︷        >>----▷");
@@ -221,9 +221,9 @@ public class Weapons {
             ASCII.add("§7♦========♦========♦║ < ⭐ > ");
             ASCII.add("§7      *                 *   ╝  ╱  ╲   *");
         } else if (type == CATALYST) {
-            ASCII.add("§7           /‾‾/   \\‾‾\\");
-            ASCII.add("§7          <   |  ♦  |   >");
-            ASCII.add("§7           \\_\\    /_/");
+            ASCII.add("§7          /‾‾/   \\‾‾\\");
+            ASCII.add("§7         <   |  ♦  |   >");
+            ASCII.add("§7          \\_\\    /_/");
         }
 
         ASCII.add("");
