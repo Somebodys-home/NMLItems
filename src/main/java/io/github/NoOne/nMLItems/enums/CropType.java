@@ -7,13 +7,12 @@ public enum CropType {
     RHUBARB;
 
     public static String getCropTypeString(CropType cropType) {
-        switch (cropType) {
-            case WHEAT_BUNDLE: return "wheat_bundle";
-            case SUGAR_CANE: return "sugar_cane";
-            case JADE_FLOWER: return "jade_flower";
-            case RHUBARB: return "rhubarb";
-        }
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> "wheat_bundle";
+            case SUGAR_CANE -> "sugar_cane";
+            case JADE_FLOWER -> "jade_flower";
+            case RHUBARB -> "rhubarb";
+        };
 
-        return "";
     }
 }

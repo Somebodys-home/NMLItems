@@ -30,6 +30,7 @@ public class ItemSystem {
     private NamespacedKey starsKey;
     private NamespacedKey seedKey;
     private NamespacedKey cropKey;
+    private NamespacedKey ingredientKey;
 
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
@@ -39,6 +40,7 @@ public class ItemSystem {
         starsKey = new NamespacedKey(nmlItems, "stars");
         seedKey = new NamespacedKey(nmlItems, "seed");
         cropKey = new NamespacedKey(nmlItems, "crop");
+        ingredientKey = new NamespacedKey(nmlItems, "ingredient");
     }
 
     public void setStat(ItemStack item, ItemStat stat, double amount) {
@@ -366,5 +368,9 @@ public class ItemSystem {
 
     public NamespacedKey getCropKey() {
         return cropKey;
+    }
+
+    public NamespacedKey getIngredientKey() {
+        return ingredientKey;
     }
 }

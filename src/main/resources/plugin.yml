@@ -24,3 +24,6 @@ commands:
   generateWeapon:
     description: Generates a random weapon
     usage: /<command> <level> <rarity> <type>
+  generateIngredient:
+    description: Generates an ingredient item
+    usage: /<command> <name> <level> <stars> <amount>

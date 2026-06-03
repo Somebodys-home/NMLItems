@@ -38,7 +38,8 @@ public enum ItemType {
 
     // misc
     SEED,
-    CROP;
+    CROP,
+    INGREDIENT;
 
     public static String getItemTypeString(ItemType type) {
         String itemTypeString;
@@ -69,6 +70,7 @@ public enum ItemType {
             case GARDEN_MODIFIER -> itemTypeString = "Garden_Modifier";
             case FERTILIZER -> itemTypeString = "Fertilizer";
             case WATERING_CAN -> itemTypeString = "Watering_Can";
+            case INGREDIENT ->  itemTypeString = "Ingredient";
             default -> itemTypeString = "";
         }
 

@@ -23,6 +23,7 @@ public final class NMLItems extends JavaPlugin {
         getCommand("generateQuiver").setExecutor(new GenerateQuiverCommand());
         getCommand("generateHoe").setExecutor(new GenerateHoeCommand());
         getCommand("generateWeapon").setExecutor(new GenerateWeaponCommand());
+        getCommand("generateIngredient").setExecutor(new GenerateIngredientCommand());
     }
 
     public static NMLItems getInstance() {

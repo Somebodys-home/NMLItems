@@ -12,10 +12,12 @@ io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$4.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes.class
+io\github\NoOne\nMLItems\itemDictionary\Ingredients.class
 io\github\NoOne\nMLItems\commands\GenerateMaterialCommand.class
 io\github\NoOne\nMLItems\enums\CropType.class
 io\github\NoOne\nMLItems\itemDictionary\GardenModifiers.class
 io\github\NoOne\nMLItems\NMLItems.class
+io\github\NoOne\nMLItems\enums\IngredientType.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
@@ -28,6 +30,7 @@ io\github\NoOne\nMLItems\enums\SeedType.class
 io\github\NoOne\nMLItems\commands\GenerateHoeCommand.class
 io\github\NoOne\nMLItems\commands\GenerateQuiverCommand.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator$1.class
+io\github\NoOne\nMLItems\commands\GenerateIngredientCommand.class
 io\github\NoOne\nMLItems\enums\ItemType.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers.class
 io\github\NoOne\nMLItems\itemDictionary\Shields$1.class
