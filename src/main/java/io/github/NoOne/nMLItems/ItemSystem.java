@@ -1,9 +1,6 @@
 package io.github.NoOne.nMLItems;
 
-import io.github.NoOne.nMLItems.enums.ItemRarity;
-import io.github.NoOne.nMLItems.enums.ItemStat;
-import io.github.NoOne.nMLItems.enums.ItemType;
-import io.github.NoOne.nMLItems.enums.SeedType;
+import io.github.NoOne.nMLItems.enums.*;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -52,7 +49,6 @@ public class ItemSystem {
     }
 
     public void removeStat(ItemStack item, ItemStat stat) {
-
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
@@ -250,6 +246,17 @@ public class ItemSystem {
 
         return null;
     }
+
+    public CropType getCropType(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(cropKey)) {
+            return CropType.getCropType(pdc.get(cropKey, PersistentDataType.STRING));
+        }
+
+        return null;
+    }
+
 
     public int getLevel(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();

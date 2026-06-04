@@ -15,4 +15,15 @@ public enum CropType {
         };
 
     }
+
+    public static CropType getCropType(String cropType) {
+        return switch (cropType) {
+            case "wheat_bundle" -> WHEAT_BUNDLE;
+            case "sugar_cane" -> SUGAR_CANE;
+            case "jade_flower" -> JADE_FLOWER;
+            case "rhubarb" -> RHUBARB;
+            default -> null;
+        };
+
+    }
 }
