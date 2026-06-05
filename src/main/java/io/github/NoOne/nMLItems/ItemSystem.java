@@ -376,6 +376,17 @@ public class ItemSystem {
         return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
     }
 
+    public IngredientType getIngredientType(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(ingredientKey)) {
+            return IngredientType.fromString(pdc.get(ingredientKey, PersistentDataType.STRING));
+        }
+
+        return null;
+    }
+
+
     private NamespacedKey makeKeyForStat(ItemStat stat) {
         return new NamespacedKey(nmlItems, ItemStat.toString(stat).replaceAll(" ", ""));
     }
