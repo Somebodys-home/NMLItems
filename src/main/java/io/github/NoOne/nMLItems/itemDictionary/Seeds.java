@@ -3,6 +3,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
+import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.enums.MaterialStars;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import net.matrixcreations.libraries.MatrixColorAPI;
@@ -95,10 +96,10 @@ public class Seeds {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
+        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
         itemStack.setItemMeta(meta);
     }
 }

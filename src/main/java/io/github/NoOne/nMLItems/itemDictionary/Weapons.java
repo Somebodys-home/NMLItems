@@ -29,22 +29,22 @@ public class Weapons {
     public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(type, null, rarity);
         ArrayList<String> lore = new ArrayList<>(List.of(
-                "§o§fLv. " + level + "§r " + getItemRarityColor(rarity) + ChatColor.BOLD + getItemRarityString(rarity).toUpperCase() + " " + getItemTypeString(type).toUpperCase(),
+                "§o§fLv. " + level + "§r " + toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() + " " + ItemType.toString(type).toUpperCase(),
                 ""
         ));
 
         lore.addAll(makeWeaponASCIIArt(type));
 
         ItemStack weapon = ItemCreator.createItem(
-                getItemTypeMaterial(type),
+                toMaterial(type),
                 name,
                 lore
         );
         ItemMeta meta = weapon.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
+        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);

@@ -23,7 +23,7 @@ public class GenerateHoeCommand implements CommandExecutor, TabCompleter {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
 
-            ItemStack hoe = Hoes.generateHoe(player, ItemRarity.getItemRarityFromString(rarity), level);
+            ItemStack hoe = Hoes.generateHoe(player, ItemRarity.fromString(rarity), level);
 
             player.getInventory().addItem(hoe);
         }

@@ -6,7 +6,7 @@ public enum CropType {
     JADE_FLOWER,
     RHUBARB;
 
-    public static String getCropTypeString(CropType cropType) {
+    public static String toString(CropType cropType) {
         return switch (cropType) {
             case WHEAT_BUNDLE -> "wheat_bundle";
             case SUGAR_CANE -> "sugar_cane";
@@ -16,7 +16,7 @@ public enum CropType {
 
     }
 
-    public static CropType getCropType(String cropType) {
+    public static CropType fromString(String cropType) {
         return switch (cropType) {
             case "wheat_bundle" -> WHEAT_BUNDLE;
             case "sugar_cane" -> SUGAR_CANE;

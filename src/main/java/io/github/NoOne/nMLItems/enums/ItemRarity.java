@@ -9,36 +9,35 @@ public enum ItemRarity {
     MYTHICAL,
     RELIC;
 
-    public static String getItemRarityString(ItemRarity rarity) {
-        switch (rarity) {
-            case COMMON -> { return "common"; }
-            case UNCOMMON -> { return "uncommon"; }
-            case RARE -> { return "rare"; }
-            case MYTHICAL -> { return "mythical"; }
-            case RELIC -> { return "relic"; }
-            default -> { return ""; }
-        }
+    public static String toString(ItemRarity rarity) {
+        return switch (rarity) {
+            case COMMON -> "common";
+            case UNCOMMON -> "uncommon";
+            case RARE -> "rare";
+            case MYTHICAL -> "mythical";
+            case RELIC -> "relic";
+        };
     }
 
-    public static ItemRarity getItemRarityFromString(String string) {
-        switch (string) {
-            case "common" -> { return COMMON; }
-            case "uncommon" -> { return UNCOMMON; }
-            case "rare" -> { return RARE; }
-            case "mythical" -> { return MYTHICAL; }
-            case "relic" -> { return RELIC; }
-            default -> { return null; }
-        }
+    public static ItemRarity fromString(String string) {
+        return switch (string) {
+            case "common" -> COMMON;
+            case "uncommon" -> UNCOMMON;
+            case "rare" -> RARE;
+            case "mythical" -> MYTHICAL;
+            case "relic" -> RELIC;
+            default -> null;
+        };
     }
+   
 
-    public static ChatColor getItemRarityColor(ItemRarity rarity) {
-        switch (rarity) {
-            case COMMON -> { return ChatColor.GRAY; }
-            case UNCOMMON -> { return ChatColor.GREEN; }
-            case RARE -> { return ChatColor.AQUA; }
-            case MYTHICAL -> { return ChatColor.LIGHT_PURPLE; }
-            case RELIC -> { return ChatColor.DARK_RED; }
-            default -> { return null; }
-        }
+    public static ChatColor toChatColor(ItemRarity rarity) {
+        return switch (rarity) {
+            case COMMON -> ChatColor.GRAY;
+            case UNCOMMON -> ChatColor.GREEN;
+            case RARE -> ChatColor.AQUA;
+            case MYTHICAL -> ChatColor.LIGHT_PURPLE;
+            case RELIC -> ChatColor.DARK_RED;
+        };
     }
 }

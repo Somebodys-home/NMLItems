@@ -15,14 +15,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.github.NoOne.nMLItems.enums.ItemType.*;
-
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class ItemSystem {
     private NMLItems nmlItems;
     private SkillSetManager skillSetManager;
+    private NamespacedKey itemTypeKey;
+    private NamespacedKey armorWeightKey;
     private NamespacedKey originalNameKey;
+    private NamespacedKey rarityKey;
     private NamespacedKey levelKey;
     private NamespacedKey starsKey;
     private NamespacedKey seedKey;
@@ -32,7 +33,10 @@ public class ItemSystem {
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
         skillSetManager = nmlItems.getSkillSetManager();
+        itemTypeKey = new NamespacedKey(nmlItems, "item_type");
+        armorWeightKey = new NamespacedKey(nmlItems, "armor_weight");
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
+        rarityKey = new NamespacedKey(nmlItems, "rarity");
         levelKey = new NamespacedKey(nmlItems, "level");
         starsKey = new NamespacedKey(nmlItems, "stars");
         seedKey = new NamespacedKey(nmlItems, "seed");
@@ -99,22 +103,22 @@ public class ItemSystem {
     public ItemType getItemType(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return null;
 
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
-        for (ItemType type : ItemType.values()) {
-            if (pdc.has(makeItemTypeKey(type), PersistentDataType.INTEGER)) return type;
+        if (pdc.has(itemTypeKey, PersistentDataType.STRING)) {
+            return ItemType.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
         }
 
         return null;
     }
 
     public ItemRarity getItemRarity(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        if (item == null || !item.hasItemMeta()) return null;
 
-        for (ItemRarity rarity : ItemRarity.values()) {
-            if (pdc.has(makeItemRarityKey(rarity), PersistentDataType.INTEGER)) return rarity;
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(rarityKey, PersistentDataType.STRING)) {
+            return ItemRarity.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
         }
 
         return null;
@@ -134,9 +138,9 @@ public class ItemSystem {
                     int valueInt = (int) value;
 
                     switch (stat) {
-                        case CRITCHANCE, CRITDAMAGE -> addedLore.add(ItemStat.getStatColor(stat) + "+ " + valueInt + "% " +
-                                                                    ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
-                        default ->  addedLore.add(ItemStat.getStatColor(stat) + "+ " + valueInt + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+                        case CRITCHANCE, CRITDAMAGE -> addedLore.add(ItemStat.toChatColor(stat) + "+ " + valueInt + "% " +
+                                                                    ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
+                        default ->  addedLore.add(ItemStat.toChatColor(stat) + "+ " + valueInt + " " + ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
                     }
                 });
 
@@ -151,9 +155,9 @@ public class ItemSystem {
         List<String> addedLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
 
         if (stat == ItemStat.CRITCHANCE || stat == ItemStat.CRITDAMAGE) {
-            addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + "% " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+            addedLore.add(ItemStat.toChatColor(stat) + "+ " + value + "% " + ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
         } else {
-            addedLore.add(ItemStat.getStatColor(stat) + "+ " + value + " " + ItemStat.getStatString(stat) + " " + ItemStat.getStatEmoji(stat));
+            addedLore.add(ItemStat.toChatColor(stat) + "+ " + value + " " + ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
         }
 
         meta.setLore(addedLore);
@@ -231,7 +235,7 @@ public class ItemSystem {
         HashMap<ItemStat, Double> itemStatMap = getAllStats(item);
 
         for(Map.Entry<ItemStat, Double> statEntry : itemStatMap.entrySet()) {
-           playerStatMap.put(ItemStat.getStatString(statEntry.getKey()).toLowerCase().replaceAll(" ", ""), statEntry.getValue());
+           playerStatMap.put(ItemStat.toString(statEntry.getKey()).toLowerCase().replaceAll(" ", ""), statEntry.getValue());
         }
 
         return playerStatMap;
@@ -241,7 +245,7 @@ public class ItemSystem {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(seedKey)) {
-            return SeedType.getSeedType(pdc.get(seedKey, PersistentDataType.STRING));
+            return SeedType.fromString(pdc.get(seedKey, PersistentDataType.STRING));
         }
 
         return null;
@@ -251,7 +255,7 @@ public class ItemSystem {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(cropKey)) {
-            return CropType.getCropType(pdc.get(cropKey, PersistentDataType.STRING));
+            return CropType.fromString(pdc.get(cropKey, PersistentDataType.STRING));
         }
 
         return null;
@@ -297,8 +301,18 @@ public class ItemSystem {
 
     public boolean isItemType(ItemStack itemStack, ItemType itemType) {
         if (itemStack == null || !itemStack.hasItemMeta()) return false;
+        
+        PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
 
-        return itemStack.getItemMeta().getPersistentDataContainer().has(makeItemTypeKey(itemType));
+        if (persistentDataContainer.has(itemTypeKey, PersistentDataType.STRING)) {
+            String keyValue = persistentDataContainer.get(itemTypeKey, PersistentDataType.STRING);
+            
+            for (ItemType itemType1 : ItemType.values()) {
+                if (keyValue.equals(ItemType.toString(itemType1))) return true;
+            }
+        }
+        
+        return false;
     }
 
     public boolean hasDamageStats(ItemStack item) {
@@ -346,23 +360,27 @@ public class ItemSystem {
     }
 
     private NamespacedKey makeKeyForStat(ItemStat stat) {
-        return new NamespacedKey(nmlItems, ItemStat.getStatString(stat).replaceAll(" ", ""));
+        return new NamespacedKey(nmlItems, ItemStat.toString(stat).replaceAll(" ", ""));
     }
 
-    public NamespacedKey makeItemTypeKey(ItemType type) {
-        return new NamespacedKey(nmlItems, ItemType.getItemTypeString(type));
+    public NamespacedKey getItemTypeKey() {
+        return itemTypeKey;
     }
 
-    public NamespacedKey makeItemRarityKey(ItemRarity rarity) {
-        return new NamespacedKey(nmlItems, ItemRarity.getItemRarityString(rarity));
-    }
-    
     public NamespacedKey getLevelKey() {
         return levelKey;
     }
 
     public NamespacedKey getOriginalNameKey() {
         return originalNameKey;
+    }
+
+    public NamespacedKey getArmorWeightKey() {
+        return armorWeightKey;
+    }
+
+    public NamespacedKey getRarityKey() {
+        return rarityKey;
     }
 
     public NamespacedKey getStarsKey() {

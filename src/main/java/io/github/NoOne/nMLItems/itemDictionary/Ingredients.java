@@ -3,10 +3,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
-import io.github.NoOne.nMLItems.enums.CropType;
-import io.github.NoOne.nMLItems.enums.IngredientType;
-import io.github.NoOne.nMLItems.enums.MaterialStars;
-import io.github.NoOne.nMLItems.enums.SeedType;
+import io.github.NoOne.nMLItems.enums.*;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -41,10 +38,10 @@ public class Ingredients {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(INGREDIENT), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.getIngredientTypeString(ingredientType));
+        pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
         itemStack.setItemMeta(meta);
     }
 }

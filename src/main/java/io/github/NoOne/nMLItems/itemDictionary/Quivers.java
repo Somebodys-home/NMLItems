@@ -26,11 +26,11 @@ public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(QUIVER, null, rarity);
         ItemStack quiver = ItemCreator.createItem(
-                ItemType.getItemTypeMaterial(QUIVER),
+                ItemType.toMaterial(QUIVER),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r " + ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() +
-                                " " + ItemType.getItemTypeString(QUIVER).toUpperCase(),
+                        "§o§fLv. " + level + "§r " + ItemRarity.toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() +
+                                " " + ItemType.toString(QUIVER).toUpperCase(),
                         ""
                 )
         );
@@ -38,8 +38,8 @@ public class Quivers {
         ItemMeta meta = quiver.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(QUIVER), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(QUIVER));
+        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);

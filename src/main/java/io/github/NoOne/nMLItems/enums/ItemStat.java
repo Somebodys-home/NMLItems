@@ -35,87 +35,73 @@ public enum ItemStat {
     YIELD,
     ACRE;
 
-    public static String getStatString(ItemStat stat) {
-        String statString;
-
-        switch (stat) {
-            case PHYSICALDAMAGE -> statString = "Physical Damage";
-            case FIREDAMAGE -> statString = "Fire Damage";
-            case COLDDAMAGE -> statString = "Cold Damage";
-            case EARTHDAMAGE -> statString = "Earth Damage";
-            case LIGHTNINGDAMAGE -> statString = "Lightning Damage";
-            case AIRDAMAGE -> statString = "Air Damage";
-            case RADIANTDAMAGE -> statString = "Radiant Damage";
-            case NECROTICDAMAGE -> statString = "Necrotic Damage";
-            case PUREDAMAGE -> statString = "Pure Damage";
-            case EVASION -> statString = "Evasion";
-            case DEFENSE -> statString = "Defense";
-            case OVERHEALTH -> statString = "Overhealth";
-            case GUARD -> statString = "Guard";
-            case PHYSICALRESIST -> statString = "Physical Resist";
-            case FIRERESIST -> statString = "Fire Resist";
-            case COLDRESIST -> statString = "Cold Resist";
-            case EARTHRESIST -> statString = "Earth Resist";
-            case LIGHTNINGRESIST -> statString = "Lightning Resist";
-            case AIRRESIST -> statString = "Air Resist";
-            case RADIANTRESIST -> statString = "Radiant Resist";
-            case NECROTICRESIST -> statString = "Necrotic Resist";
-            case CRITCHANCE -> statString = "Crit Chance";
-            case CRITDAMAGE -> statString = "Crit Damage";
-            case HARVEST -> statString = "Harvest";
-            case YIELD -> statString = "Yield";
-            case ACRE -> statString = "Acre";
-            default -> statString = "";
-        }
-
-        return statString;
+    public static String toString(ItemStat stat) {
+        return switch (stat) {
+            case PHYSICALDAMAGE -> "Physical Damage";
+            case FIREDAMAGE -> "Fire Damage";
+            case COLDDAMAGE -> "Cold Damage";
+            case EARTHDAMAGE -> "Earth Damage";
+            case LIGHTNINGDAMAGE -> "Lightning Damage";
+            case AIRDAMAGE -> "Air Damage";
+            case RADIANTDAMAGE -> "Radiant Damage";
+            case NECROTICDAMAGE -> "Necrotic Damage";
+            case PUREDAMAGE -> "Pure Damage";
+            case EVASION -> "Evasion";
+            case DEFENSE -> "Defense";
+            case OVERHEALTH -> "Overhealth";
+            case GUARD -> "Guard";
+            case PHYSICALRESIST -> "Physical Resist";
+            case FIRERESIST -> "Fire Resist";
+            case COLDRESIST -> "Cold Resist";
+            case EARTHRESIST -> "Earth Resist";
+            case LIGHTNINGRESIST -> "Lightning Resist";
+            case AIRRESIST -> "Air Resist";
+            case RADIANTRESIST -> "Radiant Resist";
+            case NECROTICRESIST -> "Necrotic Resist";
+            case CRITCHANCE -> "Crit Chance";
+            case CRITDAMAGE -> "Crit Damage";
+            case HARVEST -> "Harvest";
+            case YIELD -> "Yield";
+            case ACRE -> "Acre";
+        };
     }
 
-    public static ChatColor getStatColor(ItemStat stat) {
-        ChatColor color;
-
-        switch (stat) {
-            case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD -> color = ChatColor.WHITE;
-            case DEFENSE, HARVEST, YIELD, ACRE -> color = ChatColor.GREEN;
-            case OVERHEALTH -> color = ChatColor.DARK_BLUE;
-            case PHYSICALDAMAGE, PHYSICALRESIST -> color = ChatColor.DARK_RED;
-            case FIREDAMAGE, FIRERESIST -> color = ChatColor.RED;
-            case COLDDAMAGE, COLDRESIST -> color = ChatColor.AQUA;
-            case EARTHDAMAGE, EARTHRESIST -> color = ChatColor.DARK_GREEN;
-            case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> color = ChatColor.YELLOW;
-            case AIRDAMAGE, AIRRESIST -> color = ChatColor.GRAY;
-            case NECROTICDAMAGE, NECROTICRESIST -> color = ChatColor.DARK_PURPLE;
-            case CRITCHANCE, CRITDAMAGE -> color = ChatColor.BLUE;
-            default -> color = null;
-        }
-
-        return color;
+    public static ChatColor toChatColor(ItemStat stat) {
+        return switch (stat) {
+            case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD -> ChatColor.WHITE;
+            case DEFENSE, HARVEST, YIELD, ACRE -> ChatColor.GREEN;
+            case OVERHEALTH -> ChatColor.DARK_BLUE;
+            case PHYSICALDAMAGE, PHYSICALRESIST -> ChatColor.DARK_RED;
+            case FIREDAMAGE, FIRERESIST -> ChatColor.RED;
+            case COLDDAMAGE, COLDRESIST -> ChatColor.AQUA;
+            case EARTHDAMAGE, EARTHRESIST -> ChatColor.DARK_GREEN;
+            case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> ChatColor.YELLOW;
+            case AIRDAMAGE, AIRRESIST -> ChatColor.GRAY;
+            case NECROTICDAMAGE, NECROTICRESIST -> ChatColor.DARK_PURPLE;
+            case CRITCHANCE, CRITDAMAGE -> ChatColor.BLUE;
+        };
     }
 
     public static String getStatEmoji(ItemStat stat) {
-        String statEmoji;
-
-        switch (stat) {
-            case PHYSICALDAMAGE, PHYSICALRESIST -> statEmoji = "⚔";
-            case FIREDAMAGE, FIRERESIST -> statEmoji = "\uD83D\uDD25";
-            case COLDDAMAGE, COLDRESIST -> statEmoji = "❄";
-            case EARTHDAMAGE, EARTHRESIST -> statEmoji = "\uD83E\uDEA8";
-            case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> statEmoji = "\uD83D\uDDF2";
-            case AIRDAMAGE, AIRRESIST -> statEmoji = "☁";
-            case RADIANTDAMAGE, RADIANTRESIST -> statEmoji = "✦";
-            case NECROTICDAMAGE, NECROTICRESIST -> statEmoji = "\uD83C\uDF00";
-            case PUREDAMAGE -> statEmoji = "\uD83D\uDCA2";
-            case DEFENSE -> statEmoji = "\uD83D\uDEE1";
-            case GUARD -> statEmoji = "⛨";
-            case OVERHEALTH -> statEmoji = "\uD83D\uDC99";
-            case EVASION -> statEmoji = "\uD83D\uDCA8";
-            case CRITCHANCE, CRITDAMAGE -> statEmoji = "☠";
-            case YIELD -> statEmoji = "\uD83E\uDD55";
-            case ACRE -> statEmoji = "⚂";
-            case HARVEST -> statEmoji = "\uD83E\uDEB4";
-            default -> statEmoji = "";
-        }
-
-        return statEmoji;
+        return switch (stat) {
+            case PHYSICALDAMAGE, PHYSICALRESIST -> "⚔";
+            case FIREDAMAGE, FIRERESIST -> "\uD83D\uDD25";
+            case COLDDAMAGE, COLDRESIST -> "❄";
+            case EARTHDAMAGE, EARTHRESIST -> "\uD83E\uDEA8";
+            case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> "\uD83D\uDDF2";
+            case AIRDAMAGE, AIRRESIST -> "☁";
+            case RADIANTDAMAGE, RADIANTRESIST -> "✦";
+            case NECROTICDAMAGE, NECROTICRESIST -> "\uD83C\uDF00";
+            case PUREDAMAGE -> "\uD83D\uDCA2";
+            case DEFENSE -> "\uD83D\uDEE1";
+            case GUARD -> "⛨";
+            case OVERHEALTH -> "\uD83D\uDC99";
+            case EVASION -> "\uD83D\uDCA8";
+            case CRITCHANCE, CRITDAMAGE -> "☠";
+            case YIELD -> "\uD83E\uDD55";
+            case ACRE -> "⚂";
+            case HARVEST -> "\uD83E\uDEB4";
+            default -> "";
+        };
     }
 }

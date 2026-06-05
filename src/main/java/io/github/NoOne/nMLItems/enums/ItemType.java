@@ -33,15 +33,13 @@ public enum ItemType {
 
     // garden modifiers
     GARDEN_MODIFIER,
-    FERTILIZER,
-    WATERING_CAN,
 
     // misc
     SEED,
     CROP,
     INGREDIENT;
 
-    public static String getItemTypeString(ItemType type) {
+    public static String toString(ItemType type) {
         String itemTypeString;
 
         switch (type) {
@@ -68,8 +66,6 @@ public enum ItemType {
             case SEED -> itemTypeString = "Seed";
             case CROP ->  itemTypeString = "Crop";
             case GARDEN_MODIFIER -> itemTypeString = "Garden_Modifier";
-            case FERTILIZER -> itemTypeString = "Fertilizer";
-            case WATERING_CAN -> itemTypeString = "Watering_Can";
             case INGREDIENT ->  itemTypeString = "Ingredient";
             default -> itemTypeString = "";
         }
@@ -77,7 +73,7 @@ public enum ItemType {
         return itemTypeString;
     }
 
-    public static Material getItemTypeMaterial(ItemType type) {
+    public static Material toMaterial(ItemType type) {
         Material itemTypeMaterial;
 
         switch (type) {
@@ -100,12 +96,12 @@ public enum ItemType {
         return itemTypeMaterial;
     }
 
-    public static Material getItemTypeMaterial(ItemType type, ItemType type2) {
+    public static Material toMaterial(ItemType weight, ItemType type) {
         Material itemTypeMaterial = null;
 
-        switch (type) {
+        switch (weight) {
             case LIGHT -> {
-                switch (type2) {
+                switch (type) {
                     case HELMET -> itemTypeMaterial = Material.LEATHER_HELMET;
                     case CHESTPLATE -> itemTypeMaterial = Material.LEATHER_CHESTPLATE;
                     case LEGGINGS -> itemTypeMaterial = Material.LEATHER_LEGGINGS;
@@ -113,7 +109,7 @@ public enum ItemType {
                 }
             }
             case MEDIUM -> {
-                switch (type2) {
+                switch (type) {
                     case HELMET -> itemTypeMaterial = Material.CHAINMAIL_HELMET;
                     case CHESTPLATE -> itemTypeMaterial = Material.CHAINMAIL_CHESTPLATE;
                     case LEGGINGS -> itemTypeMaterial = Material.CHAINMAIL_LEGGINGS;
@@ -121,7 +117,7 @@ public enum ItemType {
                 }
             }
             case HEAVY -> {
-                switch (type2) {
+                switch (type) {
                     case HELMET -> itemTypeMaterial = Material.IRON_HELMET;
                     case CHESTPLATE -> itemTypeMaterial = Material.IRON_CHESTPLATE;
                     case LEGGINGS -> itemTypeMaterial = Material.IRON_LEGGINGS;
@@ -133,7 +129,7 @@ public enum ItemType {
         return itemTypeMaterial;
     }
 
-    public static ItemType getItemTypeFromString(String string) {
+    public static ItemType fromString(String string) {
         ItemType itemType;
 
         switch (string.toLowerCase()) {
@@ -159,7 +155,6 @@ public enum ItemType {
             case "hoe" -> itemType = HOE;
             case "seed" -> itemType = SEED;
             case "crop" -> itemType = CROP;
-            case "fertilizer" -> itemType = FERTILIZER;
             default -> itemType = null;
         }
 

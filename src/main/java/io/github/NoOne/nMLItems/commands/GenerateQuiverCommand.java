@@ -21,7 +21,7 @@ public class GenerateQuiverCommand implements CommandExecutor, TabCompleter {
         if (sender instanceof Player player) {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
-            ItemStack quiver = Quivers.generateQuiver(player, ItemRarity.getItemRarityFromString(rarity), level);
+            ItemStack quiver = Quivers.generateQuiver(player, ItemRarity.fromString(rarity), level);
 
             player.getInventory().addItem(quiver);
         }

@@ -21,30 +21,30 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 public class Armor {
     private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
 
-    public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType type, ItemType armorPiece, int level) {
-        String name = NameGenerator.generateItemName(type, armorPiece, rarity);
-        String title = "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD +
-                ItemRarity.getItemRarityString(rarity).toUpperCase() + " " + ItemType.getItemTypeString(type).toUpperCase() + " " +
-                ItemType.getItemTypeString(armorPiece).toUpperCase();
+    public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType weight, ItemType type, int level) {
+        String name = NameGenerator.generateItemName(weight, type, rarity);
+        String title = "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + ChatColor.BOLD +
+                ItemRarity.toString(rarity).toUpperCase() + " " + ItemType.toString(weight).toUpperCase() + " " +
+                ItemType.toString(type).toUpperCase();
 
         ItemStack armor = ItemCreator.createItem(
-                ItemType.getItemTypeMaterial(type, armorPiece),
+                ItemType.toMaterial(weight, type),
                 name,
                 List.of(title, "")
         );
         ItemMeta meta = armor.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(type), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemTypeKey(armorPiece), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
+        pdc.set(itemSystem.getArmorWeightKey(), PersistentDataType.STRING, ItemType.toString(weight));
+        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         meta.setUnbreakable(true);
         armor.setItemMeta(meta);
 
-        generateArmorStats(armor, type, rarity, level);
+        generateArmorStats(armor, weight, rarity, level);
         itemSystem.updateUnusableItemName(armor, itemSystem.isItemUsable(armor, receiver));
         return armor;
     }

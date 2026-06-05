@@ -28,11 +28,11 @@ public class Hoes {
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
         ItemStack hoe = ItemCreator.createItem(
-                ItemType.getItemTypeMaterial(ItemType.HOE),
+                ItemType.toMaterial(ItemType.HOE),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r " +  ItemRarity.getItemRarityColor(rarity) + ChatColor.BOLD + ItemRarity.getItemRarityString(rarity).toUpperCase() + " " +
-                                ItemType.getItemTypeString(ItemType.HOE).toUpperCase(),
+                        "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() + " " +
+                                ItemType.toString(ItemType.HOE).toUpperCase(),
                         ""
                 )
         );
@@ -40,8 +40,8 @@ public class Hoes {
         ItemMeta meta = hoe.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(ItemType.HOE), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemRarityKey(rarity), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.HOE));
+        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);

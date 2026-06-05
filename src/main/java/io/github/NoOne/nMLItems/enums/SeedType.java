@@ -6,25 +6,23 @@ public enum SeedType {
     JADE_SEEDS,
     RHUBARB_SEEDS;
 
-    public static String getSeedTypeString(SeedType seedType) {
-        switch (seedType) {
-            case WHEAT_SEEDS: return "wheat_seeds";
-            case SUGAR_CANE: return "sugar_cane";
-            case JADE_SEEDS: return "jade_seeds";
-            case RHUBARB_SEEDS: return "rhubarb_seeds";
-        }
-
-        return "";
+    public static String toString(SeedType seedType) {
+        return switch (seedType) {
+            case WHEAT_SEEDS -> "wheat_seeds";
+            case SUGAR_CANE -> "sugar_cane";
+            case JADE_SEEDS -> "jade_seeds";
+            case RHUBARB_SEEDS -> "rhubarb_seeds";
+        };
     }
 
-    public static SeedType getSeedType(String string) {
-        switch (string) {
-            case "wheat_seeds": return WHEAT_SEEDS;
-            case "sugar_cane": return SUGAR_CANE;
-            case "jade_seeds": return JADE_SEEDS;
-            case "rhubarb_seeds": return RHUBARB_SEEDS;
-        }
+    public static SeedType fromString(String string) {
+        return switch (string) {
+            case "wheat_seeds" -> WHEAT_SEEDS;
+            case "sugar_cane" -> SUGAR_CANE;
+            case "jade_seeds" -> JADE_SEEDS;
+            case "rhubarb_seeds" -> RHUBARB_SEEDS;
+            default -> null;
+        };
 
-        return null;
     }
 }

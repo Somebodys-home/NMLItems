@@ -2,6 +2,7 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.*;
 import io.github.NoOne.nMLItems.enums.CropType;
+import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.enums.MaterialStars;
 import io.github.NoOne.nMLItems.enums.SeedType;
 import net.matrixcreations.libraries.MatrixColorAPI;
@@ -97,10 +98,10 @@ public class Crops {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(CROP), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.getCropTypeString(cropType));
+        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
         itemStack.setItemMeta(meta);
     }
 
@@ -108,12 +109,12 @@ public class Crops {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.makeItemTypeKey(CROP), PersistentDataType.INTEGER, 1);
-        pdc.set(itemSystem.makeItemTypeKey(SEED), PersistentDataType.INTEGER, 1);
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
+        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.getCropTypeString(cropType));
-        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.getSeedTypeString(seedType));
+        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
+        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
         itemStack.setItemMeta(meta);
     }
 }

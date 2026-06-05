@@ -24,7 +24,7 @@ public class GenerateArmorCommand implements CommandExecutor, TabCompleter {
             String rarity = args[1];
             String type = args[2];
             String piece = args[3];
-            ItemStack armor = Armor.generateArmor(player, ItemRarity.getItemRarityFromString(rarity), ItemType.getItemTypeFromString(type), ItemType.getItemTypeFromString(piece), level);
+            ItemStack armor = Armor.generateArmor(player, ItemRarity.fromString(rarity), ItemType.fromString(type), ItemType.fromString(piece), level);
 
             player.getInventory().addItem(armor);
         }

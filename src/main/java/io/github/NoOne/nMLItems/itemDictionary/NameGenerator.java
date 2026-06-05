@@ -3,13 +3,10 @@ package io.github.NoOne.nMLItems.itemDictionary;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemType;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static io.github.NoOne.nMLItems.enums.ItemRarity.COMMON;
 import static io.github.NoOne.nMLItems.enums.ItemRarity.MYTHICAL;
 
 public class NameGenerator {
@@ -123,7 +120,7 @@ public class NameGenerator {
         nameSegments[nameSegments.length - 1] = possibleNames.get(ThreadLocalRandom.current().nextInt(possibleNames.size()));
 
         // finalizing name
-        String name = "" + ItemRarity.getItemRarityColor(rarity);
+        String name = "" + ItemRarity.toChatColor(rarity);
 
         for (int i = 0; i < nameSegments.length; i++) {
             if (i == nameSegments.length - 1) {
