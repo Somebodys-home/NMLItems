@@ -21,7 +21,7 @@ public class ItemSystem {
     private NMLItems nmlItems;
     private SkillSetManager skillSetManager;
     private NamespacedKey itemTypeKey;
-    private NamespacedKey armorWeightKey;
+    private NamespacedKey secondaryTypeKey;
     private NamespacedKey originalNameKey;
     private NamespacedKey rarityKey;
     private NamespacedKey levelKey;
@@ -35,14 +35,14 @@ public class ItemSystem {
         this.nmlItems = nmlItems;
         skillSetManager = nmlItems.getSkillSetManager();
         itemTypeKey = new NamespacedKey(nmlItems, "item_type");
-        armorWeightKey = new NamespacedKey(nmlItems, "armor_weight");
+        secondaryTypeKey = new NamespacedKey(nmlItems, "second_item_type");
         originalNameKey = new NamespacedKey(nmlItems, "original_name");
         rarityKey = new NamespacedKey(nmlItems, "rarity");
         levelKey = new NamespacedKey(nmlItems, "level");
         starsKey = new NamespacedKey(nmlItems, "stars");
         seedKey = new NamespacedKey(nmlItems, "seed");
         cropKey = new NamespacedKey(nmlItems, "crop");
-        cropKey = new NamespacedKey(nmlItems, "garden_modifier");
+        gardenModifierKey = new NamespacedKey(nmlItems, "garden_modifier");
         ingredientKey = new NamespacedKey(nmlItems, "ingredient");
     }
 
@@ -386,8 +386,8 @@ public class ItemSystem {
         return originalNameKey;
     }
 
-    public NamespacedKey getArmorWeightKey() {
-        return armorWeightKey;
+    public NamespacedKey getSecondaryTypeKey() {
+        return secondaryTypeKey;
     }
 
     public NamespacedKey getRarityKey() {

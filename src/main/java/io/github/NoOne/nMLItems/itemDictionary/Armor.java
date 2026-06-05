@@ -36,7 +36,7 @@ public class Armor {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
-        pdc.set(itemSystem.getArmorWeightKey(), PersistentDataType.STRING, ItemType.toString(weight));
+        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(weight));
         pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
