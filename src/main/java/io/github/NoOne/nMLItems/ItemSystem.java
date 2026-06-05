@@ -28,6 +28,7 @@ public class ItemSystem {
     private NamespacedKey starsKey;
     private NamespacedKey seedKey;
     private NamespacedKey cropKey;
+    private NamespacedKey gardenModifierKey;
     private NamespacedKey ingredientKey;
 
     public ItemSystem(NMLItems nmlItems) {
@@ -41,6 +42,7 @@ public class ItemSystem {
         starsKey = new NamespacedKey(nmlItems, "stars");
         seedKey = new NamespacedKey(nmlItems, "seed");
         cropKey = new NamespacedKey(nmlItems, "crop");
+        cropKey = new NamespacedKey(nmlItems, "garden_modifier");
         ingredientKey = new NamespacedKey(nmlItems, "ingredient");
     }
 
@@ -261,6 +263,15 @@ public class ItemSystem {
         return null;
     }
 
+    public CropType getGardenModifierType(ItemStack item) {
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(gardenModifierKey)) {
+            return CropType.fromString(pdc.get(gardenModifierKey, PersistentDataType.STRING));
+        }
+
+        return null;
+    }
 
     public int getLevel(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
@@ -308,7 +319,7 @@ public class ItemSystem {
             String keyValue = persistentDataContainer.get(itemTypeKey, PersistentDataType.STRING);
             
             for (ItemType itemType1 : ItemType.values()) {
-                if (keyValue.equals(ItemType.toString(itemType1))) return true;
+                if (keyValue.equals(ItemType.toString(itemType))) return true;
             }
         }
         
@@ -393,6 +404,10 @@ public class ItemSystem {
 
     public NamespacedKey getCropKey() {
         return cropKey;
+    }
+
+    public NamespacedKey getGardenModifierKey() {
+        return gardenModifierKey;
     }
 
     public NamespacedKey getIngredientKey() {
