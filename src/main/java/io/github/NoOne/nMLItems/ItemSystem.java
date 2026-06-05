@@ -263,11 +263,11 @@ public class ItemSystem {
         return null;
     }
 
-    public CropType getGardenModifierType(ItemStack item) {
+    public GardenModifier getGardenModifierType(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(gardenModifierKey)) {
-            return CropType.fromString(pdc.get(gardenModifierKey, PersistentDataType.STRING));
+            return GardenModifier.fromString(pdc.get(gardenModifierKey, PersistentDataType.STRING));
         }
 
         return null;
