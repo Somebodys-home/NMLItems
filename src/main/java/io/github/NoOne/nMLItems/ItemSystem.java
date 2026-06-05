@@ -317,12 +317,18 @@ public class ItemSystem {
 
         if (persistentDataContainer.has(itemTypeKey, PersistentDataType.STRING)) {
             String keyValue = persistentDataContainer.get(itemTypeKey, PersistentDataType.STRING);
-            
-            for (ItemType itemType1 : ItemType.values()) {
-                if (keyValue.equals(ItemType.toString(itemType))) return true;
+
+            if (keyValue.equals(ItemType.toString(itemType))) {
+                return true;
+            } else if (persistentDataContainer.has(secondaryTypeKey, PersistentDataType.STRING)) {
+                keyValue = persistentDataContainer.get(secondaryTypeKey, PersistentDataType.STRING);
+
+                if (keyValue.equals(ItemType.toString(itemType))) {
+                    return true;
+                }
             }
         }
-        
+
         return false;
     }
 

@@ -110,7 +110,7 @@ public class Crops {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
+        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
         pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
