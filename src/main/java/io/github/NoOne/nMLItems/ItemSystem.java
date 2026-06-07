@@ -294,7 +294,7 @@ public class ItemSystem {
     }
 
     public boolean isItemUsable(ItemStack item, Player player) {
-        if (item == null || !item.hasItemMeta()) {
+        if (item == null || !item.hasItemMeta() || getItemType(item) == null) {
             return false;
         }
 
