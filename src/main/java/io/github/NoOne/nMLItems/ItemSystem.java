@@ -376,6 +376,12 @@ public class ItemSystem {
         return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
     }
 
+    public boolean hasOriginalNameKey(ItemStack itemStack) {
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+
+        return itemStack.getItemMeta().getPersistentDataContainer().has(originalNameKey);
+    }
+
     public IngredientType getIngredientType(ItemStack item) {
         PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
 
