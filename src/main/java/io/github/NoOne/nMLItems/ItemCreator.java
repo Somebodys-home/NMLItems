@@ -27,6 +27,15 @@ public class ItemCreator {
         return item;
     }
 
+    public static ItemStack createItem(Material material, String displayName) {
+        ItemStack item = new ItemStack(material);
+        ItemMeta itemMeta = item.getItemMeta();
+
+        itemMeta.setDisplayName(displayName);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
     // used for menus in other dependencies
     public static ItemStack createBackoutButton() {
         return createItem(Material.BARRIER, "§c§l<- §r§cBack", List.of());

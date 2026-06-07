@@ -20,6 +20,7 @@ io\github\NoOne\nMLItems\enums\GardenModifier.class
 io\github\NoOne\nMLItems\NMLItems.class
 io\github\NoOne\nMLItems\enums\IngredientType.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
+io\github\NoOne\nMLItems\ItemListener.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Armor.class

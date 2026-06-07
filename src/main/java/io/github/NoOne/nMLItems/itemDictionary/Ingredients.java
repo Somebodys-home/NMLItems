@@ -4,19 +4,26 @@ import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.*;
+import io.papermc.paper.datacomponent.DataComponentType;
+import io.papermc.paper.datacomponent.item.PotionContents;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
+import static io.papermc.paper.datacomponent.DataComponentTypes.POTION_CONTENTS;
 
 public class Ingredients {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
+    private static NMLItems nmlItems = NMLItems.getInstance();
+    private static ItemSystem itemSystem = nmlItems.getItemSystem();
 
     public static ItemStack flour(int level, double stars, int amount) {
         ItemStack flour = ItemCreator.createItem(
@@ -34,6 +41,39 @@ public class Ingredients {
         return flour;
     }
 
+    public static ItemStack dough(int level, double stars, int amount) {
+        ItemStack flour = ItemCreator.createItem(
+                Material.SNOWBALL,
+                amount,
+                MatrixColorAPI.process("<SOLID:#f0e5c7>Dough"),
+                List.of(
+                        "§8Lv. " + level + " Ingredient",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
+
+        setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
+        return flour;
+    }
+
+    public static ItemStack bottleOfWater(int level, double stars, int amount) {
+        ItemStack bottleOfWater = ItemCreator.createItem(
+                Material.POTION,
+                amount,
+                MatrixColorAPI.process("§bBottle of Water"),
+                List.of(
+                        "§8Lv. " + level + " Ingredient",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
+
+        bottleOfWater.unsetData(POTION_CONTENTS);
+        setIngredientKeys(bottleOfWater, IngredientType.WATER, level, stars);
+        return bottleOfWater;
+    }
+
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -42,6 +82,7 @@ public class Ingredients {
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
         pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        pdc.set(new NamespacedKey(nmlItems, "unusable"), PersistentDataType.BOOLEAN, true);
         itemStack.setItemMeta(meta);
     }
 }
