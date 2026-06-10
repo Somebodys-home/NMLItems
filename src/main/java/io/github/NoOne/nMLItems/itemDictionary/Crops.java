@@ -1,10 +1,7 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.*;
-import io.github.NoOne.nMLItems.enums.CropType;
-import io.github.NoOne.nMLItems.enums.ItemType;
-import io.github.NoOne.nMLItems.enums.MaterialStars;
-import io.github.NoOne.nMLItems.enums.SeedType;
+import io.github.NoOne.nMLItems.enums.*;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -31,7 +28,11 @@ public class Crops {
                         "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
+        ItemMeta meta = wheatBundle.getItemMeta();
+        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
 
+        persistentDataContainer.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(IngredientType.GRAIN));
+        wheatBundle.setItemMeta(meta);
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
         return wheatBundle;
     }

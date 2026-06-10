@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.commands;
 
+import io.github.NoOne.nMLItems.itemDictionary.Crops;
 import io.github.NoOne.nMLItems.itemDictionary.Ingredients;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,7 +25,7 @@ public class GenerateIngredientCommand implements CommandExecutor, TabCompleter 
             int amount = Integer.parseInt(args[3]);
 
             switch (name) {
-                case "flour" -> player.getInventory().addItem(Ingredients.flour(level, stars, amount));
+                case "flour" -> player.getInventory().addItem(Ingredients.flour(Crops.wheatBundle(level, stars, 1), amount));
                 case "dough" -> player.getInventory().addItem(Ingredients.dough(level, stars, amount));
                 case "water" -> player.getInventory().addItem(Ingredients.bottleOfWater(level, stars, amount));
             }

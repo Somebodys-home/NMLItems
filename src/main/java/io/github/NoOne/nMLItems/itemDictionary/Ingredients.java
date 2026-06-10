@@ -25,11 +25,14 @@ public class Ingredients {
     private static NMLItems nmlItems = NMLItems.getInstance();
     private static ItemSystem itemSystem = nmlItems.getItemSystem();
 
-    public static ItemStack flour(int level, double stars, int amount) {
+    public static ItemStack flour(ItemStack inputItem, int amount) {
+        String firstName = inputItem.getItemMeta().getDisplayName().substring(2).split(" ")[0];
+        int level = itemSystem.getLevel(inputItem);
+        double stars = itemSystem.getStars(inputItem);
         ItemStack flour = ItemCreator.createItem(
                 Material.SUGAR,
                 amount,
-                MatrixColorAPI.process("<SOLID:#f0e5c7>Flour"),
+                MatrixColorAPI.process("<SOLID:#f0e5c7>" + firstName + " Flour"),
                 List.of(
                         "§8Lv. " + level + " Ingredient",
                         "",

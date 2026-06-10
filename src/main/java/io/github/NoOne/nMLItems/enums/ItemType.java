@@ -34,9 +34,11 @@ public enum ItemType {
     // garden modifiers
     GARDEN_MODIFIER,
 
-    // misc
+    // farming
     SEED,
     CROP,
+
+    // cooking
     INGREDIENT;
 
     public static String toString(ItemType type) {
