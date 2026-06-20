@@ -77,6 +77,22 @@ public class Ingredients {
         return bottleOfWater;
     }
 
+    public static ItemStack sugar(int level, double stars, int amount) {
+        ItemStack flour = ItemCreator.createItem(
+                Material.SUGAR,
+                amount,
+                MatrixColorAPI.process("<SOLID:#e6faf7>Sugar"),
+                List.of(
+                        "§8Lv. " + level + " Ingredient",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
+
+        setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
+        return flour;
+    }
+
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();

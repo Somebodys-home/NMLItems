@@ -28,11 +28,7 @@ public class Crops {
                         "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
-        ItemMeta meta = wheatBundle.getItemMeta();
-        PersistentDataContainer persistentDataContainer = meta.getPersistentDataContainer();
 
-        persistentDataContainer.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(IngredientType.GRAIN));
-        wheatBundle.setItemMeta(meta);
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
         return wheatBundle;
     }
