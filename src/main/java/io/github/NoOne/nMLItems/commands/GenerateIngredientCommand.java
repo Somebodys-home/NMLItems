@@ -25,8 +25,9 @@ public class GenerateIngredientCommand implements CommandExecutor, TabCompleter 
             int amount = Integer.parseInt(args[3]);
 
             switch (name) {
-                case "flour" -> player.getInventory().addItem(Ingredients.flour(Crops.wheatBundle(level, stars, 1), amount));
-                case "dough" -> player.getInventory().addItem(Ingredients.dough(level, stars, amount));
+                case "flour" -> player.getInventory().addItem(Ingredients.flour(Crops.wheatBundle(1, 1, 1), amount));
+                case "pie_crust" -> player.getInventory().addItem(Ingredients.pieCrust(level, stars, amount));
+                case "baked_pie_crust" -> player.getInventory().addItem(Ingredients.bakedPieCrust(level, stars, amount));
                 case "water" -> player.getInventory().addItem(Ingredients.bottleOfWater(level, stars, amount));
                 case "sugar" -> player.getInventory().addItem(Ingredients.sugar(level, stars, amount));
             }
@@ -38,7 +39,7 @@ public class GenerateIngredientCommand implements CommandExecutor, TabCompleter 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("flour", "dough", "water", "sugar")).stream()
+            return new ArrayList<>(List.of("flour", "pie_crust", "baked_pie_crust", "water", "sugar")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {

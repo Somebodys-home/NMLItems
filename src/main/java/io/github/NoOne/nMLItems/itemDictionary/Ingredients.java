@@ -44,11 +44,11 @@ public class Ingredients {
         return flour;
     }
 
-    public static ItemStack dough(int level, double stars, int amount) {
-        ItemStack flour = ItemCreator.createItem(
-                Material.SNOWBALL,
+    public static ItemStack pieCrust(int level, double stars, int amount) {
+        ItemStack pieCrust = ItemCreator.createItem(
+                Material.MUSHROOM_STEW,
                 amount,
-                MatrixColorAPI.process("<SOLID:#f0e5c7>Dough"),
+                MatrixColorAPI.process("<SOLID:#f0e5c7>Pie Crust"),
                 List.of(
                         "§8Lv. " + level + " Ingredient",
                         "",
@@ -56,8 +56,24 @@ public class Ingredients {
                 )
         );
 
-        setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
-        return flour;
+        setIngredientKeys(pieCrust, IngredientType.PIE_CRUST, level, stars);
+        return pieCrust;
+    }
+
+    public static ItemStack bakedPieCrust(int level, double stars, int amount) {
+        ItemStack pieCrust = ItemCreator.createItem(
+                Material.BOWL,
+                amount,
+                MatrixColorAPI.process("<SOLID:#DB9015>Baked Pie Crust"),
+                List.of(
+                        "§8Lv. " + level + " Ingredient",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
+
+        setIngredientKeys(pieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
+        return pieCrust;
     }
 
     public static ItemStack bottleOfWater(int level, double stars, int amount) {

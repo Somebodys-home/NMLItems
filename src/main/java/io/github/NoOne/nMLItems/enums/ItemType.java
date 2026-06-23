@@ -42,37 +42,32 @@ public enum ItemType {
     INGREDIENT;
 
     public static String toString(ItemType type) {
-        String itemTypeString;
-
-        switch (type) {
-            case SWORD -> itemTypeString = "Sword";
-            case DAGGER -> itemTypeString = "Dagger";
-            case AXE -> itemTypeString = "Axe";
-            case HAMMER -> itemTypeString = "Hammer";
-            case SPEAR -> itemTypeString = "Spear";
-            case GLOVE -> itemTypeString = "Glove";
-            case BOW -> itemTypeString = "Bow";
-            case WAND -> itemTypeString = "Wand";
-            case STAFF -> itemTypeString = "Staff";
-            case CATALYST -> itemTypeString = "Catalyst";
-            case HELMET -> itemTypeString = "Helmet";
-            case CHESTPLATE -> itemTypeString = "Chestplate";
-            case LEGGINGS -> itemTypeString = "Leggings";
-            case BOOTS -> itemTypeString = "Boots";
-            case LIGHT -> itemTypeString = "Light";
-            case MEDIUM -> itemTypeString = "Medium";
-            case HEAVY -> itemTypeString = "Heavy";
-            case SHIELD -> itemTypeString = "Shield";
-            case QUIVER -> itemTypeString = "Quiver";
-            case HOE -> itemTypeString = "Hoe";
-            case SEED -> itemTypeString = "Seed";
-            case CROP ->  itemTypeString = "Crop";
-            case GARDEN_MODIFIER -> itemTypeString = "Garden_Modifier";
-            case INGREDIENT ->  itemTypeString = "Ingredient";
-            default -> itemTypeString = "";
-        }
-
-        return itemTypeString;
+        return switch (type) {
+            case SWORD -> "Sword";
+            case DAGGER -> "Dagger";
+            case AXE -> "Axe";
+            case HAMMER -> "Hammer";
+            case SPEAR -> "Spear";
+            case GLOVE -> "Glove";
+            case BOW -> "Bow";
+            case WAND -> "Wand";
+            case STAFF -> "Staff";
+            case CATALYST -> "Catalyst";
+            case HELMET -> "Helmet";
+            case CHESTPLATE -> "Chestplate";
+            case LEGGINGS -> "Leggings";
+            case BOOTS -> "Boots";
+            case LIGHT -> "Light";
+            case MEDIUM -> "Medium";
+            case HEAVY -> "Heavy";
+            case SHIELD -> "Shield";
+            case QUIVER -> "Quiver";
+            case HOE -> "Hoe";
+            case SEED -> "Seed";
+            case CROP ->  "Crop";
+            case GARDEN_MODIFIER -> "Garden_Modifier";
+            case INGREDIENT ->  "Ingredient";
+        };
     }
 
     public static Material toMaterial(ItemType type) {
@@ -132,35 +127,32 @@ public enum ItemType {
     }
 
     public static ItemType fromString(String string) {
-        ItemType itemType;
-
-        switch (string.toLowerCase()) {
-            case "sword" -> itemType = SWORD;
-            case "dagger" -> itemType = DAGGER;
-            case "axe" -> itemType = AXE;
-            case "hammer" -> itemType = HAMMER;
-            case "spear" -> itemType = SPEAR;
-            case "glove" -> itemType = GLOVE;
-            case "bow" -> itemType = BOW;
-            case "wand" -> itemType = WAND;
-            case "staff" -> itemType = STAFF;
-            case "catalyst" -> itemType = CATALYST;
-            case "helmet" -> itemType = HELMET;
-            case "chestplate" -> itemType = CHESTPLATE;
-            case "leggings" -> itemType = LEGGINGS;
-            case "boots" -> itemType = BOOTS;
-            case "light" -> itemType = LIGHT;
-            case "medium" -> itemType = MEDIUM;
-            case "heavy" -> itemType = HEAVY;
-            case "shield" -> itemType = SHIELD;
-            case "quiver" -> itemType = QUIVER;
-            case "hoe" -> itemType = HOE;
-            case "seed" -> itemType = SEED;
-            case "crop" -> itemType = CROP;
-            default -> itemType = null;
-        }
-
-        return itemType;
+        return switch (string.toLowerCase()) {
+            case "sword" -> SWORD;
+            case "dagger" -> DAGGER;
+            case "axe" -> AXE;
+            case "hammer" -> HAMMER;
+            case "spear" -> SPEAR;
+            case "glove" -> GLOVE;
+            case "bow" -> BOW;
+            case "wand" -> WAND;
+            case "staff" -> STAFF;
+            case "catalyst" -> CATALYST;
+            case "helmet" -> HELMET;
+            case "chestplate" -> CHESTPLATE;
+            case "leggings" -> LEGGINGS;
+            case "boots" -> BOOTS;
+            case "light" -> LIGHT;
+            case "medium" -> MEDIUM;
+            case "heavy" -> HEAVY;
+            case "shield" -> SHIELD;
+            case "quiver" -> QUIVER;
+            case "hoe" -> HOE;
+            case "seed" -> SEED;
+            case "crop" -> CROP;
+            case "ingredient" -> INGREDIENT;
+            default -> null;
+        };
     }
 
     public static ItemType[] getAllWeaponTypes() {

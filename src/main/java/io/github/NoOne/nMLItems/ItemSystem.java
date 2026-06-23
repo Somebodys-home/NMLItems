@@ -70,62 +70,6 @@ public class ItemSystem {
         }
     }
 
-    public boolean hasStat(ItemStack item, ItemStat stat) {
-        if (item == null || !item.hasItemMeta()) return false;
-
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        return pdc.has(makeKeyForStat(stat), PersistentDataType.DOUBLE);
-    }
-
-    public double getStatValue(ItemStack item, ItemStat stat) {
-        ItemMeta meta = item.getItemMeta();
-        assert meta != null;
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        if (hasStat(item, stat)) {
-            return pdc.get(makeKeyForStat(stat), PersistentDataType.DOUBLE);
-        }
-
-        return 0;
-    }
-
-    public HashMap<ItemStat, Double> getAllStats(ItemStack item) {
-        HashMap<ItemStat, Double> stats = new HashMap<>();
-
-        for (ItemStat stat : ItemStat.values()) {
-            if (hasStat(item, stat)) {
-                stats.put(stat, getStatValue(item, stat));
-            }
-        }
-        return stats;
-    }
-
-    public ItemType getItemType(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return null;
-
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
-
-        if (pdc.has(itemTypeKey, PersistentDataType.STRING)) {
-            return ItemType.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
-        }
-
-        return null;
-    }
-
-    public ItemRarity getItemRarity(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return null;
-
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
-
-        if (pdc.has(rarityKey, PersistentDataType.STRING)) {
-            return ItemRarity.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
-        }
-
-        return null;
-    }
-
     public void updateLoreWithStats(ItemStack item) {
         ItemMeta meta = item.getItemMeta();
         List<String> originalLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
@@ -141,7 +85,7 @@ public class ItemSystem {
 
                     switch (stat) {
                         case CRITCHANCE, CRITDAMAGE -> addedLore.add(ItemStat.toChatColor(stat) + "+ " + valueInt + "% " +
-                                                                    ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
+                                ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
                         default ->  addedLore.add(ItemStat.toChatColor(stat) + "+ " + valueInt + " " + ItemStat.toString(stat) + " " + ItemStat.getStatEmoji(stat));
                     }
                 });
@@ -165,6 +109,60 @@ public class ItemSystem {
         meta.setLore(addedLore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         item.setItemMeta(meta);
+    }
+
+    public void updateUnusableItemName(ItemStack item, boolean usable) {
+        ItemMeta meta = item.getItemMeta();
+        String originalName = getOriginalItemName(item);
+        String editedName;
+
+        if (!usable) {
+            editedName = originalName.replaceAll("§[0-9a-fk-or]", "");
+            editedName = "§c§m" + editedName;
+        } else {
+            editedName = originalName;
+        }
+
+        // Only update if the name is actually different
+        if (editedName != null && !editedName.equals(meta.getDisplayName())) {
+            meta.setDisplayName(editedName);
+            item.setItemMeta(meta);
+        }
+    }
+
+    public HashMap<ItemStat, Double> getAllStats(ItemStack item) {
+        HashMap<ItemStat, Double> stats = new HashMap<>();
+
+        for (ItemStat stat : ItemStat.values()) {
+            if (hasStat(item, stat)) {
+                stats.put(stat, getStatValue(item, stat));
+            }
+        }
+        return stats;
+    }
+
+    public ItemType getItemType(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
+
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(itemTypeKey)) {
+            return ItemType.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
+        }
+
+        return null;
+    }
+
+    public ItemRarity getItemRarity(ItemStack item) {
+        if (item == null || !item.hasItemMeta()) return null;
+
+        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+
+        if (pdc.has(rarityKey, PersistentDataType.STRING)) {
+            return ItemRarity.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
+        }
+
+        return null;
     }
 
     public HashMap<ItemStat, Double> getAllDamageStats(ItemStack item) {
@@ -191,6 +189,18 @@ public class ItemSystem {
         return multipliedDamage;
     }
 
+    public double getStatValue(ItemStack item, ItemStat stat) {
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        if (hasStat(item, stat)) {
+            return pdc.get(makeKeyForStat(stat), PersistentDataType.DOUBLE);
+        }
+
+        return 0;
+    }
+
     public double getTotalDamageOfItem(ItemStack item) {
         HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
         double totalDamage = 0;
@@ -211,25 +221,6 @@ public class ItemSystem {
         }
 
         return pdc.get(originalNameKey, PersistentDataType.STRING);
-    }
-
-    public void updateUnusableItemName(ItemStack item, boolean usable) {
-        ItemMeta meta = item.getItemMeta();
-        String originalName = getOriginalItemName(item);
-        String editedName;
-
-        if (!usable) {
-            editedName = originalName.replaceAll("§[0-9a-fk-or]", "");
-            editedName = "§c§m" + editedName;
-        } else {
-            editedName = originalName;
-        }
-
-        // Only update if the name is actually different
-        if (editedName != null && !editedName.equals(meta.getDisplayName())) {
-            meta.setDisplayName(editedName);
-            item.setItemMeta(meta);
-        }
     }
 
     public HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack item) {
@@ -291,6 +282,15 @@ public class ItemSystem {
         }
 
         return 0;
+    }
+
+    public boolean hasStat(ItemStack item, ItemStat stat) {
+        if (item == null || !item.hasItemMeta()) return false;
+
+        ItemMeta meta = item.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        return pdc.has(makeKeyForStat(stat), PersistentDataType.DOUBLE);
     }
 
     public boolean isItemUsable(ItemStack item, Player player) {
