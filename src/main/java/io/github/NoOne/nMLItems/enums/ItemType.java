@@ -31,15 +31,15 @@ public enum ItemType {
     // tools
     HOE,
 
-    // garden modifiers
-    GARDEN_MODIFIER,
-
     // farming
     SEED,
     CROP,
+    GARDEN_MODIFIER,
 
     // cooking
-    INGREDIENT;
+    INGREDIENT,
+
+    MISC;
 
     public static String toString(ItemType type) {
         return switch (type) {
@@ -67,6 +67,7 @@ public enum ItemType {
             case CROP ->  "Crop";
             case GARDEN_MODIFIER -> "Garden_Modifier";
             case INGREDIENT ->  "Ingredient";
+            case MISC -> "Misc";
         };
     }
 
@@ -151,6 +152,7 @@ public enum ItemType {
             case "seed" -> SEED;
             case "crop" -> CROP;
             case "ingredient" -> INGREDIENT;
+            case "misc" -> MISC;
             default -> null;
         };
     }

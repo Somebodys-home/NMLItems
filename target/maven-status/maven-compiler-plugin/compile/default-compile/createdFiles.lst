@@ -32,6 +32,7 @@ io\github\NoOne\nMLItems\enums\SeedType.class
 io\github\NoOne\nMLItems\commands\GenerateHoeCommand.class
 io\github\NoOne\nMLItems\commands\GenerateQuiverCommand.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator$1.class
+io\github\NoOne\nMLItems\itemDictionary\Miscellaneous.class
 io\github\NoOne\nMLItems\commands\GenerateIngredientCommand.class
 io\github\NoOne\nMLItems\enums\ItemType.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers.class
