@@ -4,6 +4,7 @@ import io.github.NoOne.nMLItems.*;
 import io.github.NoOne.nMLItems.enums.*;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static io.github.NoOne.nMLItems.enums.ItemType.CROP;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
 
 public class Crops {
     private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
@@ -88,6 +90,7 @@ public class Crops {
         );
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
+        rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
         return rhubarb;
     }
 

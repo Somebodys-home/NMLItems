@@ -4,8 +4,10 @@ import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.*;
+import net.kyori.adventure.key.Key;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -14,7 +16,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
-import static io.papermc.paper.datacomponent.DataComponentTypes.POTION_CONTENTS;
+import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
 public class Ingredients {
     private static NMLItems nmlItems = NMLItems.getInstance();
@@ -52,6 +54,7 @@ public class Ingredients {
         );
 
         setIngredientKeys(pieCrust, IngredientType.PIE_CRUST, level, stars);
+        pieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "pie_crust"));
         return pieCrust;
     }
 
@@ -66,11 +69,9 @@ public class Ingredients {
                         "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
-        ItemMeta meta = bakedPieCrust.getItemMeta();
-
-        meta.setMaxStackSize(1);
-        bakedPieCrust.setItemMeta(meta);
         setIngredientKeys(bakedPieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
+        bakedPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
+        bakedPieCrust.setData(MAX_STACK_SIZE, 1);
         return bakedPieCrust;
     }
 
