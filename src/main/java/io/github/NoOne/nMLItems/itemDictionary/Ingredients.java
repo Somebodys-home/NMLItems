@@ -4,16 +4,18 @@ import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.*;
-import net.kyori.adventure.key.Key;
 import net.matrixcreations.libraries.MatrixColorAPI;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
@@ -75,6 +77,52 @@ public class Ingredients {
         return bakedPieCrust;
     }
 
+    public static ItemStack filledPieCrust(List<ItemStack> filledItems, int level, double stars, int amount) {
+        LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
+        List<String> lore = new ArrayList<>(List.of("§8Lv. " + level + " Ingredient", "", "§7§nFilled with:"));
+
+        for (ItemStack item : filledItems) { // putting the list of items into a map to count em
+            String name = item.getItemMeta().getDisplayName();
+
+            if (filledMap.containsKey(name)) {
+                filledMap.put(name, filledMap.get(name) + 1);
+            } else {
+                filledMap.put(name, 1);
+            }
+        }
+
+        filledMap = filledMap.entrySet() // sorting the map from highest to lowest
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, _) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        for (Map.Entry<String, Integer> entry : filledMap.entrySet()) { // turning every item and its count into a string
+            int count = entry.getValue();
+            String string = "§7 - " + ChatColor.stripColor(entry.getKey());
+
+            if (entry.getValue() > 1) {
+                string += " §r§8§ox" + count;
+            }
+
+            lore.add(string);
+        }
+
+        lore.addAll(List.of("", "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"));
+
+        ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, amount, MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
+
+        setIngredientKeys(filledPieCrust, IngredientType.FILLED_PIE_CRUST, level, stars);
+        setFilledWithKey(filledPieCrust, filledItems);
+        filledPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
+        filledPieCrust.setData(MAX_STACK_SIZE, 1);
+        return filledPieCrust;
+    }
+
     public static ItemStack bottleOfWater(int level, double stars, int amount) {
         ItemStack bottleOfWater = ItemCreator.createItem(
                 Material.POTION,
@@ -116,6 +164,16 @@ public class Ingredients {
         pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
         pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        itemStack.setItemMeta(meta);
+    }
+
+    private static void setFilledWithKey(ItemStack itemStack, List<ItemStack> filledItems) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        byte[] bytes = ItemStack.serializeItemsAsBytes(filledItems);
+        String encodedItemsString = Base64.getEncoder().encodeToString(bytes);
+
+        pdc.set(nmlItems.getItemSystem().getFilledWithKey(), PersistentDataType.STRING, encodedItemsString);
         itemStack.setItemMeta(meta);
     }
 }

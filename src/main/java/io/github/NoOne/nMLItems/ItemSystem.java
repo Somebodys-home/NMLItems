@@ -30,6 +30,7 @@ public class ItemSystem {
     private NamespacedKey cropKey;
     private NamespacedKey gardenModifierKey;
     private NamespacedKey ingredientKey;
+    private NamespacedKey filledWithKey;
 
     public ItemSystem(NMLItems nmlItems) {
         this.nmlItems = nmlItems;
@@ -44,6 +45,7 @@ public class ItemSystem {
         cropKey = new NamespacedKey(nmlItems, "crop");
         gardenModifierKey = new NamespacedKey(nmlItems, "garden_modifier");
         ingredientKey = new NamespacedKey(nmlItems, "ingredient");
+        filledWithKey = new NamespacedKey(nmlItems, "filled_with");
     }
 
     public void setStat(ItemStack item, ItemStat stat, double amount) {
@@ -392,6 +394,11 @@ public class ItemSystem {
         return null;
     }
 
+    public boolean hasFilledWithKey(ItemStack itemStack) {
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+
+        return itemStack.getItemMeta().getPersistentDataContainer().has(filledWithKey);
+    }
 
     private NamespacedKey makeKeyForStat(ItemStat stat) {
         return new NamespacedKey(nmlItems, ItemStat.toString(stat).replaceAll(" ", ""));
@@ -435,5 +442,9 @@ public class ItemSystem {
 
     public NamespacedKey getIngredientKey() {
         return ingredientKey;
+    }
+
+    public NamespacedKey getFilledWithKey() {
+        return filledWithKey;
     }
 }

@@ -12,8 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.enums.ItemType.CROP;
-import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
+import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
 
 public class Crops {
@@ -81,7 +80,7 @@ public class Crops {
                 amount,
                 MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb"),
                 List.of(
-                        "§8Lv. " + level + " Crop",
+                        "§8Lv. " + level + " Crop, Ingredient",
                         "",
                         "§7§oRhuBARB indeed. Ow.",
                         "",
@@ -90,6 +89,7 @@ public class Crops {
         );
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
+        setIngredientKey(rhubarb, IngredientType.RHUBARB);
         rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
         return rhubarb;
     }
@@ -115,6 +115,15 @@ public class Crops {
         pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
         pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
         pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
+        itemStack.setItemMeta(meta);
+    }
+
+    private static void setIngredientKey(ItemStack itemStack, IngredientType ingredientType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
+        pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
         itemStack.setItemMeta(meta);
     }
 }
