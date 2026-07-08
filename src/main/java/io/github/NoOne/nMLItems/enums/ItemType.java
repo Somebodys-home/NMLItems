@@ -38,6 +38,7 @@ public enum ItemType {
 
     // cooking
     INGREDIENT,
+    FOOD,
 
     MISC;
 
@@ -64,34 +65,62 @@ public enum ItemType {
             case QUIVER -> "Quiver";
             case HOE -> "Hoe";
             case SEED -> "Seed";
-            case CROP ->  "Crop";
+            case CROP -> "Crop";
             case GARDEN_MODIFIER -> "Garden_Modifier";
-            case INGREDIENT ->  "Ingredient";
+            case INGREDIENT -> "Ingredient";
+            case FOOD -> "Food";
             case MISC -> "Misc";
         };
     }
 
+    public static ItemType fromString(String string) {
+        return switch (string.toLowerCase()) {
+            case "sword" -> SWORD;
+            case "dagger" -> DAGGER;
+            case "axe" -> AXE;
+            case "hammer" -> HAMMER;
+            case "spear" -> SPEAR;
+            case "glove" -> GLOVE;
+            case "bow" -> BOW;
+            case "wand" -> WAND;
+            case "staff" -> STAFF;
+            case "catalyst" -> CATALYST;
+            case "helmet" -> HELMET;
+            case "chestplate" -> CHESTPLATE;
+            case "leggings" -> LEGGINGS;
+            case "boots" -> BOOTS;
+            case "light" -> LIGHT;
+            case "medium" -> MEDIUM;
+            case "heavy" -> HEAVY;
+            case "shield" -> SHIELD;
+            case "quiver" -> QUIVER;
+            case "hoe" -> HOE;
+            case "seed" -> SEED;
+            case "crop" -> CROP;
+            case "ingredient" -> INGREDIENT;
+            case "food" -> FOOD;
+            case "misc" -> MISC;
+            default -> null;
+        };
+    }
+
     public static Material toMaterial(ItemType type) {
-        Material itemTypeMaterial;
-
-        switch (type) {
-            case SWORD -> itemTypeMaterial = Material.IRON_SWORD;
-            case DAGGER -> itemTypeMaterial = Material.WOODEN_SWORD;
-            case AXE -> itemTypeMaterial = Material.IRON_AXE;
-            case HAMMER -> itemTypeMaterial = Material.MACE;
-            case SPEAR -> itemTypeMaterial = Material.IRON_SPEAR;
-            case GLOVE -> itemTypeMaterial = Material.RED_WOOL;
-            case BOW -> itemTypeMaterial = Material.BOW;
-            case WAND -> itemTypeMaterial = Material.STICK;
-            case STAFF -> itemTypeMaterial = Material.WOODEN_HOE;
-            case CATALYST -> itemTypeMaterial = Material.ENCHANTED_BOOK;
-            case SHIELD -> itemTypeMaterial = Material.SHIELD;
-            case QUIVER -> itemTypeMaterial = Material.ARROW;
-            case HOE -> itemTypeMaterial = Material.IRON_HOE;
-            default -> itemTypeMaterial = null;
-        }
-
-        return itemTypeMaterial;
+        return switch (type) {
+            case SWORD -> Material.IRON_SWORD;
+            case DAGGER -> Material.WOODEN_SWORD;
+            case AXE -> Material.IRON_AXE;
+            case HAMMER -> Material.MACE;
+            case SPEAR -> Material.IRON_SPEAR;
+            case GLOVE -> Material.RED_WOOL;
+            case BOW -> Material.BOW;
+            case WAND -> Material.STICK;
+            case STAFF -> Material.WOODEN_HOE;
+            case CATALYST -> Material.ENCHANTED_BOOK;
+            case SHIELD -> Material.SHIELD;
+            case QUIVER -> Material.ARROW;
+            case HOE -> Material.IRON_HOE;
+            default -> null;
+        };
     }
 
     public static Material toMaterial(ItemType weight, ItemType type) {
@@ -125,36 +154,6 @@ public enum ItemType {
         }
 
         return itemTypeMaterial;
-    }
-
-    public static ItemType fromString(String string) {
-        return switch (string.toLowerCase()) {
-            case "sword" -> SWORD;
-            case "dagger" -> DAGGER;
-            case "axe" -> AXE;
-            case "hammer" -> HAMMER;
-            case "spear" -> SPEAR;
-            case "glove" -> GLOVE;
-            case "bow" -> BOW;
-            case "wand" -> WAND;
-            case "staff" -> STAFF;
-            case "catalyst" -> CATALYST;
-            case "helmet" -> HELMET;
-            case "chestplate" -> CHESTPLATE;
-            case "leggings" -> LEGGINGS;
-            case "boots" -> BOOTS;
-            case "light" -> LIGHT;
-            case "medium" -> MEDIUM;
-            case "heavy" -> HEAVY;
-            case "shield" -> SHIELD;
-            case "quiver" -> QUIVER;
-            case "hoe" -> HOE;
-            case "seed" -> SEED;
-            case "crop" -> CROP;
-            case "ingredient" -> INGREDIENT;
-            case "misc" -> MISC;
-            default -> null;
-        };
     }
 
     public static ItemType[] getAllWeaponTypes() {

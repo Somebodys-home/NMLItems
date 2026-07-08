@@ -15,8 +15,8 @@ commands:
   generateHoe:
     description: Generates a random hoe
     usage: /<command> <level> <rarity>
-  generateMaterial:
-    description: Generates a material item
+  generateCrop:
+    description: Generates a crop item
     usage: /<command> <name> <level> <stars> <amount>
   generateItem:
     description: Generates an item
@@ -26,4 +26,7 @@ commands:
     usage: /<command> <level> <rarity> <type>
   generateIngredient:
     description: Generates an ingredient item
+    usage: /<command> <name> <level> <stars> <amount>
+  generateFood:
+    description: Generates a food item
     usage: /<command> <name> <level> <stars> <amount>

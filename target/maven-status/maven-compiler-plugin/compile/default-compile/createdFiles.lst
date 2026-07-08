@@ -6,14 +6,15 @@ io\github\NoOne\nMLItems\itemDictionary\Weapons$1.class
 io\github\NoOne\nMLItems\itemDictionary\Armor$1.class
 io\github\NoOne\nMLItems\ItemSystem$1.class
 io\github\NoOne\nMLItems\ItemSystem.class
+io\github\NoOne\nMLItems\commands\GenerateFoodCommand.class
 io\github\NoOne\nMLItems\commands\GenerateArmorCommand.class
 io\github\NoOne\nMLItems\commands\GenerateWeaponCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
+io\github\NoOne\nMLItems\commands\GenerateCropCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$4.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes.class
 io\github\NoOne\nMLItems\itemDictionary\Ingredients.class
-io\github\NoOne\nMLItems\commands\GenerateMaterialCommand.class
 io\github\NoOne\nMLItems\enums\CropType.class
 io\github\NoOne\nMLItems\itemDictionary\GardenModifiers.class
 io\github\NoOne\nMLItems\enums\GardenModifier.class
@@ -38,3 +39,4 @@ io\github\NoOne\nMLItems\enums\ItemType.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers.class
 io\github\NoOne\nMLItems\itemDictionary\Shields$1.class
 io\github\NoOne\nMLItems\enums\ItemStat.class
+io\github\NoOne\nMLItems\itemDictionary\Food.class
