@@ -152,7 +152,7 @@ public class Ingredients {
                 )
         );
 
-        setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
+            setIngredientKeys(flour, IngredientType.SUGAR, level, stars);
         return flour;
     }
 
