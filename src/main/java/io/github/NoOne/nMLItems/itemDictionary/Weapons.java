@@ -114,7 +114,7 @@ public class Weapons {
             }
         }
 
-        itemSystem.updateLoreWithStats(weapon);
+        itemSystem.updateEquipmentLoreWithStats(weapon);
     }
 
     private static void generateSecondaryStats(ItemStack weapon, ItemRarity rarity, int level) {

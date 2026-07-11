@@ -5,12 +5,12 @@ import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.*;
 import net.matrixcreations.libraries.MatrixColorAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -24,10 +24,11 @@ public class Ingredients {
     private static NMLItems nmlItems = NMLItems.getInstance();
     private static ItemSystem itemSystem = nmlItems.getItemSystem();
 
-    public static ItemStack flour(ItemStack inputItem, int amount) {
-        String firstName = inputItem.getItemMeta().getDisplayName().substring(2).split(" ")[0];
-        int level = itemSystem.getLevel(inputItem);
-        double stars = itemSystem.getStars(inputItem);
+    public static ItemStack flour(ItemStack grain, int amount) {
+        String firstName = grain.getItemMeta().getDisplayName().substring(2).split(" ")[0];
+        int level = itemSystem.getLevel(grain);
+        double stars = itemSystem.getStars(grain);
+        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(grain);
         ItemStack flour = ItemCreator.createItem(
                 Material.SUGAR,
                 amount,
@@ -40,10 +41,30 @@ public class Ingredients {
         );
 
         setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
+        itemSystem.setStats(flour, itemStats);
+        itemSystem.updateItemLoreWithStats(flour);
         return flour;
     }
 
-    public static ItemStack pieCrust(int level, double stars, int amount) {
+    public static ItemStack bottleOfWater(int level, double stars, int amount) {
+        ItemStack bottleOfWater = ItemCreator.createItem(
+                Material.POTION,
+                amount,
+                MatrixColorAPI.process("§bBottle of Water"),
+                List.of(
+                        "§8Lv. " + level + " Ingredient",
+                        "",
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
+                )
+        );
+
+        bottleOfWater.unsetData(POTION_CONTENTS);
+        setIngredientKeys(bottleOfWater, IngredientType.WATER, level, stars);
+        return bottleOfWater;
+    }
+
+    public static ItemStack pieCrust(List<ItemStack> itemsUsed, int level, double stars, int amount) {
+        HashMap<ItemStat, Double> itemStats = new HashMap<>();
         ItemStack pieCrust = ItemCreator.createItem(
                 Material.MUSHROOM_STEW,
                 amount,
@@ -55,12 +76,27 @@ public class Ingredients {
                 )
         );
 
+        for (ItemStack itemStack : itemsUsed) {
+            HashMap<ItemStat, Double> itemStat =  itemSystem.getAllStats(itemStack);
+
+            for (Map.Entry<ItemStat, Double> entry : itemStat.entrySet()) {
+                if (itemStats.containsKey(entry.getKey())) {
+                    itemStats.put(entry.getKey(), itemStats.get(entry.getKey()) + entry.getValue());
+                } else {
+                    itemStats.put(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+
         setIngredientKeys(pieCrust, IngredientType.PIE_CRUST, level, stars);
+        itemSystem.setStats(pieCrust, itemStats);
+        itemSystem.updateItemLoreWithStats(pieCrust);
         pieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "pie_crust"));
         return pieCrust;
     }
 
-    public static ItemStack bakedPieCrust(int level, double stars, int amount) {
+    public static ItemStack bakedPieCrust(ItemStack pieCrust, int level, double stars, int amount) {
+        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(pieCrust);
         ItemStack bakedPieCrust = ItemCreator.createItem(
                 Material.BOWL,
                 amount,
@@ -71,15 +107,18 @@ public class Ingredients {
                         "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
+
         setIngredientKeys(bakedPieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
+        itemSystem.setStats(bakedPieCrust, itemStats);
         bakedPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
         bakedPieCrust.setData(MAX_STACK_SIZE, 1);
         return bakedPieCrust;
     }
 
-    public static ItemStack filledPieCrust(List<ItemStack> filledItems, int level, double stars, int amount) {
-        LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
+    public static ItemStack filledPieCrust(List<ItemStack> filledItems, ItemStack bakedPieCrust, int level, double stars, int amount) {
         List<String> lore = new ArrayList<>(List.of("§8Lv. " + level + " Ingredient", "", "§7§nFilled with:"));
+        LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
+        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(bakedPieCrust);
 
         for (ItemStack item : filledItems) { // putting the list of items into a map to count em
             String name = item.getItemMeta().getDisplayName();
@@ -116,6 +155,8 @@ public class Ingredients {
 
         ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, amount, MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
 
+        itemSystem.setStats(filledPieCrust, itemStats);
+        itemSystem.updateItemLoreWithStats(filledPieCrust);
         setIngredientKeys(filledPieCrust, IngredientType.FILLED_PIE_CRUST, level, stars);
         setFilledWithKey(filledPieCrust, filledItems);
         filledPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
@@ -123,25 +164,10 @@ public class Ingredients {
         return filledPieCrust;
     }
 
-    public static ItemStack bottleOfWater(int level, double stars, int amount) {
-        ItemStack bottleOfWater = ItemCreator.createItem(
-                Material.POTION,
-                amount,
-                MatrixColorAPI.process("§bBottle of Water"),
-                List.of(
-                        "§8Lv. " + level + " Ingredient",
-                        "",
-                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
-                )
-        );
-
-        bottleOfWater.unsetData(POTION_CONTENTS);
-        setIngredientKeys(bottleOfWater, IngredientType.WATER, level, stars);
-        return bottleOfWater;
-    }
-
-    public static ItemStack sugar(int level, double stars, int amount) {
-        ItemStack flour = ItemCreator.createItem(
+    public static ItemStack sugar(ItemStack sugarCane, int amount) {
+        int level = itemSystem.getLevel(sugarCane);
+        double stars = itemSystem.getStars(sugarCane);
+        ItemStack sugar = ItemCreator.createItem(
                 Material.SUGAR,
                 amount,
                 MatrixColorAPI.process("<SOLID:#e6faf7>Sugar"),
@@ -152,8 +178,10 @@ public class Ingredients {
                 )
         );
 
-            setIngredientKeys(flour, IngredientType.SUGAR, level, stars);
-        return flour;
+        setIngredientKeys(sugar, IngredientType.SUGAR, level, stars);
+        itemSystem.setStats(sugar, itemSystem.getAllStats(sugarCane));
+        itemSystem.updateItemLoreWithStats(sugar);
+        return sugar;
     }
 
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType, int level, double stars) {

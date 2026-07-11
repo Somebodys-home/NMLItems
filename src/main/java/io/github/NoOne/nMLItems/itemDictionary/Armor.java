@@ -97,6 +97,6 @@ public class Armor {
             }
         }
 
-        itemSystem.updateLoreWithStats(armor);
+        itemSystem.updateEquipmentLoreWithStats(armor);
     }
 }

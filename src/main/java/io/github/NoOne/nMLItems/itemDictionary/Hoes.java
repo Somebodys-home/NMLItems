@@ -116,6 +116,6 @@ public class Hoes {
             }
         }
 
-        itemSystem.updateLoreWithStats(hoe);
+        itemSystem.updateEquipmentLoreWithStats(hoe);
     }
 }

@@ -29,7 +29,6 @@ public enum ItemRarity {
             default -> null;
         };
     }
-   
 
     public static ChatColor toChatColor(ItemRarity rarity) {
         return switch (rarity) {

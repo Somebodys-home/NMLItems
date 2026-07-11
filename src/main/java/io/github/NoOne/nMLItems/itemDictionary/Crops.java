@@ -10,8 +10,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import java.util.HashMap;
 import java.util.List;
 
+import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
 
@@ -19,6 +21,9 @@ public class Crops {
     private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
 
     public static ItemStack wheatBundle(int level, double stars, int amount) {
+        HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
+            put(HEALTH, itemSystem.calcStatValue(level / 2.0, stars));
+        }};
         ItemStack wheatBundle = ItemCreator.createItem(
                 Material.WHEAT,
                 amount,
@@ -31,12 +36,17 @@ public class Crops {
         );
 
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
+        itemSystem.setStats(wheatBundle, itemStats);
+        itemSystem.updateItemLoreWithStats(wheatBundle);
         return wheatBundle;
     }
 
     public static ItemStack sugarCane(int level, double stars, int amount, boolean displayItem) {
         String levelLine = "§8Lv. " + level + " Crop";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
+        HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
+            put(SPEED, itemSystem.calcStatValue((level / 3.0) * 5.0, stars));
+        }};
 
         if (displayItem) {
             levelLine = "§8Lv. §kX §r§8Crop";
@@ -55,6 +65,8 @@ public class Crops {
         );
 
         setCropAndSeedKeys(sugarCane, CropType.SUGAR_CANE, SeedType.SUGAR_CANE, level, stars);
+        itemSystem.setStats(sugarCane, itemStats);
+        itemSystem.updateItemLoreWithStats(sugarCane);
         return sugarCane;
     }
 
@@ -75,6 +87,9 @@ public class Crops {
     }
 
     public static ItemStack rhubarb(int level, double stars, int amount) {
+        HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
+            put(PHYSICALDAMAGE, itemSystem.calcStatValue(level * 1.5, stars));
+        }};
         ItemStack rhubarb = ItemCreator.createItem(
                 Material.MANGROVE_PROPAGULE,
                 amount,
@@ -90,6 +105,8 @@ public class Crops {
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
         setIngredientKey(rhubarb, IngredientType.RHUBARB);
+        itemSystem.setStats(rhubarb, itemStats);
+        itemSystem.updateItemLoreWithStats(rhubarb);
         rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
         return rhubarb;
     }

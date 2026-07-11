@@ -2,12 +2,14 @@ package io.github.NoOne.nMLItems.commands;
 
 import io.github.NoOne.nMLItems.itemDictionary.Crops;
 import io.github.NoOne.nMLItems.itemDictionary.Food;
+import io.github.NoOne.nMLItems.itemDictionary.Ingredients;
 import io.github.NoOne.nMLItems.itemDictionary.Seeds;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,9 +26,27 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
             int level = Integer.parseInt(args[1]);
             double stars = Double.parseDouble(args[2]);
             int amount = Integer.parseInt(args[3]);
-
+            ItemStack pieCrust = Ingredients.pieCrust(
+                    List.of(
+                            Crops.wheatBundle(level, stars, 1),
+                            Crops.wheatBundle(level, stars, 1),
+                            Crops.wheatBundle(level, stars, 1),
+                            Ingredients.bottleOfWater(level, stars, 1)
+                    ),
+                    level, stars, amount
+            );
+            ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust, level, stars, amount);
+            ItemStack filledPieCrust = Ingredients.filledPieCrust(
+                    List.of(
+                            Crops.rhubarb(level, stars, 1),
+                            Crops.rhubarb(level, stars, 1),
+                            Ingredients.sugar(Crops.sugarCane(level, stars, 1, false), 1)
+                    ),
+                    bakedPieCrust, level, stars, amount
+            );
+            ItemStack rhubarbPie = Food.rhubarbPie(filledPieCrust, level, stars, amount);
             switch (name) {
-                case "rhubarb_pie" -> player.getInventory().addItem(Food.rhubarbPie(level, stars, amount));
+                case "rhubarb_pie" -> player.getInventory().addItem(rhubarbPie);
             }
         }
 

@@ -82,6 +82,6 @@ public class Shields {
             }
         }
 
-        itemSystem.updateLoreWithStats(shield);
+        itemSystem.updateEquipmentLoreWithStats(shield);
     }
 }

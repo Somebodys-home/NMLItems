@@ -87,7 +87,7 @@ public class Quivers {
             }
         }
 
-        itemSystem.updateLoreWithStats(weapon);
+        itemSystem.updateEquipmentLoreWithStats(weapon);
     }
 
     private static void generateSecondaryStats(ItemStack quiver, ItemRarity rarity, int level) {
