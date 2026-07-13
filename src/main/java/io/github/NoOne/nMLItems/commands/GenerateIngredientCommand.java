@@ -35,11 +35,7 @@ public class GenerateIngredientCommand implements CommandExecutor, TabCompleter 
                     level, stars, amount
             );
             ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust);
-            ItemStack filledPieCrust = Ingredients.filledPieCrust(
-                    List.of(bakedPieCrust),
-                    bakedPieCrust,
-                    level, stars, amount
-            );
+            ItemStack filledPieCrust = Ingredients.filledPieCrust(List.of(bakedPieCrust), bakedPieCrust);
 
             switch (name) {
                 case "flour" -> player.getInventory().addItem(Ingredients.flour(Crops.wheatBundle(level, stars, 1), amount));

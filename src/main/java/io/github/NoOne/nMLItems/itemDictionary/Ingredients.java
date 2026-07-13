@@ -119,7 +119,9 @@ public class Ingredients {
         return bakedPieCrust;
     }
 
-    public static ItemStack filledPieCrust(List<ItemStack> filledItems, ItemStack bakedPieCrust, int level, double stars, int amount) {
+    public static ItemStack filledPieCrust(List<ItemStack> filledItems, ItemStack bakedPieCrust) {
+        int level = itemSystem.getLevel(bakedPieCrust);
+        double stars = itemSystem.getStars(bakedPieCrust);
         List<String> lore = new ArrayList<>(List.of("§8Lv. " + level + " Ingredient", "", "§7§nFilled with:"));
         LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
         HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(bakedPieCrust);
@@ -157,7 +159,7 @@ public class Ingredients {
 
         lore.addAll(List.of("", "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"));
 
-        ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, amount, MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
+        ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, bakedPieCrust.getAmount(), MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
 
         itemSystem.setStats(filledPieCrust, itemStats);
         itemSystem.updateItemLoreWithStats(filledPieCrust);

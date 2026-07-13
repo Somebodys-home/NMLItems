@@ -42,7 +42,7 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
                             Crops.rhubarb(level, stars, 1),
                             Ingredients.sugar(Crops.sugarCane(level, stars, 1, false), 1)
                     ),
-                    bakedPieCrust, level, stars, amount
+                    bakedPieCrust
             );
             ItemStack rhubarbPie = Food.rhubarbPie(filledPieCrust, level, stars, amount);
             switch (name) {
