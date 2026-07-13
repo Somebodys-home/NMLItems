@@ -35,7 +35,7 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
                     ),
                     level, stars, amount
             );
-            ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust, level, stars, amount);
+            ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust);
             ItemStack filledPieCrust = Ingredients.filledPieCrust(
                     List.of(
                             Crops.rhubarb(level, stars, 1),

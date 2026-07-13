@@ -95,11 +95,14 @@ public class Ingredients {
         return pieCrust;
     }
 
-    public static ItemStack bakedPieCrust(ItemStack pieCrust, int level, double stars, int amount) {
+    // baked pie crusts are made from either baking one or emptying a filled one
+    public static ItemStack bakedPieCrust(ItemStack pieCrust) {
+        int level = itemSystem.getLevel(pieCrust);
+        double stars = itemSystem.getStars(pieCrust);
         HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(pieCrust);
         ItemStack bakedPieCrust = ItemCreator.createItem(
                 Material.BOWL,
-                amount,
+                pieCrust.getAmount(),
                 MatrixColorAPI.process("<SOLID:#DB9015>Baked Pie Crust"),
                 List.of(
                         "§8Lv. " + level + " Ingredient",
@@ -110,6 +113,7 @@ public class Ingredients {
 
         setIngredientKeys(bakedPieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
         itemSystem.setStats(bakedPieCrust, itemStats);
+        itemSystem.updateItemLoreWithStats(bakedPieCrust);
         bakedPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
         bakedPieCrust.setData(MAX_STACK_SIZE, 1);
         return bakedPieCrust;

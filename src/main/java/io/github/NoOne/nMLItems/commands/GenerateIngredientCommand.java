@@ -34,7 +34,7 @@ public class GenerateIngredientCommand implements CommandExecutor, TabCompleter 
                     ),
                     level, stars, amount
             );
-            ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust, level, stars, amount);
+            ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust);
             ItemStack filledPieCrust = Ingredients.filledPieCrust(
                     List.of(bakedPieCrust),
                     bakedPieCrust,
