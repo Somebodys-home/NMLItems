@@ -15,4 +15,10 @@ public enum FoodType {
             default -> null;
         };
     }
+
+    public static int getServings(FoodType foodType) {
+        return switch (foodType) {
+            case RHUBARB_PIE -> 3;
+        };
+    }
 }

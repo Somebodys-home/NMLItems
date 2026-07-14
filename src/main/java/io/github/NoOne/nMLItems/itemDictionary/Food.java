@@ -129,10 +129,4 @@ public class Food {
         meta.setLore(lore);
         itemStack.setItemMeta(meta);
     }
-
-    private static int getServings(FoodType foodType) {
-        return switch (foodType) {
-            case RHUBARB_PIE -> 3;
-        };
-    }
 }
