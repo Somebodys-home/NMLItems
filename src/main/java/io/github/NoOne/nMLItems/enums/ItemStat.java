@@ -39,8 +39,8 @@ public enum ItemStat {
     // misc stats
     SPEED;
 
-    public static String toString(ItemStat stat) {
-        return switch (stat) {
+    public static String toString(ItemStat itemStat) {
+        return switch (itemStat) {
             case PHYSICALDAMAGE -> "Phys. Damage";
             case FIREDAMAGE -> "Fire Damage";
             case COLDDAMAGE -> "Cold Damage";
@@ -72,8 +72,8 @@ public enum ItemStat {
         };
     }
 
-    public static ChatColor toChatColor(ItemStat stat) {
-        return switch (stat) {
+    public static ChatColor toChatColor(ItemStat itemStat) {
+        return switch (itemStat) {
             case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD, SPEED -> ChatColor.WHITE;
             case DEFENSE, HARVEST, YIELD, ACRE -> ChatColor.GREEN;
             case OVERHEALTH -> ChatColor.DARK_BLUE;
@@ -88,8 +88,8 @@ public enum ItemStat {
         };
     }
 
-    public static String toEmoji(ItemStat stat) {
-        return switch (stat) {
+    public static String toEmoji(ItemStat itemStat) {
+        return switch (itemStat) {
             case PHYSICALDAMAGE, PHYSICALRESIST -> "⚔";
             case FIREDAMAGE, FIRERESIST -> "\uD83D\uDD25";
             case COLDDAMAGE, COLDRESIST -> "❄";
@@ -108,6 +108,15 @@ public enum ItemStat {
             case ACRE -> "⚂";
             case HARVEST -> "\uD83E\uDEB4";
             case HEALTH -> "❤";
+        };
+    }
+
+    // for food
+    public static int getSeconds(ItemStat itemStat) {
+        return switch (itemStat) {
+            case PHYSICALDAMAGE -> 300;
+            case SPEED -> 150;
+            default -> 0;
         };
     }
 }

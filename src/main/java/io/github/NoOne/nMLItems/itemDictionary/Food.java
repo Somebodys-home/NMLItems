@@ -71,6 +71,20 @@ public class Food {
         return rhubarbPie;
     }
 
+    public static String formatTime(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+
+        if (totalSeconds == 0) {
+            return "";
+        } else if (hours > 0) {
+            return String.format("%02d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            return String.format("%02d:%02d", minutes, seconds);
+        }
+    }
+
     private static void setFoodKeys(ItemStack itemStack, FoodType foodType, int level, double stars) {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
@@ -99,12 +113,13 @@ public class Food {
         lore.removeLast();
 
         for (Map.Entry<ItemStat, Double> entry : sortedStats.entrySet()) {
+            int seconds = ItemStat.getSeconds(entry.getKey());
             double value = entry.getValue();
-            String time = switch (entry.getKey()) {
-                case PHYSICALDAMAGE ->  " §r§8(5:00)";
-                case SPEED ->  " §r§8(2:30)";
-                default -> "";
-            };
+            String time = "";
+
+            if (seconds > 0) {
+                time = " §r§8(" + formatTime(ItemStat.getSeconds(entry.getKey())) + ")";
+            }
 
             if (value == (int) value) {
                 lore.add(itemSystem.makeItemStatString(entry.getKey(), (int) value) + time);
