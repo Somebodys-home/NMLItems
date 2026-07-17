@@ -68,6 +68,7 @@ public class Food {
         updateFoodLoreWithEffects(rhubarbPie);
         addServingsToLore(rhubarbPie, RHUBARB_PIE);
         rhubarbPie.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb_pie"));
+        rhubarbPie.setData(MAX_STACK_SIZE, 1);
         return rhubarbPie;
     }
 
