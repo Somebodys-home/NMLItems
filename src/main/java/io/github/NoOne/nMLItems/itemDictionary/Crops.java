@@ -22,7 +22,7 @@ public class Crops {
 
     public static ItemStack wheatBundle(int level, double stars, int amount) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(HEALTH, itemSystem.calcStatValue(level / 2.0, stars));
+            put(HEALTH, itemSystem.calcCropStatValue(CropType.WHEAT_BUNDLE, level, stars));
         }};
         ItemStack wheatBundle = ItemCreator.createItem(
                 Material.WHEAT,
@@ -45,7 +45,7 @@ public class Crops {
         String levelLine = "§8Lv. " + level + " Crop";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(SPEED, itemSystem.calcStatValue((level / 3.0) * 5.0, stars));
+            put(SPEED, itemSystem.calcCropStatValue(CropType.SUGAR_CANE, level, stars));
         }};
 
         if (displayItem) {
@@ -88,7 +88,7 @@ public class Crops {
 
     public static ItemStack rhubarb(int level, double stars, int amount) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(PHYSICALDAMAGE, itemSystem.calcStatValue(level * 1.5, stars));
+            put(PHYSICALDAMAGE, itemSystem.calcCropStatValue(CropType.RHUBARB, level, stars));
         }};
         ItemStack rhubarb = ItemCreator.createItem(
                 Material.MANGROVE_PROPAGULE,

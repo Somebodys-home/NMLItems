@@ -12,29 +12,59 @@ public enum MaterialStars {
     FOUR_AND_HALF_STAR,
     FIVE_STARS;
 
-    public static String getMaterialStarsEmoji(double stars) {
+    public static MaterialStars toMaterialStars(double stars) {
         if (stars == .5) {
-            return "⯪";
+            return HALF_STAR;
         } else if (stars == 1) {
-            return "★";
+            return ONE_STAR;
         } else if (stars == 1.5) {
-            return "★⯪";
+            return ONE_AND_HALF_STAR;
         } else if (stars == 2) {
-            return "★★";
+            return TWO_STARS;
         } else if (stars == 2.5) {
-            return "★★⯪";
+            return TWO_AND_HALF_STAR;
         } else if (stars == 3) {
-            return "★★★";
+            return THREE_STARS;
         } else if (stars == 3.5) {
-            return "★★★⯪";
+            return THREE_AND_HALF_STAR;
         } else if (stars == 4) {
-            return "★★★★";
+            return FOUR_STARS;
         } else if (stars == 4.5) {
-            return "★★★★⯪";
+            return FOUR_AND_HALF_STAR;
         } else if (stars == 5) {
-            return "★★★★★";
+            return FIVE_STARS;
         }
 
-        return "";
+        return null;
+    }
+
+    public static String getMaterialStarsEmoji(double stars) {
+        return switch (toMaterialStars(stars)) {
+            case HALF_STAR -> "⯪";
+            case ONE_STAR -> "★";
+            case ONE_AND_HALF_STAR -> "★⯪";
+            case TWO_STARS -> "★★";
+            case TWO_AND_HALF_STAR -> "★★⯪";
+            case THREE_STARS -> "★★★";
+            case THREE_AND_HALF_STAR -> "★★★⯪";
+            case FOUR_STARS -> "★★★★";
+            case FOUR_AND_HALF_STAR -> "★★★★⯪";
+            case FIVE_STARS -> "★★★★★";
+        };
+    }
+
+    public static double getStarMultiplier(MaterialStars materialStars) {
+        return switch (materialStars) {
+            case HALF_STAR -> .75;
+            case ONE_STAR -> 1;
+            case ONE_AND_HALF_STAR -> 1.25;
+            case TWO_STARS -> 1.5;
+            case TWO_AND_HALF_STAR -> 1.75;
+            case THREE_STARS -> 2;
+            case THREE_AND_HALF_STAR -> 2.25;
+            case FOUR_STARS -> 2.5;
+            case FOUR_AND_HALF_STAR -> 2.75;
+            case FIVE_STARS -> 3;
+        };
     }
 }

@@ -216,8 +216,13 @@ public class ItemSystem {
         return 0;
     }
 
-    public double calcStatValue(double amount, double stars) {
-        return (int) Math.max(1, Math.round(amount * stars));
+    public double calcCropStatValue(CropType cropType, int level, double stars) {
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> Math.max(level / 2.0, 1);
+            case SUGAR_CANE -> Math.max(level / 3.0, 1);
+            case RHUBARB -> (int) Math.round(level * 1.5);
+            default -> 1;
+        } * MaterialStars.getStarMultiplier(MaterialStars.toMaterialStars(stars));
     }
 
     public double getStatValue(ItemStack item, ItemStat stat) {

@@ -86,9 +86,9 @@ public class Weapons {
         }
 
         ItemStat firstType = possibleFirstDamageTypes.get(ThreadLocalRandom.current().nextInt(possibleFirstDamageTypes.size()));
-        int firstDamageValue = level * 2;
+        int firstDamageValue = doDamageCalc(rarity, level);
         ItemStat secondType = possibleSecondDamageTypes.get(ThreadLocalRandom.current().nextInt(possibleSecondDamageTypes.size()));
-        int secondDamageValue = level;
+        int secondDamageValue = (int) Math.round(firstDamageValue * ThreadLocalRandom.current().nextDouble(.35, .5));
 
         switch (rarity) {
             case COMMON -> {
@@ -140,7 +140,7 @@ public class Weapons {
         switch (rarity) {
             case UNCOMMON -> rolls = 1;
             case RARE -> rolls = 2;
-            case MYTHICAL -> rolls = 4;
+            case MYTHICAL -> rolls = 3;
         }
 
         for (int i = 0; i < rolls; i++) {
@@ -228,5 +228,17 @@ public class Weapons {
 
         ASCII.add("");
         return ASCII;
+    }
+
+    private static int doDamageCalc(ItemRarity itemRarity, int level) {
+        double multiplier = switch (itemRarity) {
+            case COMMON -> .85;
+            case RARE -> 1.25;
+            case MYTHICAL -> 1.5;
+            default -> 1;
+        } * ThreadLocalRandom.current().nextDouble(.75, 1);
+        double baseDamage = (1 + (1.5 * level) / 100.0) * level + 2;
+
+        return (int) Math.round(multiplier * baseDamage);
     }
 }
