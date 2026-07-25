@@ -36,8 +36,12 @@ public class ItemCreator {
         return item;
     }
 
-    // used for menus in other dependencies
+    // used for menus
     public static ItemStack createBackoutButton() {
-        return createItem(Material.BARRIER, "§c§l<- §r§cBack", List.of());
+        return createItem(Material.BARRIER, "§c§l<- §r§cBack");
+    }
+
+    public static ItemStack createMenuBorder() {
+        return createItem(Material.BLACK_STAINED_GLASS_PANE, "§0§l_");
     }
 }

@@ -39,4 +39,13 @@ public enum ItemRarity {
             case RELIC -> ChatColor.DARK_RED;
         };
     }
+
+    public static double getRarityMultiplier(ItemRarity itemRarity) {
+        return switch (itemRarity) {
+            case COMMON -> .85;
+            case RARE -> 1.25;
+            case MYTHICAL -> 1.5;
+            default -> 1;
+        };
+    }
 }

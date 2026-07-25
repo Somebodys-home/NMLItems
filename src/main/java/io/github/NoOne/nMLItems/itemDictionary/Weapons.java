@@ -231,12 +231,7 @@ public class Weapons {
     }
 
     private static int doDamageCalc(ItemRarity itemRarity, int level) {
-        double multiplier = switch (itemRarity) {
-            case COMMON -> .85;
-            case RARE -> 1.25;
-            case MYTHICAL -> 1.5;
-            default -> 1;
-        } * ThreadLocalRandom.current().nextDouble(.75, 1);
+        double multiplier = ItemRarity.getRarityMultiplier(itemRarity) * ThreadLocalRandom.current().nextDouble(.75, 1);
         double baseDamage = (1 + (1.5 * level) / 100.0) * level + 2;
 
         return (int) Math.round(multiplier * baseDamage);
