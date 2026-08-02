@@ -31,7 +31,7 @@ public class GenerateCropCommand implements CommandExecutor, TabCompleter {
                 case "jade_seeds" -> player.getInventory().addItem(Seeds.jadeSeeds(level, stars, amount, false));
                 case "jade_flower" -> player.getInventory().addItem(Crops.jadeFlower(level, stars, amount));
                 case "rhubarb_seeds" -> player.getInventory().addItem(Seeds.rhubarbSeeds(level, stars, amount, false));
-                case "rhubarb" -> player.getInventory().addItem(Crops.rhubarb(level, stars, amount));
+                case "rhubarb" -> player.getInventory().addItem(Crops.rhubarb(level, stars, amount, false));
             }
         }
 

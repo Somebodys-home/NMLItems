@@ -21,72 +21,60 @@ public class Seeds {
     private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
 
     public static ItemStack wheatSeeds(int level, double stars, int amount, boolean displayItem) {
-        String levelLine = "§8Lv. " + level + " Seed";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Seed";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
-
         ItemStack wheatSeeds = ItemCreator.createItem(
                 Material.WHEAT_SEEDS,
                 amount,
                 "§6Wheat Seeds",
                 List.of(
-                        levelLine,
+                        "§8Lv. " + level + " Seed",
                         "",
-                        starLine
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
+
+        if (displayItem) {
+            itemSystem.turnIntoDisplayItem(wheatSeeds);
+        }
 
         setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
         return wheatSeeds;
     }
 
     public static ItemStack jadeSeeds(int level, double stars, int amount, boolean displayItem) {
-        String levelLine = "§8Lv. " + level + " Seed";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Seed";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
-
         ItemStack jadeSeeds = ItemCreator.createItem(
                 Material.WHEAT_SEEDS,
                 amount,
                 MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds"),
                 List.of(
-                        levelLine,
+                        "§8Lv. §kX §r§8Seed",
                         "",
-                        starLine
+                        "§6 < §kaaaaa §r§6>"
                 )
         );
+
+        if (displayItem) {
+            itemSystem.turnIntoDisplayItem(jadeSeeds);
+        }
 
         setSeedKeys(jadeSeeds, SeedType.JADE_SEEDS, level, stars);
         return jadeSeeds;
     }
 
     public static ItemStack rhubarbSeeds(int level, double stars, int amount, boolean displayItem) {
-        String levelLine = "§8Lv. " + level + " Seed";
-        String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Seed";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
-
         ItemStack rhubarbSeeds = ItemCreator.createItem(
                 Material.MELON_SEEDS,
                 amount,
                 MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb Seeds"),
                 List.of(
-                        levelLine,
+                        "§8Lv. §kX §r§8Seed",
                         "",
-                        starLine
+                        "§6 < §kaaaaa §r§6>"
                 )
         );
+
+        if (displayItem) {
+            itemSystem.turnIntoDisplayItem(rhubarbSeeds);
+        }
 
         setSeedKeys(rhubarbSeeds, SeedType.RHUBARB_SEEDS, level, stars);
         return rhubarbSeeds;

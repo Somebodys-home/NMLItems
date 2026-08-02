@@ -47,12 +47,6 @@ public class Crops {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
             put(SPEED, itemSystem.calcCropStatValue(CropType.SUGAR_CANE, level, stars));
         }};
-
-        if (displayItem) {
-            levelLine = "§8Lv. §kX §r§8Crop";
-            starLine = "§6 < §kaaaaa §r§6>";
-        }
-
         ItemStack sugarCane = ItemCreator.createItem(
                 Material.SUGAR_CANE,
                 amount,
@@ -67,6 +61,11 @@ public class Crops {
         setCropAndSeedKeys(sugarCane, CropType.SUGAR_CANE, SeedType.SUGAR_CANE, level, stars);
         itemSystem.setStats(sugarCane, itemStats);
         itemSystem.updateItemLoreWithStats(sugarCane);
+
+        if (displayItem) {
+            itemSystem.turnIntoDisplayItem(sugarCane);
+        }
+
         return sugarCane;
     }
 
@@ -86,7 +85,7 @@ public class Crops {
         return jadeFlower;
     }
 
-    public static ItemStack rhubarb(int level, double stars, int amount) {
+    public static ItemStack rhubarb(int level, double stars, int amount, boolean displayItem) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
             put(PHYSICALDAMAGE, itemSystem.calcCropStatValue(CropType.RHUBARB, level, stars));
         }};
@@ -108,6 +107,11 @@ public class Crops {
         itemSystem.setStats(rhubarb, itemStats);
         itemSystem.updateItemLoreWithStats(rhubarb);
         rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
+
+        if (displayItem) {
+            itemSystem.turnIntoDisplayItem(rhubarb);
+        }
+
         return rhubarb;
     }
 

@@ -38,8 +38,8 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
             ItemStack bakedPieCrust = Ingredients.bakedPieCrust(pieCrust);
             ItemStack filledPieCrust = Ingredients.filledPieCrust(
                     List.of(
-                            Crops.rhubarb(level, stars, 1),
-                            Crops.rhubarb(level, stars, 1),
+                            Crops.rhubarb(level, stars, 1, false),
+                            Crops.rhubarb(level, stars, 1, false),
                             Ingredients.sugar(Crops.sugarCane(level, stars, 1, false), 1)
                     ),
                     bakedPieCrust

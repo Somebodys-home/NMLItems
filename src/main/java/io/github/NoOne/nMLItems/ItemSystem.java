@@ -2,6 +2,8 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.enums.*;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -169,6 +171,30 @@ public class ItemSystem {
             meta.setDisplayName(editedName);
             item.setItemMeta(meta);
         }
+    }
+
+    public void turnIntoDisplayItem(ItemStack itemStack) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        ArrayList<String> lore = new ArrayList<>(itemMeta.getLore());
+        int index = 0;
+
+        for (String line : lore) {
+            if (index == lore.size() - 1) {
+                lore.set(index, "§6 < §kaaaaa §r§6>");
+            } else if (!line.isEmpty()) {
+                String originalColor = line.substring(0, 2);
+                String replacementLine = ChatColor.stripColor(line);
+
+                replacementLine = replacementLine.replaceAll("\\d+", "§kX§r§8" + originalColor);
+                replacementLine = originalColor + replacementLine;
+                lore.set(index, replacementLine);
+            }
+
+            index++;
+        }
+
+        itemMeta.setLore(lore);
+        itemStack.setItemMeta(itemMeta);
     }
 
     public String getOriginalItemName(ItemStack item) {
