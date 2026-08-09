@@ -46,9 +46,9 @@ public class Seeds {
                 amount,
                 MatrixColorAPI.process("<SOLID:#00A86B>Jade Seeds"),
                 List.of(
-                        "§8Lv. §kX §r§8Seed",
+                        "§8Lv. " + level + " Seed",
                         "",
-                        "§6 < §kaaaaa §r§6>"
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
 
@@ -66,9 +66,9 @@ public class Seeds {
                 amount,
                 MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb Seeds"),
                 List.of(
-                        "§8Lv. §kX §r§8Seed",
+                        "§8Lv. " + level + " Seed",
                         "",
-                        "§6 < §kaaaaa §r§6>"
+                        "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >"
                 )
         );
 
