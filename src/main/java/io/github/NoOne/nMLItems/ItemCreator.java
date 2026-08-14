@@ -43,16 +43,16 @@ public class ItemCreator {
 
 
     // used in other plugins
-     public static ItemStack createSkull(String base64) {
-            ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
-            SkullMeta meta = (SkullMeta) skull.getItemMeta();
-            PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
+    public static ItemStack createSkull(String base64) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) skull.getItemMeta();
+        PlayerProfile playerProfile = Bukkit.createProfile(UUID.randomUUID());
 
-            playerProfile.setProperty(new ProfileProperty("textures", base64));
-            meta.setPlayerProfile(playerProfile);
-            skull.setItemMeta(meta);
-            return skull;
-        }
+        playerProfile.setProperty(new ProfileProperty("textures", base64));
+        meta.setPlayerProfile(playerProfile);
+        skull.setItemMeta(meta);
+        return skull;
+    }
 
     public static ItemStack createBackoutButton() {
         return createItem(Material.BARRIER, "§c§l<- §r§cBack");
