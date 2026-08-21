@@ -2,7 +2,6 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.enums.MaterialStars;
 import io.github.NoOne.nMLItems.enums.SeedType;
@@ -18,8 +17,6 @@ import java.util.List;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Seeds {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack wheatSeeds(int level, double stars, int amount, boolean displayItem) {
         ItemStack wheatSeeds = ItemCreator.createItem(
                 Material.WHEAT_SEEDS,
@@ -33,7 +30,7 @@ public class Seeds {
         );
 
         if (displayItem) {
-            itemSystem.turnIntoDisplayItem(wheatSeeds);
+            ItemSystem.turnIntoDisplayItem(wheatSeeds);
         }
 
         setSeedKeys(wheatSeeds, SeedType.WHEAT_SEEDS, level, stars);
@@ -53,7 +50,7 @@ public class Seeds {
         );
 
         if (displayItem) {
-            itemSystem.turnIntoDisplayItem(jadeSeeds);
+            ItemSystem.turnIntoDisplayItem(jadeSeeds);
         }
 
         setSeedKeys(jadeSeeds, SeedType.JADE_SEEDS, level, stars);
@@ -73,7 +70,7 @@ public class Seeds {
         );
 
         if (displayItem) {
-            itemSystem.turnIntoDisplayItem(rhubarbSeeds);
+            ItemSystem.turnIntoDisplayItem(rhubarbSeeds);
         }
 
         setSeedKeys(rhubarbSeeds, SeedType.RHUBARB_SEEDS, level, stars);
@@ -84,10 +81,10 @@ public class Seeds {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
         itemStack.setItemMeta(meta);
     }
 }

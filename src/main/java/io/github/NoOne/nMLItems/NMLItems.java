@@ -14,7 +14,6 @@ public final class NMLItems extends JavaPlugin {
     public void onEnable() {
         instance = this;
         skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
-        itemSystem = new ItemSystem(this);
 
         getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateCrop").setExecutor(new GenerateCropCommand());
