@@ -101,7 +101,7 @@ public class Crops {
         );
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
-        setIngredientKey(rhubarb, IngredientType.RHUBARB);
+        setIngredientKeys(rhubarb, IngredientType.RHUBARB);
         ItemSystem.setStats(rhubarb, itemStats);
         ItemSystem.updateItemLoreWithStats(rhubarb);
         rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
@@ -114,35 +114,20 @@ public class Crops {
     }
 
     private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
-        itemStack.setItemMeta(meta);
+        ItemSystem.setItemType(itemStack, CROP);
+        ItemSystem.setCropType(itemStack, cropType);
+        ItemSystem.setLevel(itemStack, level);
+        ItemSystem.setStars(itemStack, stars);
     }
 
     private static void setCropAndSeedKeys(ItemStack itemStack, CropType cropType, SeedType seedType, int level, double stars) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
-        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
-        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
-        itemStack.setItemMeta(meta);
+        setCropKeys(itemStack, cropType, level, stars);
+        ItemSystem.setSecondaryType(itemStack, SEED);
+        ItemSystem.setSeedType(itemStack, seedType);
     }
 
-    private static void setIngredientKey(ItemStack itemStack, IngredientType ingredientType) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
-        pdc.set(ItemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
-        itemStack.setItemMeta(meta);
+    private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType) {
+        ItemSystem.setSecondaryType(itemStack, INGREDIENT);
+        ItemSystem.setIngredientType(itemStack, ingredientType);
     }
 }

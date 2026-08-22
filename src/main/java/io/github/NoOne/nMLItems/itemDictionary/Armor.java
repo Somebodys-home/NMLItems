@@ -31,17 +31,16 @@ public class Armor {
                 List.of(title, "")
         );
         ItemMeta meta = armor.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
-        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(weight));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
-        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         meta.setUnbreakable(true);
         armor.setItemMeta(meta);
 
+        armor.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
+        ItemSystem.setItemType(armor, type);
+        ItemSystem.setSecondaryType(armor, weight);
+        ItemSystem.setRarity(armor, rarity);
+        ItemSystem.setLevel(armor, level);
+        ItemSystem.setOriginalName(armor, name);
         generateArmorStats(armor, weight, rarity, level);
         ItemSystem.updateUnusableItemName(armor, ItemSystem.isItemUsable(armor, receiver));
         return armor;

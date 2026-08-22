@@ -34,15 +34,15 @@ public class Quivers {
         );
 
         ItemMeta meta = quiver.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(QUIVER));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         quiver.setItemMeta(meta);
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+        ItemSystem.setItemType(quiver, QUIVER);
+        ItemSystem.setRarity(quiver, rarity);
+        ItemSystem.setLevel(quiver, level);
+        ItemSystem.setOriginalName(quiver, name);
 
         generateMainStats(quiver, rarity, level);
         generateSecondaryStats(quiver, rarity, level);

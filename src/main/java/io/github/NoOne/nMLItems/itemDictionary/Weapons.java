@@ -24,38 +24,37 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class Weapons {
-    public static ItemStack generateWeapon(Player receiver, ItemType type, ItemRarity rarity, int level) {
-        String name = NameGenerator.generateItemName(type, null, rarity);
+    public static ItemStack generateWeapon(Player receiver, ItemType itemType, ItemRarity rarity, int level) {
+        String name = NameGenerator.generateItemName(itemType, null, rarity);
         ArrayList<String> lore = new ArrayList<>(List.of(
-                "§o§fLv. " + level + "§r " + toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() + " " + ItemType.toString(type).toUpperCase(),
+                "§o§fLv. " + level + "§r " + toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() + " " + ItemType.toString(itemType).toUpperCase(),
                 ""
         ));
 
-        lore.addAll(makeWeaponASCIIArt(type));
+        lore.addAll(makeWeaponASCIIArt(itemType));
 
         ItemStack weapon = ItemCreator.createItem(
-                toMaterial(type),
+                toMaterial(itemType),
                 name,
                 lore
         );
         ItemMeta meta = weapon.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
         meta.setMaxStackSize(1);
         weapon.setItemMeta(meta);
 
-        generateDamage(weapon, type, rarity, level);
+        weapon.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
+        ItemSystem.setItemType(weapon, itemType);
+        ItemSystem.setRarity(weapon, rarity);
+        ItemSystem.setLevel(weapon, level);
+        ItemSystem.setOriginalName(weapon, name);
+        generateDamage(weapon, itemType, rarity, level);
         generateSecondaryStats(weapon, rarity, level);
         ItemSystem.updateUnusableItemName(weapon, ItemSystem.isItemUsable(weapon, receiver));
         setAttackSpeed(weapon);
 
-        if (type == BOW) {
+        if (itemType == BOW) {
             weapon.addEnchantment(Enchantment.INFINITY, 1);
         }
 

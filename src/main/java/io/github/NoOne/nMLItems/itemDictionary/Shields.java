@@ -17,6 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.QUIVER;
 import static io.github.NoOne.nMLItems.enums.ItemType.SHIELD;
 
 public class Shields {
@@ -34,15 +35,15 @@ public class Shields {
         );
 
         ItemMeta meta = shield.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SHIELD));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         shield.setItemMeta(meta);
+
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
+        ItemSystem.setItemType(shield, SHIELD);
+        ItemSystem.setRarity(shield, rarity);
+        ItemSystem.setLevel(shield, level);
+        ItemSystem.setOriginalName(shield, name);
 
         generateShieldStats(shield, rarity, level);
         ItemSystem.updateUnusableItemName(shield, ItemSystem.isItemUsable(shield, receiver));

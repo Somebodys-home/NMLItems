@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static io.github.NoOne.nMLItems.enums.FoodType.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
 public class Food {
@@ -84,15 +85,11 @@ public class Food {
     }
 
     private static void setFoodKeys(ItemStack itemStack, FoodType foodType, int level, double stars) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.FOOD));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getServingsKey(), PersistentDataType.INTEGER, getServings(foodType));
-        pdc.set(ItemSystem.getFoodTypeKey(), PersistentDataType.STRING, FoodType.toString(foodType));
-        itemStack.setItemMeta(meta);
+        ItemSystem.setItemType(itemStack, ItemType.FOOD);
+        ItemSystem.setLevel(itemStack, level);
+        ItemSystem.setStars(itemStack, stars);
+        ItemSystem.setServings(itemStack, getServings(foodType));
+        ItemSystem.setFoodType(itemStack, foodType);
     }
 
     private static void updateFoodLoreWithEffects(ItemStack itemStack) {

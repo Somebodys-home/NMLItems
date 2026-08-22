@@ -17,6 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
@@ -188,23 +189,13 @@ public class Ingredients {
     }
 
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType, int level, double stars) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
-        itemStack.setItemMeta(meta);
+        ItemSystem.setItemType(itemStack, INGREDIENT);
+        ItemSystem.setLevel(itemStack, level);
+        ItemSystem.setStars(itemStack, stars);
+        ItemSystem.setIngredientType(itemStack, ingredientType);
     }
 
     private static void setFilledWithKey(ItemStack itemStack, List<ItemStack> filledItems) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-        byte[] bytes = ItemStack.serializeItemsAsBytes(filledItems);
-        String encodedItemsString = Base64.getEncoder().encodeToString(bytes);
-
-        pdc.set(ItemSystem.getFilledWithKey(), PersistentDataType.STRING, encodedItemsString);
-        itemStack.setItemMeta(meta);
+        ItemSystem.setFilledWithItems(itemStack, Base64.getEncoder().encodeToString(ItemStack.serializeItemsAsBytes(filledItems)));
     }
 }

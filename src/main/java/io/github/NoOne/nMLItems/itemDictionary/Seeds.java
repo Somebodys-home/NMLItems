@@ -14,6 +14,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 
+import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
 import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
 
 public class Seeds {
@@ -78,13 +79,9 @@ public class Seeds {
     }
 
     private static void setSeedKeys(ItemStack itemStack, SeedType seedType, int level, double stars) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
-        itemStack.setItemMeta(meta);
+        ItemSystem.setItemType(itemStack, SEED);
+        ItemSystem.setLevel(itemStack, level);
+        ItemSystem.setStars(itemStack, stars);
+        ItemSystem.setSeedType(itemStack, seedType);
     }
 }

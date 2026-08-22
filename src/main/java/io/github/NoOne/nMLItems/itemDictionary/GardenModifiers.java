@@ -31,13 +31,8 @@ public class GardenModifiers {
                         "§8§oMade from demonic excrements,",
                         "§8§ofor all you know."));
 
-        ItemMeta meta = fertilizer.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
-        pdc.set(ItemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
-        fertilizer.setItemMeta(meta);
+        setGardenModifierKeys(fertilizer, GardenModifier.FERTILIZER, ItemRarity.COMMON);
         return fertilizer;
     }
 
@@ -54,13 +49,13 @@ public class GardenModifiers {
                         "",
                         "§8§oStay hydrated!"));
 
-        ItemMeta meta = wateringCan.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
-        pdc.set(ItemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
-        wateringCan.setItemMeta(meta);
+        setGardenModifierKeys(wateringCan, GardenModifier.WATERING_CAN, ItemRarity.COMMON);
         return wateringCan;
+    }
+
+    private static void setGardenModifierKeys(ItemStack itemStack, GardenModifier gardenModifier, ItemRarity itemRarity) {
+        ItemSystem.setItemType(itemStack, GARDEN_MODIFIER);
+        ItemSystem.setGardenModifier(itemStack, gardenModifier);
+        ItemSystem.setRarity(itemStack, itemRarity);
     }
 }

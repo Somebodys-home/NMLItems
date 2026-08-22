@@ -22,7 +22,7 @@ public final class NMLItems extends JavaPlugin {
         getCommand("generateWeapon").setExecutor(new GenerateWeaponCommand());
         getCommand("generateIngredient").setExecutor(new GenerateIngredientCommand());
         getCommand("generateFood").setExecutor(new GenerateFoodCommand());
-        getServer().getPluginManager().registerEvents(new ItemListener(this), this);
+        getServer().getPluginManager().registerEvents(new ItemListener(), this);
     }
 
     public static NMLItems getInstance() {

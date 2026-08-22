@@ -36,15 +36,7 @@ public class Miscellaneous {
                 )
         );
 
-        setMiscKey(burntFood);
+        ItemSystem.setItemType(burntFood, MISC);
         return burntFood;
-    }
-
-    private static void setMiscKey(ItemStack itemStack) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(MISC));
-        itemStack.setItemMeta(meta);
     }
 }

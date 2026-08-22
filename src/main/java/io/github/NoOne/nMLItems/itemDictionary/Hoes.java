@@ -36,16 +36,15 @@ public class Hoes {
         );
 
         ItemMeta meta = hoe.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.HOE));
-        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
-        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         hoe.setItemMeta(meta);
 
+        hoe.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+        ItemSystem.setItemType(hoe, ItemType.HOE);
+        ItemSystem.setRarity(hoe, rarity);
+        ItemSystem.setLevel(hoe, level);
+        ItemSystem.setOriginalName(hoe, name);
         generateHoeStats(hoe, rarity, level);
         ItemSystem.updateUnusableItemName(hoe, ItemSystem.isItemUsable(hoe, receiver));
         return hoe;

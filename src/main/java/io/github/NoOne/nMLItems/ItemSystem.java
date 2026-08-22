@@ -33,6 +33,111 @@ public class ItemSystem {
     private static NamespacedKey servingsKey = new NamespacedKey(nmlItems, "servings");
     private static NamespacedKey foodTypeKey = new NamespacedKey(nmlItems, "food_type");
 
+    public static void setItemType(ItemStack itemStack, ItemType itemType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setSecondaryType(ItemStack itemStack, ItemType itemType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setOriginalName(ItemStack itemStack, String originalName) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(originalNameKey, PersistentDataType.STRING, originalName);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setRarity(ItemStack itemStack, ItemRarity itemRarity) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(rarityKey, PersistentDataType.STRING, ItemRarity.toString(itemRarity));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setLevel(ItemStack itemStack, int level) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(levelKey, PersistentDataType.INTEGER, level);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setStars(ItemStack itemStack, double stars) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(starsKey, PersistentDataType.DOUBLE, stars);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setSeedType(ItemStack itemStack, SeedType seedType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(seedKey, PersistentDataType.STRING, SeedType.toString(seedType));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setCropType(ItemStack itemStack, CropType cropType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(cropKey, PersistentDataType.STRING, CropType.toString(cropType));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setGardenModifier(ItemStack itemStack, GardenModifier gardenModifier) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(gardenModifierKey, PersistentDataType.STRING, GardenModifier.toString(gardenModifier));
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setIngredientType(ItemStack itemStack, IngredientType ingredientType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(ingredientKey, PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        itemStack.setItemMeta(meta);
+    }
+
+    // assumed: stores what a container item (e.g. a bottle/jar) is filled with, as a String identifier
+    public static void setFilledWithItems(ItemStack itemStack, String filledWith) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(filledWithKey, PersistentDataType.STRING, filledWith);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setServings(ItemStack itemStack, int servings) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(servingsKey, PersistentDataType.INTEGER, servings);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setFoodType(ItemStack itemStack, FoodType foodType) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(foodTypeKey, PersistentDataType.STRING, FoodType.toString(foodType));
+        itemStack.setItemMeta(meta);
+    }
+
     public static void setStat(ItemStack item, ItemStat stat, double amount) {
         ItemMeta meta = item.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
