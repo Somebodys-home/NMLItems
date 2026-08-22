@@ -21,14 +21,11 @@ import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
 public class Ingredients {
-    private static NMLItems nmlItems = NMLItems.getInstance();
-    private static ItemSystem itemSystem = nmlItems.getItemSystem();
-
     public static ItemStack flour(ItemStack grain, int amount) {
         String firstName = grain.getItemMeta().getDisplayName().substring(2).split(" ")[0];
-        int level = itemSystem.getLevel(grain);
-        double stars = itemSystem.getStars(grain);
-        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(grain);
+        int level = ItemSystem.getLevel(grain);
+        double stars = ItemSystem.getStars(grain);
+        HashMap<ItemStat, Double> itemStats = ItemSystem.getAllStats(grain);
         ItemStack flour = ItemCreator.createItem(
                 Material.SUGAR,
                 amount,
@@ -41,8 +38,8 @@ public class Ingredients {
         );
 
         setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
-        itemSystem.setStats(flour, itemStats);
-        itemSystem.updateItemLoreWithStats(flour);
+        ItemSystem.setStats(flour, itemStats);
+        ItemSystem.updateItemLoreWithStats(flour);
         return flour;
     }
 
@@ -77,7 +74,7 @@ public class Ingredients {
         );
 
         for (ItemStack itemStack : itemsUsed) {
-            HashMap<ItemStat, Double> itemStat =  itemSystem.getAllStats(itemStack);
+            HashMap<ItemStat, Double> itemStat =  ItemSystem.getAllStats(itemStack);
 
             for (Map.Entry<ItemStat, Double> entry : itemStat.entrySet()) {
                 if (itemStats.containsKey(entry.getKey())) {
@@ -89,17 +86,17 @@ public class Ingredients {
         }
 
         setIngredientKeys(pieCrust, IngredientType.PIE_CRUST, level, stars);
-        itemSystem.setStats(pieCrust, itemStats);
-        itemSystem.updateItemLoreWithStats(pieCrust);
+        ItemSystem.setStats(pieCrust, itemStats);
+        ItemSystem.updateItemLoreWithStats(pieCrust);
         pieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "pie_crust"));
         return pieCrust;
     }
 
     // baked pie crusts are made from either baking one or emptying a filled one
     public static ItemStack bakedPieCrust(ItemStack pieCrust) {
-        int level = itemSystem.getLevel(pieCrust);
-        double stars = itemSystem.getStars(pieCrust);
-        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(pieCrust);
+        int level = ItemSystem.getLevel(pieCrust);
+        double stars = ItemSystem.getStars(pieCrust);
+        HashMap<ItemStat, Double> itemStats = ItemSystem.getAllStats(pieCrust);
         ItemStack bakedPieCrust = ItemCreator.createItem(
                 Material.BOWL,
                 pieCrust.getAmount(),
@@ -112,19 +109,19 @@ public class Ingredients {
         );
 
         setIngredientKeys(bakedPieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
-        itemSystem.setStats(bakedPieCrust, itemStats);
-        itemSystem.updateItemLoreWithStats(bakedPieCrust);
+        ItemSystem.setStats(bakedPieCrust, itemStats);
+        ItemSystem.updateItemLoreWithStats(bakedPieCrust);
         bakedPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
         bakedPieCrust.setData(MAX_STACK_SIZE, 1);
         return bakedPieCrust;
     }
 
     public static ItemStack filledPieCrust(List<ItemStack> filledItems, ItemStack bakedPieCrust) {
-        int level = itemSystem.getLevel(bakedPieCrust);
-        double stars = itemSystem.getStars(bakedPieCrust);
+        int level = ItemSystem.getLevel(bakedPieCrust);
+        double stars = ItemSystem.getStars(bakedPieCrust);
         List<String> lore = new ArrayList<>(List.of("§8Lv. " + level + " Ingredient", "", "§7§nFilled with:"));
         LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
-        HashMap<ItemStat, Double> itemStats = itemSystem.getAllStats(bakedPieCrust);
+        HashMap<ItemStat, Double> itemStats = ItemSystem.getAllStats(bakedPieCrust);
 
         for (ItemStack item : filledItems) { // putting the list of items into a map to count em
             String name = item.getItemMeta().getDisplayName();
@@ -161,8 +158,8 @@ public class Ingredients {
 
         ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, bakedPieCrust.getAmount(), MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
 
-        itemSystem.setStats(filledPieCrust, itemStats);
-        itemSystem.updateItemLoreWithStats(filledPieCrust);
+        ItemSystem.setStats(filledPieCrust, itemStats);
+        ItemSystem.updateItemLoreWithStats(filledPieCrust);
         setIngredientKeys(filledPieCrust, IngredientType.FILLED_PIE_CRUST, level, stars);
         setFilledWithKey(filledPieCrust, filledItems);
         filledPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
@@ -171,8 +168,8 @@ public class Ingredients {
     }
 
     public static ItemStack sugar(ItemStack sugarCane, int amount) {
-        int level = itemSystem.getLevel(sugarCane);
-        double stars = itemSystem.getStars(sugarCane);
+        int level = ItemSystem.getLevel(sugarCane);
+        double stars = ItemSystem.getStars(sugarCane);
         ItemStack sugar = ItemCreator.createItem(
                 Material.SUGAR,
                 amount,
@@ -185,8 +182,8 @@ public class Ingredients {
         );
 
         setIngredientKeys(sugar, IngredientType.SUGAR, level, stars);
-        itemSystem.setStats(sugar, itemSystem.getAllStats(sugarCane));
-        itemSystem.updateItemLoreWithStats(sugar);
+        ItemSystem.setStats(sugar, ItemSystem.getAllStats(sugarCane));
+        ItemSystem.updateItemLoreWithStats(sugar);
         return sugar;
     }
 
@@ -194,10 +191,10 @@ public class Ingredients {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
         itemStack.setItemMeta(meta);
     }
 
@@ -207,7 +204,7 @@ public class Ingredients {
         byte[] bytes = ItemStack.serializeItemsAsBytes(filledItems);
         String encodedItemsString = Base64.getEncoder().encodeToString(bytes);
 
-        pdc.set(nmlItems.getItemSystem().getFilledWithKey(), PersistentDataType.STRING, encodedItemsString);
+        pdc.set(ItemSystem.getFilledWithKey(), PersistentDataType.STRING, encodedItemsString);
         itemStack.setItemMeta(meta);
     }
 }

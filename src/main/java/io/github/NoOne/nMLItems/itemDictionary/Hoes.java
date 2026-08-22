@@ -23,8 +23,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 
 public class Hoes {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
         ItemStack hoe = ItemCreator.createItem(
@@ -40,16 +38,16 @@ public class Hoes {
         ItemMeta meta = hoe.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.HOE));
-        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.HOE));
+        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         hoe.setItemMeta(meta);
 
         generateHoeStats(hoe, rarity, level);
-        itemSystem.updateUnusableItemName(hoe, itemSystem.isItemUsable(hoe, receiver));
+        ItemSystem.updateUnusableItemName(hoe, ItemSystem.isItemUsable(hoe, receiver));
         return hoe;
     }
 
@@ -87,13 +85,13 @@ public class Hoes {
         int finalThirdStatValue = thirdStatValue;
 
         switch (rarity) {
-            case COMMON -> itemSystem.setStat(hoe, firstStat, firstStatValue);
+            case COMMON -> ItemSystem.setStat(hoe, firstStat, firstStatValue);
             case UNCOMMON, RARE -> {
                 if (firstStat == secondStat) {
-                    itemSystem.setStat(hoe, firstStat, firstStatValue + secondStatValue);
+                    ItemSystem.setStat(hoe, firstStat, firstStatValue + secondStatValue);
                 } else {
-                    itemSystem.setStat(hoe, firstStat, firstStatValue);
-                    itemSystem.setStat(hoe, secondStat, secondStatValue);
+                    ItemSystem.setStat(hoe, firstStat, firstStatValue);
+                    ItemSystem.setStat(hoe, secondStat, secondStatValue);
                 }
             }
             case MYTHICAL -> {
@@ -111,11 +109,11 @@ public class Hoes {
                         .forEach(m -> m.forEach((k,v) -> finalMap.merge(k, v, Integer::sum)));
 
                 for (Map.Entry<ItemStat, Integer> entry : finalMap.entrySet()) {
-                    itemSystem.setStat(hoe, entry.getKey(), entry.getValue());
+                    ItemSystem.setStat(hoe, entry.getKey(), entry.getValue());
                 }
             }
         }
 
-        itemSystem.updateEquipmentLoreWithStats(hoe);
+        ItemSystem.updateEquipmentLoreWithStats(hoe);
     }
 }

@@ -20,8 +20,6 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.SHIELD;
 
 public class Shields {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack generateShield(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(SHIELD, null, rarity);
         ItemStack shield = ItemCreator.createItem(
@@ -38,16 +36,16 @@ public class Shields {
         ItemMeta meta = shield.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SHIELD));
-        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(SHIELD));
+        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         shield.setItemMeta(meta);
 
         generateShieldStats(shield, rarity, level);
-        itemSystem.updateUnusableItemName(shield, itemSystem.isItemUsable(shield, receiver));
+        ItemSystem.updateUnusableItemName(shield, ItemSystem.isItemUsable(shield, receiver));
         return shield;
     }
 
@@ -60,28 +58,28 @@ public class Shields {
 
         switch (rarity) {
             case COMMON -> {
-                itemSystem.setStat(shield, GUARD, firstDefenseValue);
+                ItemSystem.setStat(shield, GUARD, firstDefenseValue);
             }
             case UNCOMMON, RARE -> {
                 if (secondType == GUARD) {
-                    itemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
-                    itemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    itemSystem.setStat(shield, secondType, secondDefenseValue);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue);
+                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
             case MYTHICAL -> {
                 firstDefenseValue = (level * 8) + 10;
 
                 if (secondType == GUARD) {
-                    itemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue + secondDefenseValue);
                 } else {
-                    itemSystem.setStat(shield, GUARD, firstDefenseValue);
-                    itemSystem.setStat(shield, secondType, secondDefenseValue);
+                    ItemSystem.setStat(shield, GUARD, firstDefenseValue);
+                    ItemSystem.setStat(shield, secondType, secondDefenseValue);
                 }
             }
         }
 
-        itemSystem.updateEquipmentLoreWithStats(shield);
+        ItemSystem.updateEquipmentLoreWithStats(shield);
     }
 }

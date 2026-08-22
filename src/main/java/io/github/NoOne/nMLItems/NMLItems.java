@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class NMLItems extends JavaPlugin {
     private static NMLItems instance;
     private SkillSetManager skillSetManager;
-    private ItemSystem itemSystem;
 
     @Override
     public void onEnable() {
@@ -28,10 +27,6 @@ public final class NMLItems extends JavaPlugin {
 
     public static NMLItems getInstance() {
         return instance;
-    }
-
-    public ItemSystem getItemSystem() {
-        return itemSystem;
     }
 
     public SkillSetManager getSkillSetManager() {

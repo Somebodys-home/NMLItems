@@ -19,8 +19,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 
 public class Armor {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType weight, ItemType type, int level) {
         String name = NameGenerator.generateItemName(weight, type, rarity);
         String title = "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + ChatColor.BOLD +
@@ -35,17 +33,17 @@ public class Armor {
         ItemMeta meta = armor.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
-        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(weight));
-        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(type));
+        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(weight));
+        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(rarity));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getOriginalNameKey(), PersistentDataType.STRING, name);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
         meta.setUnbreakable(true);
         armor.setItemMeta(meta);
 
         generateArmorStats(armor, weight, rarity, level);
-        itemSystem.updateUnusableItemName(armor, itemSystem.isItemUsable(armor, receiver));
+        ItemSystem.updateUnusableItemName(armor, ItemSystem.isItemUsable(armor, receiver));
         return armor;
     }
 
@@ -75,28 +73,28 @@ public class Armor {
 
         switch (rarity) {
             case COMMON -> {
-                itemSystem.setStat(armor, firstStat, firstStatValue);
+                ItemSystem.setStat(armor, firstStat, firstStatValue);
             }
             case UNCOMMON, RARE -> {
                 if (firstStat == secondStat) {
-                    itemSystem.setStat(armor, firstStat, firstStatValue + secondDefense);
+                    ItemSystem.setStat(armor, firstStat, firstStatValue + secondDefense);
                 } else {
-                    itemSystem.setStat(armor, firstStat, firstStatValue);
-                    itemSystem.setStat(armor, secondStat, secondDefense);
+                    ItemSystem.setStat(armor, firstStat, firstStatValue);
+                    ItemSystem.setStat(armor, secondStat, secondDefense);
                 }
             }
             case MYTHICAL -> {
                 firstStatValue = level * 3;
 
                 if (firstStat == secondStat) {
-                    itemSystem.setStat(armor, firstStat, firstStatValue + secondDefense);
+                    ItemSystem.setStat(armor, firstStat, firstStatValue + secondDefense);
                 } else {
-                    itemSystem.setStat(armor, firstStat, firstStatValue);
-                    itemSystem.setStat(armor, secondStat, secondDefense);
+                    ItemSystem.setStat(armor, firstStat, firstStatValue);
+                    ItemSystem.setStat(armor, secondStat, secondDefense);
                 }
             }
         }
 
-        itemSystem.updateEquipmentLoreWithStats(armor);
+        ItemSystem.updateEquipmentLoreWithStats(armor);
     }
 }

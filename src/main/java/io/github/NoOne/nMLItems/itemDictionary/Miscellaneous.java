@@ -21,9 +21,6 @@ import static io.github.NoOne.nMLItems.enums.ItemType.INGREDIENT;
 import static io.github.NoOne.nMLItems.enums.ItemType.MISC;
 
 public class Miscellaneous {
-    private static NMLItems nmlItems = NMLItems.getInstance();
-    private static ItemSystem itemSystem = nmlItems.getItemSystem();
-
     public static ItemStack burntFood(ItemStack previousFood) {
         String name = ChatColor.stripColor(previousFood.getItemMeta().getDisplayName());
         ItemStack burntFood = ItemCreator.createItem(
@@ -47,7 +44,7 @@ public class Miscellaneous {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(MISC));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(MISC));
         itemStack.setItemMeta(meta);
     }
 }

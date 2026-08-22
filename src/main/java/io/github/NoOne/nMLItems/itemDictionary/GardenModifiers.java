@@ -18,8 +18,6 @@ import java.util.List;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class GardenModifiers {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack fertilizer() {
         ItemStack fertilizer = ItemCreator.createItem(
                 Material.BROWN_WOOL,
@@ -36,9 +34,9 @@ public class GardenModifiers {
         ItemMeta meta = fertilizer.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
-        pdc.set(itemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
-        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
+        pdc.set(ItemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
+        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
         fertilizer.setItemMeta(meta);
         return fertilizer;
     }
@@ -59,9 +57,9 @@ public class GardenModifiers {
         ItemMeta meta = wateringCan.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
-        pdc.set(itemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
-        pdc.set(itemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(GARDEN_MODIFIER));
+        pdc.set(ItemSystem.getGardenModifierKey(), PersistentDataType.STRING, GardenModifier.toString(GardenModifier.FERTILIZER));
+        pdc.set(ItemSystem.getRarityKey(), PersistentDataType.STRING, ItemRarity.toString(ItemRarity.COMMON));
         wateringCan.setItemMeta(meta);
         return wateringCan;
     }

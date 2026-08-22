@@ -22,15 +22,12 @@ import static io.github.NoOne.nMLItems.enums.FoodType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
 public class Food {
-    private static NMLItems nmlItems = NMLItems.getInstance();
-    private static ItemSystem itemSystem = nmlItems.getItemSystem();
-
     public static ItemStack rhubarbPie(ItemStack filledPieCrust, int level, double stars, int amount) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>();
-        HashMap<ItemStat, Double> filledPieCrustStats = itemSystem.getAllStats(filledPieCrust);
+        HashMap<ItemStat, Double> filledPieCrustStats = ItemSystem.getAllStats(filledPieCrust);
 
-        for (ItemStack itemStack : itemSystem.getAllItemsInPie(filledPieCrust)) {
-            HashMap<ItemStat, Double> itemStat = itemSystem.getAllStats(itemStack);
+        for (ItemStack itemStack : ItemSystem.getAllItemsInPie(filledPieCrust)) {
+            HashMap<ItemStat, Double> itemStat = ItemSystem.getAllStats(itemStack);
 
             for (Map.Entry<ItemStat, Double> entry : itemStat.entrySet()) {
                 if (itemStats.containsKey(entry.getKey())) {
@@ -64,7 +61,7 @@ public class Food {
         );
 
         setFoodKeys(rhubarbPie, RHUBARB_PIE, level, stars);
-        itemSystem.setStats(rhubarbPie, itemStats);
+        ItemSystem.setStats(rhubarbPie, itemStats);
         updateFoodLoreWithEffects(rhubarbPie);
         addServingsToLore(rhubarbPie, RHUBARB_PIE);
         rhubarbPie.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb_pie"));
@@ -90,11 +87,11 @@ public class Food {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.FOOD));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getServingsKey(), PersistentDataType.INTEGER, getServings(foodType));
-        pdc.set(itemSystem.getFoodTypeKey(), PersistentDataType.STRING, FoodType.toString(foodType));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(ItemType.FOOD));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getServingsKey(), PersistentDataType.INTEGER, getServings(foodType));
+        pdc.set(ItemSystem.getFoodTypeKey(), PersistentDataType.STRING, FoodType.toString(foodType));
         itemStack.setItemMeta(meta);
     }
 
@@ -102,7 +99,7 @@ public class Food {
         ItemMeta meta = itemStack.getItemMeta();
         ArrayList<String> lore = new ArrayList<>(meta.getLore());
         String starString = lore.getLast();
-        LinkedHashMap<ItemStat, Double> sortedStats = itemSystem.getAllStats(itemStack).entrySet().stream()
+        LinkedHashMap<ItemStat, Double> sortedStats = ItemSystem.getAllStats(itemStack).entrySet().stream()
                 .sorted(Map.Entry.<ItemStat, Double>comparingByValue().reversed())
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
@@ -123,9 +120,9 @@ public class Food {
             }
 
             if (value == (int) value) {
-                lore.add(itemSystem.makeItemStatString(entry.getKey(), (int) value) + time);
+                lore.add(ItemSystem.makeItemStatString(entry.getKey(), (int) value) + time);
             } else {
-                lore.add(itemSystem.makeItemStatString(entry.getKey(), entry.getValue()) + time);
+                lore.add(ItemSystem.makeItemStatString(entry.getKey(), entry.getValue()) + time);
             }
         }
 

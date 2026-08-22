@@ -18,11 +18,9 @@ import static io.github.NoOne.nMLItems.enums.ItemType.*;
 import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
 
 public class Crops {
-    private static ItemSystem itemSystem = NMLItems.getInstance().getItemSystem();
-
     public static ItemStack wheatBundle(int level, double stars, int amount) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(HEALTH, itemSystem.calcCropStatValue(CropType.WHEAT_BUNDLE, level, stars));
+            put(HEALTH, ItemSystem.calcCropStatValue(CropType.WHEAT_BUNDLE, level, stars));
         }};
         ItemStack wheatBundle = ItemCreator.createItem(
                 Material.WHEAT,
@@ -36,8 +34,8 @@ public class Crops {
         );
 
         setCropKeys(wheatBundle, CropType.WHEAT_BUNDLE, level, stars);
-        itemSystem.setStats(wheatBundle, itemStats);
-        itemSystem.updateItemLoreWithStats(wheatBundle);
+        ItemSystem.setStats(wheatBundle, itemStats);
+        ItemSystem.updateItemLoreWithStats(wheatBundle);
         return wheatBundle;
     }
 
@@ -45,7 +43,7 @@ public class Crops {
         String levelLine = "§8Lv. " + level + " Crop";
         String starLine = "§6 < " + MaterialStars.getMaterialStarsEmoji(stars) + " >";
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(SPEED, itemSystem.calcCropStatValue(CropType.SUGAR_CANE, level, stars));
+            put(SPEED, ItemSystem.calcCropStatValue(CropType.SUGAR_CANE, level, stars));
         }};
         ItemStack sugarCane = ItemCreator.createItem(
                 Material.SUGAR_CANE,
@@ -59,11 +57,11 @@ public class Crops {
         );
 
         setCropAndSeedKeys(sugarCane, CropType.SUGAR_CANE, SeedType.SUGAR_CANE, level, stars);
-        itemSystem.setStats(sugarCane, itemStats);
-        itemSystem.updateItemLoreWithStats(sugarCane);
+        ItemSystem.setStats(sugarCane, itemStats);
+        ItemSystem.updateItemLoreWithStats(sugarCane);
 
         if (displayItem) {
-            itemSystem.turnIntoDisplayItem(sugarCane);
+            ItemSystem.turnIntoDisplayItem(sugarCane);
         }
 
         return sugarCane;
@@ -87,7 +85,7 @@ public class Crops {
 
     public static ItemStack rhubarb(int level, double stars, int amount, boolean displayItem) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(PHYSICALDAMAGE, itemSystem.calcCropStatValue(CropType.RHUBARB, level, stars));
+            put(PHYSICALDAMAGE, ItemSystem.calcCropStatValue(CropType.RHUBARB, level, stars));
         }};
         ItemStack rhubarb = ItemCreator.createItem(
                 Material.MANGROVE_PROPAGULE,
@@ -104,12 +102,12 @@ public class Crops {
 
         setCropKeys(rhubarb, CropType.RHUBARB, level, stars);
         setIngredientKey(rhubarb, IngredientType.RHUBARB);
-        itemSystem.setStats(rhubarb, itemStats);
-        itemSystem.updateItemLoreWithStats(rhubarb);
+        ItemSystem.setStats(rhubarb, itemStats);
+        ItemSystem.updateItemLoreWithStats(rhubarb);
         rhubarb.setData(ITEM_MODEL, new NamespacedKey("nml", "rhubarb"));
 
         if (displayItem) {
-            itemSystem.turnIntoDisplayItem(rhubarb);
+            ItemSystem.turnIntoDisplayItem(rhubarb);
         }
 
         return rhubarb;
@@ -119,10 +117,10 @@ public class Crops {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
         itemStack.setItemMeta(meta);
     }
 
@@ -130,12 +128,12 @@ public class Crops {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
-        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
-        pdc.set(itemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
-        pdc.set(itemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
-        pdc.set(itemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
-        pdc.set(itemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
+        pdc.set(ItemSystem.getItemTypeKey(), PersistentDataType.STRING, ItemType.toString(CROP));
+        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(SEED));
+        pdc.set(ItemSystem.getLevelKey(), PersistentDataType.INTEGER, level);
+        pdc.set(ItemSystem.getStarsKey(), PersistentDataType.DOUBLE, stars);
+        pdc.set(ItemSystem.getCropKey(), PersistentDataType.STRING, CropType.toString(cropType));
+        pdc.set(ItemSystem.getSeedKey(), PersistentDataType.STRING, SeedType.toString(seedType));
         itemStack.setItemMeta(meta);
     }
 
@@ -143,8 +141,8 @@ public class Crops {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
-        pdc.set(itemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        pdc.set(ItemSystem.getSecondaryTypeKey(), PersistentDataType.STRING, ItemType.toString(INGREDIENT));
+        pdc.set(ItemSystem.getIngredientKey(), PersistentDataType.STRING, IngredientType.toString(ingredientType));
         itemStack.setItemMeta(meta);
     }
 }

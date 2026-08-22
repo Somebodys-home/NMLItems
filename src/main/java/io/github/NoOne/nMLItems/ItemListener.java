@@ -14,7 +14,7 @@ public class ItemListener implements Listener {
 
     @EventHandler
     public void dontUseItems(PlayerInteractEvent event) {
-        if (nmlItems.getItemSystem().getItemType(event.getItem()) != null && nmlItems.getItemSystem().getItemType(event.getItem()) != ItemType.FOOD) {
+        if (ItemSystem.getItemType(event.getItem()) != null && ItemSystem.getItemType(event.getItem()) != ItemType.FOOD) {
             event.setCancelled(true);
         }
     }
