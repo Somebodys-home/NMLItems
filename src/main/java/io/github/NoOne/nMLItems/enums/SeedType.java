@@ -23,6 +23,14 @@ public enum SeedType {
             case "rhubarb_seeds" -> RHUBARB_SEEDS;
             default -> null;
         };
+    }
 
+    public static CropType toCropType(SeedType seedType) {
+        return switch (seedType) {
+            case WHEAT_SEEDS -> CropType.WHEAT_BUNDLE;
+            case SUGAR_CANE -> CropType.SUGAR_CANE;
+            case JADE_SEEDS -> CropType.JADE_FLOWER;
+            case RHUBARB_SEEDS -> CropType.RHUBARB;
+        };
     }
 }

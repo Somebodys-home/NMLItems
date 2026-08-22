@@ -13,7 +13,6 @@ public enum CropType {
             case JADE_FLOWER -> "jade_flower";
             case RHUBARB -> "rhubarb";
         };
-
     }
 
     public static CropType fromString(String cropType) {
@@ -24,6 +23,14 @@ public enum CropType {
             case "rhubarb" -> RHUBARB;
             default -> null;
         };
+    }
 
+    public static SeedType toSeedType(CropType cropType) {
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> SeedType.WHEAT_SEEDS;
+            case SUGAR_CANE -> SeedType.SUGAR_CANE;
+            case JADE_FLOWER -> SeedType.JADE_SEEDS;
+            case RHUBARB -> SeedType.RHUBARB_SEEDS;
+        };
     }
 }
