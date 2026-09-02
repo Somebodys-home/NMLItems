@@ -33,4 +33,14 @@ public enum IngredientType {
             case RHUBARB -> "rhubarb";
         };
     }
+
+    public static String toColor(IngredientType ingredientType) {
+        return switch (ingredientType) {
+            case FLOUR, PIE_CRUST -> "<SOLID:#f0e5c7>";
+            case BAKED_PIE_CRUST, FILLED_PIE_CRUST -> "<SOLID:#DB9015>";
+            case WATER -> "§b";
+            case SUGAR -> "<SOLID:#e6faf7>";
+            case RHUBARB -> "<SOLID:#FC035A>";
+        };
+    }
 }

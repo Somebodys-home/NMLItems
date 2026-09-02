@@ -470,6 +470,34 @@ public class ItemSystem {
         return itemStack.getItemMeta().getPersistentDataContainer().has(filledWithKey);
     }
 
+    private static List<String> formatLore(String string, int size) {
+        List<String> breaks = new ArrayList<>();
+        int i = 0;
+
+        while (i < string.length()) {
+            int end = Math.min(string.length(), i + size);
+
+            if (end < string.length() && string.charAt(end) != ' ') {
+                int lastSpace = string.lastIndexOf(' ', end);
+                if (lastSpace > i) {
+                    end = lastSpace; // move break point to last space
+                }
+            }
+
+            String chunk = string.substring(i, end).trim();
+            if (!chunk.isEmpty()) {
+                breaks.add(chunk);
+            }
+
+            i = end;
+            while (i < string.length() && string.charAt(i) == ' ') {
+                i++;
+            }
+        }
+
+        return breaks;
+    }
+
     public static ItemStack[] getAllItemsInPie(ItemStack pie) {
         if (getIngredientType(pie) == IngredientType.FILLED_PIE_CRUST) {
             byte[] decodedItemsbtyes = Base64.getDecoder().decode(pie.getItemMeta().getPersistentDataContainer().get(getFilledWithKey(), PersistentDataType.STRING));
