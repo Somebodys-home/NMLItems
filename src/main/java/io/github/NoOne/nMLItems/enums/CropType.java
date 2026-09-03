@@ -33,4 +33,13 @@ public enum CropType {
             case RHUBARB -> SeedType.RHUBARB_SEEDS;
         };
     }
+
+    public static String toColor(CropType cropType) {
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> "§6";
+            case SUGAR_CANE -> "§a";
+            case JADE_FLOWER -> "<SOLID:#00A86B>";
+            case RHUBARB -> "<SOLID:#FC035A>";
+        };
+    }
 }
