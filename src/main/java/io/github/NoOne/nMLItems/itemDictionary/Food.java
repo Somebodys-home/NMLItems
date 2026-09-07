@@ -2,7 +2,6 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.NMLItems;
 import io.github.NoOne.nMLItems.enums.FoodType;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.enums.ItemType;
@@ -12,15 +11,14 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static io.github.NoOne.nMLItems.enums.FoodType.*;
-import static io.github.NoOne.nMLItems.enums.ItemType.SEED;
-import static io.papermc.paper.datacomponent.DataComponentTypes.*;
+import static io.github.NoOne.nMLItems.enums.FoodType.RHUBARB_PIE;
+import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
+import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
+import static io.papermc.paper.datacomponent.DataComponentTypes.MAX_STACK_SIZE;
 
 public class Food {
     public static ItemStack rhubarbPie(ItemStack filledPieCrust, int level, double stars, int amount) {
@@ -50,7 +48,7 @@ public class Food {
         ItemStack rhubarbPie = ItemCreator.createItem(
                 Material.APPLE,
                 amount,
-                MatrixColorAPI.process("<SOLID:#FC035A>Rhubarb Pie"),
+                MatrixColorAPI.process(FoodType.toColor(RHUBARB_PIE) + "Rhubarb Pie"),
                 List.of(
                         "§8Lv. " + level + " Dish",
                         "",

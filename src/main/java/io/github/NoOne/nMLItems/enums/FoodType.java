@@ -21,4 +21,10 @@ public enum FoodType {
             case RHUBARB_PIE -> 3;
         };
     }
+
+    public static String toColor(FoodType foodType) {
+        return switch (foodType) {
+            case RHUBARB_PIE -> "<SOLID:#FC035A>";
+        };
+    }
 }
