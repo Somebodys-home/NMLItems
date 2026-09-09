@@ -15,6 +15,15 @@ public enum CropType {
         };
     }
 
+    public static String toFormattedString(CropType cropType) {
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> "Wheat Bundle";
+            case SUGAR_CANE ->  "Sugar Cane";
+            case JADE_FLOWER -> "Jade Flower";
+            case RHUBARB -> "Rhubarb";
+        };
+    }
+
     public static CropType fromString(String cropType) {
         return switch (cropType) {
             case "wheat_bundle" -> WHEAT_BUNDLE;

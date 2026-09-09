@@ -34,6 +34,18 @@ public enum IngredientType {
         };
     }
 
+    public static String toFormattedString(IngredientType ingredientType) {
+        return switch (ingredientType) {
+            case FLOUR -> "Flour";
+            case PIE_CRUST -> "Pie Crust";
+            case BAKED_PIE_CRUST -> "Baked Pie Crust";
+            case FILLED_PIE_CRUST -> "Filled Pie Crust";
+            case WATER -> "Water";
+            case SUGAR -> "Sugar";
+            case RHUBARB -> "Rhubarb";
+        };
+    }
+
     public static String toColor(IngredientType ingredientType) {
         return switch (ingredientType) {
             case FLOUR, PIE_CRUST -> "<SOLID:#f0e5c7>";
