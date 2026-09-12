@@ -2,23 +2,20 @@ package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.NMLItems;
-import io.github.NoOne.nMLItems.enums.*;
+import io.github.NoOne.nMLItems.enums.IngredientType;
+import io.github.NoOne.nMLItems.enums.ItemStat;
+import io.github.NoOne.nMLItems.enums.MaterialStars;
 import net.matrixcreations.libraries.MatrixColorAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
-import static io.github.NoOne.nMLItems.enums.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.INGREDIENT;
 import static io.papermc.paper.datacomponent.DataComponentTypes.*;
 
 public class Ingredients {
@@ -40,7 +37,7 @@ public class Ingredients {
 
         setIngredientKeys(flour, IngredientType.FLOUR, level, stars);
         ItemSystem.setStats(flour, itemStats);
-        ItemSystem.updateItemLoreWithStats(flour);
+        ItemSystem.updateMaterialItemLoreWithStats(flour);
         return flour;
     }
 
@@ -88,7 +85,7 @@ public class Ingredients {
 
         setIngredientKeys(pieCrust, IngredientType.PIE_CRUST, level, stars);
         ItemSystem.setStats(pieCrust, itemStats);
-        ItemSystem.updateItemLoreWithStats(pieCrust);
+        ItemSystem.updateMaterialItemLoreWithStats(pieCrust);
         pieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "pie_crust"));
         return pieCrust;
     }
@@ -111,7 +108,7 @@ public class Ingredients {
 
         setIngredientKeys(bakedPieCrust, IngredientType.BAKED_PIE_CRUST, level, stars);
         ItemSystem.setStats(bakedPieCrust, itemStats);
-        ItemSystem.updateItemLoreWithStats(bakedPieCrust);
+        ItemSystem.updateMaterialItemLoreWithStats(bakedPieCrust);
         bakedPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
         bakedPieCrust.setData(MAX_STACK_SIZE, 1);
         return bakedPieCrust;
@@ -160,7 +157,7 @@ public class Ingredients {
         ItemStack filledPieCrust = ItemCreator.createItem(Material.BOWL, bakedPieCrust.getAmount(), MatrixColorAPI.process("<SOLID:#DB9015>Filled Pie Crust"), lore);
 
         ItemSystem.setStats(filledPieCrust, itemStats);
-        ItemSystem.updateItemLoreWithStats(filledPieCrust);
+        ItemSystem.updateMaterialItemLoreWithStats(filledPieCrust);
         setIngredientKeys(filledPieCrust, IngredientType.FILLED_PIE_CRUST, level, stars);
         setFilledWithKey(filledPieCrust, filledItems);
         filledPieCrust.setData(ITEM_MODEL, new NamespacedKey("nml", "baked_pie_crust"));
@@ -184,8 +181,18 @@ public class Ingredients {
 
         setIngredientKeys(sugar, IngredientType.SUGAR, level, stars);
         ItemSystem.setStats(sugar, ItemSystem.getAllStats(sugarCane));
-        ItemSystem.updateItemLoreWithStats(sugar);
+        ItemSystem.updateMaterialItemLoreWithStats(sugar);
         return sugar;
+    }
+
+    public static ItemStack[] getAllItemsInPieCrust(ItemStack pie) {
+        if (ItemSystem.getIngredientType(pie) == IngredientType.FILLED_PIE_CRUST) {
+            byte[] decodedItemsBytes = Base64.getDecoder().decode(pie.getItemMeta().getPersistentDataContainer().get(ItemSystem.getFilledWithKey(), PersistentDataType.STRING));
+
+            return ItemStack.deserializeItemsFromBytes(decodedItemsBytes);
+        } else {
+            return new ItemStack[0];
+        }
     }
 
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType, int level, double stars) {

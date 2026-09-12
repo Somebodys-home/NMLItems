@@ -25,7 +25,7 @@ public class Food {
         HashMap<ItemStat, Double> itemStats = new HashMap<>();
         HashMap<ItemStat, Double> filledPieCrustStats = ItemSystem.getAllStats(filledPieCrust);
 
-        for (ItemStack itemStack : ItemSystem.getAllItemsInPie(filledPieCrust)) {
+        for (ItemStack itemStack : Ingredients.getAllItemsInPieCrust(filledPieCrust)) {
             HashMap<ItemStat, Double> itemStat = ItemSystem.getAllStats(itemStack);
 
             for (Map.Entry<ItemStat, Double> entry : itemStat.entrySet()) {

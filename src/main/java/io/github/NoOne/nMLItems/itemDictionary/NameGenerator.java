@@ -18,23 +18,23 @@ public class NameGenerator {
         switch (rarity) {
             case COMMON -> {
                 nameSegments = new String[2];
-                possibleAdjectives = new ArrayList<>(List.of("Garbage", "Awful", "Pitiful", "You Deserve This", "Disgusting", "Be Better",
+                possibleAdjectives = new ArrayList<>(List.of("Garbage", "Awful", "Pitiful", "You Deserve This", "Disgusting", "Be Better,",
                         "Babies' First", "Oh God That", "Rotten", "Poor", "Degrading", "Forgotten", "Racist", "Not Your Average", "Beguiled", "Exiled", "Rusty",
-                        "Nobodies'", "Cheap", "Cringe"));
+                        "Nobodies'", "Cheap", "Cringe", "Blackened", "Disappointing", "Tarnished", "The ACTUAL worst"));
             }
             case UNCOMMON -> {
                 nameSegments = new String[2];
-                possibleAdjectives = new ArrayList<>(List.of("Pretty Alright", "Lifelong", "Based", "Neato Dorito", "Goofy Ass", "Nobodies'", "Knave's", "Swood"));
+                possibleAdjectives = new ArrayList<>(List.of("Pretty Alright", "Lifelong", "Based", "Neato", "Goofy Ass", "Nobodies'", "Knave's", "Swood", "Reen"));
             }
             case RARE -> {
                 nameSegments = new String[3];
-                possibleAdjectives = new ArrayList<>(List.of("Pretty Alright", "Solid", "Well-Made", "Lifelong", "Based", "Almost Mythical", "Neato Dorito",
-                        "Goofy Ass", "Nobodies'"));
+                possibleAdjectives = new ArrayList<>(List.of("Pretty Good", "Solid", "Well-Made", "Lifelong", "Based", "Almost Mythical", "Neato",
+                        "Goofy Ass", "Nobodies'", "Bloob", "Cool"));
             }
             case MYTHICAL -> {
                 nameSegments = new String[3];
                 possibleAdjectives = new ArrayList<>(List.of("Amazing", "Godly", "King's", "Queen's", "Fabled", "Based", "Legendary", "Goofy Ass",
-                        "Nobodies'", "Perfect", "Faceguy's", "Facelady's"));
+                        "Nobodies'", "Perfect", "Faceguy's", "Facelady's", "Purp"));
             }
         }
 
@@ -52,7 +52,7 @@ public class NameGenerator {
             case AXE -> possibleNames = new ArrayList<>(List.of("Axe", "Cleaver", "Battle Axe", "Tomahawk", "Chopper", "Box Cutter"));
             case HAMMER -> possibleNames = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko", "Spike Ball", "Ham-mer"));
             case SPEAR -> {
-                possibleNames = new ArrayList<>(List.of("Giant Arrow", "Javelin", "Military Fork", "Trident", "Spear", "Spork"));
+                possibleNames = new ArrayList<>(List.of("Giant Arrow", "Javelin", "Military Fork", "Trident", "Spear", "Spork", "Pointer"));
 
                 switch (rarity) {
                     case COMMON -> possibleNames.add("Overcompensator");

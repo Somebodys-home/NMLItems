@@ -1,23 +1,17 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
-import io.github.NoOne.nMLItems.NMLItems;
+import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
-import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemType;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
@@ -29,7 +23,7 @@ public class Hoes {
                 ItemType.toMaterial(ItemType.HOE),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() + " " +
+                        "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + "§l" + ItemRarity.toString(rarity).toUpperCase() + " " +
                                 ItemType.toString(ItemType.HOE).toUpperCase(),
                         ""
                 )
@@ -51,68 +45,40 @@ public class Hoes {
     }
 
     public static void generateHoeStats(ItemStack hoe, ItemRarity rarity, int level) {
-        List<ItemStat> possibleStats = new ArrayList<>(List.of(HARVEST, YIELD));
+        HashMap<ItemStat, Integer> possibleStats = new HashMap<>(){{ // the value is the equation for that stat
+            put(YIELD, (int) Math.max(1, level * .75));
+            put(HARVEST, (int) Math.max(1, level * .35));
 
-        if (rarity == ItemRarity.MYTHICAL) {
-            possibleStats.add(ACRE);
-        }
-
-        ItemStat firstStat = YIELD;
-        ItemStat secondStat = possibleStats.get(ThreadLocalRandom.current().nextInt(possibleStats.size()));
-        ItemStat thirdStat = possibleStats.get(ThreadLocalRandom.current().nextInt(possibleStats.size()));
-        int firstStatValue = (int) (level * 1.5);
-        int secondStatValue = 0;
-        int thirdStatValue = 0;
-
-        if (rarity == ItemRarity.MYTHICAL) firstStatValue *= 2;
-
-        switch (secondStat) {
-            case HARVEST -> secondStatValue = (level / 3) + 1;
-            case YIELD -> secondStatValue = (level / 2) + 1;
-            case ACRE -> secondStatValue = (level / 10) + 1;
-        }
-
-        switch (thirdStat) {
-            case HARVEST -> thirdStatValue = (level / 3) + 1;
-            case YIELD -> thirdStatValue = (level / 2) + 1;
-            case ACRE -> thirdStatValue = (level / 10) + 1;
-        }
-
-
-        int finalFirstStatValue = firstStatValue;
-        int finalSecondStatValue = secondStatValue;
-        int finalThirdStatValue = thirdStatValue;
-
-        switch (rarity) {
-            case COMMON -> ItemSystem.setStat(hoe, firstStat, firstStatValue);
-            case UNCOMMON, RARE -> {
-                if (firstStat == secondStat) {
-                    ItemSystem.setStat(hoe, firstStat, firstStatValue + secondStatValue);
-                } else {
-                    ItemSystem.setStat(hoe, firstStat, firstStatValue);
-                    ItemSystem.setStat(hoe, secondStat, secondStatValue);
-                }
+            if (rarity == ItemRarity.MYTHICAL) { // only mythical hoes can roll for the acre stat
+                put(ACRE, (int) Math.max(1, level * .15));
             }
-            case MYTHICAL -> {
-                HashMap<ItemStat, Integer> finalMap = new HashMap<>();
-                HashMap<ItemStat, Integer> finalStatMap = new HashMap<>() {{
-                   put(firstStat, finalFirstStatValue);
-                }};
-                HashMap<ItemStat, Integer> secondStatMap = new HashMap<>() {{
-                    put(secondStat, finalSecondStatValue);
-                }};
-                HashMap<ItemStat, Integer> thirdStatMap = new HashMap<>() {{
-                    put(thirdStat, finalThirdStatValue);
-                }};
-                List.of(finalStatMap, secondStatMap, thirdStatMap)
-                        .forEach(m -> m.forEach((k,v) -> finalMap.merge(k, v, Integer::sum)));
+        }};
 
-                for (Map.Entry<ItemStat, Integer> entry : finalMap.entrySet()) {
-                    ItemSystem.setStat(hoe, entry.getKey(), entry.getValue());
+        HashMap<ItemStat, Integer> selectedStats = new HashMap<>(){{ // the first stat will always be yield
+            put(YIELD, Math.toIntExact(Math.round(level * 1.5)));
+        }};
+
+        if (rarity != ItemRarity.COMMON) { // randomizing extra stats for anything above common
+            int rolls = switch (rarity) {
+                case UNCOMMON -> 2;
+                case RARE -> 3;
+                case MYTHICAL -> 4;
+                default -> 0;
+            };
+
+            for (int i = 1; i < rolls; i++) {
+                ItemStat stat = possibleStats.keySet().stream().toList().get(ThreadLocalRandom.current().nextInt(possibleStats.size()));
+                int value = possibleStats.get(stat);
+
+                if (selectedStats.containsKey(stat)) {
+                    value = Math.toIntExact(Math.round(value * 1.3));
                 }
+
+                selectedStats.put(stat, value);
             }
         }
 
-        ItemSystem.updateEquipmentLoreWithStats(hoe);
+        ItemSystem.setStats(hoe, selectedStats);
+        ItemSystem.updateLoreWithStats(hoe, ItemSystem.sortStats(selectedStats));
     }
 }

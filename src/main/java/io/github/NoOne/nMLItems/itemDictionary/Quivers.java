@@ -1,24 +1,22 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
 import io.github.NoOne.nMLItems.ItemCreator;
-import io.github.NoOne.nMLItems.NMLItems;
+import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
-import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
+
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.enums.ItemRarity.COMMON;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
-import static io.github.NoOne.nMLItems.enums.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.QUIVER;
 
 public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
@@ -47,6 +45,7 @@ public class Quivers {
         generateMainStats(quiver, rarity, level);
         generateSecondaryStats(quiver, rarity, level);
         ItemSystem.updateUnusableItemName(quiver, ItemSystem.isItemUsable(quiver, receiver));
+
         return quiver;
     }
 
