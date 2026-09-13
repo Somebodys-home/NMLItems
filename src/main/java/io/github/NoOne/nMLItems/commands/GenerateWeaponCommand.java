@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,10 +44,17 @@ public class GenerateWeaponCommand implements CommandExecutor, TabCompleter {
                     .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 3) {
-            return new ArrayList<>(List.of("sword", "dagger", "axe", "hammer", "spear", "glove", "bow", "wand", "staff", "catalyst")).stream()
+            ArrayList<String> weaponTypes = new ArrayList<>(){{
+                for (ItemType itemType : ItemType.getAllWeaponTypes()) {
+                    add(ItemType.toString(itemType).toLowerCase());
+                }
+            }};
+
+            return weaponTypes.stream()
                     .filter(s -> s.toLowerCase().startsWith(args[2].toLowerCase()))
                     .collect(Collectors.toList());
         }
+
         return List.of();
     }
 }

@@ -34,25 +34,22 @@ public class Weapons {
 
         lore.addAll(makeWeaponASCIIArt(itemType));
 
-        ItemStack weapon = ItemCreator.createItem(
-                toMaterial(itemType),
-                name,
-                lore
-        );
+        ItemStack weapon = ItemCreator.createItem(ItemType.toMaterial(itemType), name, lore);
         ItemMeta meta = weapon.getItemMeta();
 
         meta.setUnbreakable(true);
         meta.setMaxStackSize(1);
         weapon.setItemMeta(meta);
-
         weapon.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ENCHANTS);
+
         ItemSystem.setItemType(weapon, itemType);
         ItemSystem.setRarity(weapon, rarity);
         ItemSystem.setLevel(weapon, level);
         ItemSystem.setOriginalName(weapon, name);
+        ItemSystem.setUsability(weapon, true);
+        ItemSystem.usableItemCheck(weapon, receiver);
         generateDamage(weapon, itemType, rarity, level);
         generateSecondaryStats(weapon, rarity, level);
-        ItemSystem.updateUnusableItemName(weapon, ItemSystem.isItemUsable(weapon, receiver));
         setAttackSpeed(weapon);
 
         if (itemType == BOW) {
@@ -122,7 +119,6 @@ public class Weapons {
             put(CRITCHANCE, level * 2);
             put(CRITDAMAGE, level * 10);
         }};
-        List<Map.Entry<ItemStat, Integer>> statEntries = new ArrayList<>(potentialStats.entrySet()); // have to do this to be able to randomly pick an entry
         HashMap<ItemStat, Integer> selectedStats = new HashMap<>();
         int rolls = switch (rarity) {
             case UNCOMMON -> 1;
@@ -134,17 +130,11 @@ public class Weapons {
         // divider
         ItemSystem.addLoreToItem(weapon, List.of("§7─────────────"));
 
-        // generate stat rolls
+        // stat rolls
         for (int i = 0; i < rolls; i++) {
-            Map.Entry<ItemStat, Integer> randomEntry = statEntries.get(new Random().nextInt(statEntries.size()));
-            ItemStat randomItemStat = randomEntry.getKey();
-            int randomStatValue = randomEntry.getValue();
+            Map.Entry<ItemStat, Integer> randomEntry = potentialStats.entrySet().stream().toList().get(new Random().nextInt(potentialStats.size()));
 
-            if (ItemSystem.getItemType(weapon) == GLOVE && randomItemStat == CRITDAMAGE) {
-                randomEntry.setValue(randomStatValue * 2);
-            }
-
-            selectedStats.merge(randomItemStat, randomStatValue, Integer::sum);
+            selectedStats.merge(randomEntry.getKey(),  randomEntry.getValue(), Integer::sum);
         }
 
         ItemSystem.setStats(weapon, selectedStats);
@@ -153,20 +143,22 @@ public class Weapons {
 
     private static void setAttackSpeed(ItemStack weapon) {
         ItemMeta meta = weapon.getItemMeta();
-        double attackspeed = 0;
-        AttributeModifier attackSpeedModifier;
+        double attackSpeed = 0;
 
-
-        switch (ItemSystem.getItemType(weapon)) {
-            case SWORD, GLOVE, SPEAR -> attackspeed = -3;
-            case DAGGER -> attackspeed = 0;
-            case AXE -> attackspeed = -3.5;
-            case HAMMER -> attackspeed = -3.66;
-            case WAND, STAFF, CATALYST -> attackspeed = -3.13;
+        if (ItemSystem.isItemType(weapon, SWORD) || ItemSystem.isItemType(weapon, GLOVE) || ItemSystem.isItemType(weapon, SPEAR)) {
+            attackSpeed = -3;
+        } else if (ItemSystem.isItemType(weapon, DAGGER)) {
+            attackSpeed = 0;
+        } else if (ItemSystem.isItemType(weapon, AXE)) {
+            attackSpeed = -3.5;
+        } else if (ItemSystem.isItemType(weapon, HAMMER)) {
+            attackSpeed = -3.66;
+        } else if (ItemSystem.isItemType(weapon, WAND) || ItemSystem.isItemType(weapon, STAFF) || ItemSystem.isItemType(weapon, CATALYST)) {
+            attackSpeed = -3.13;
         }
 
-        attackSpeedModifier = new AttributeModifier(new NamespacedKey(NMLItems.getInstance(), "attack_speed"), attackspeed, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND);
-        meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
+        meta.addAttributeModifier(Attribute.ATTACK_SPEED, new AttributeModifier(new NamespacedKey(NMLItems.getInstance(), "attack_speed"), attackSpeed,
+                AttributeModifier.Operation.ADD_NUMBER, EquipmentSlotGroup.HAND));
         weapon.setItemMeta(meta);
     }
 

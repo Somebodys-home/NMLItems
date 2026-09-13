@@ -66,7 +66,7 @@ public enum ItemType {
             case HOE -> "Hoe";
             case SEED -> "Seed";
             case CROP -> "Crop";
-            case GARDEN_MODIFIER -> "Garden_Modifier";
+            case GARDEN_MODIFIER -> "Garden Modifier";
             case INGREDIENT -> "Ingredient";
             case FOOD -> "Food";
             case MISC -> "Misc";
@@ -74,7 +74,7 @@ public enum ItemType {
     }
 
     public static ItemType fromString(String string) {
-        return switch (string.toLowerCase()) {
+        return switch (string.toLowerCase()) { // have to do this for the generate weapon command
             case "sword" -> SWORD;
             case "dagger" -> DAGGER;
             case "axe" -> AXE;
@@ -97,6 +97,7 @@ public enum ItemType {
             case "hoe" -> HOE;
             case "seed" -> SEED;
             case "crop" -> CROP;
+            case "garden modifier" -> GARDEN_MODIFIER;
             case "ingredient" -> INGREDIENT;
             case "food" -> FOOD;
             case "misc" -> MISC;

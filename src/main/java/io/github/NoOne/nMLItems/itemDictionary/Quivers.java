@@ -11,10 +11,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static io.github.NoOne.nMLItems.enums.ItemRarity.COMMON;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.QUIVER;
 
@@ -34,97 +35,73 @@ public class Quivers {
         ItemMeta meta = quiver.getItemMeta();
 
         meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         quiver.setItemMeta(meta);
 
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         ItemSystem.setItemType(quiver, QUIVER);
         ItemSystem.setRarity(quiver, rarity);
         ItemSystem.setLevel(quiver, level);
         ItemSystem.setOriginalName(quiver, name);
 
         generateMainStats(quiver, rarity, level);
-        generateSecondaryStats(quiver, rarity, level);
-        ItemSystem.updateUnusableItemName(quiver, ItemSystem.isItemUsable(quiver, receiver));
+        //generateSecondaryStats(quiver, rarity, level);
+        ItemSystem.setUsability(quiver, true);
+        ItemSystem.usableItemCheck(quiver, receiver);
 
         return quiver;
     }
 
-    private static void generateMainStats(ItemStack weapon, ItemRarity rarity, int level) {
+    private static void generateMainStats(ItemStack quiver, ItemRarity rarity, int level) {
         List<ItemStat> possibleFirstStats = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
                                                                     NECROTICDAMAGE, PUREDAMAGE, CRITCHANCE, CRITDAMAGE));
         List<ItemStat> possibleSecondStats = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
                                                                     NECROTICDAMAGE, PUREDAMAGE, CRITCHANCE, CRITDAMAGE));
-
         ItemStat firstStat = possibleFirstStats.get(ThreadLocalRandom.current().nextInt(possibleFirstStats.size()));
-        int firstStatValue = level * 2;
         ItemStat secondStat = possibleSecondStats.get(ThreadLocalRandom.current().nextInt(possibleSecondStats.size()));
-        int secondStatValue = level;
+        int firstStatValue;
 
-        switch (rarity) {
-            case COMMON -> {
-                ItemSystem.setStat(weapon, firstStat, firstStatValue);
-            }
-            case UNCOMMON, RARE -> {
-                if (firstStat == secondStat) {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
-                } else {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue);
-                    ItemSystem.setStat(weapon, secondStat, secondStatValue);
-                }
-            }
-            case MYTHICAL -> {
-                firstStatValue = level * 3;
-
-                if (firstStat == secondStat) {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue + secondStatValue);
-                } else {
-                    ItemSystem.setStat(weapon, firstStat, firstStatValue);
-                    ItemSystem.setStat(weapon, secondStat, secondStatValue);
-                }
-            }
+        if (rarity == ItemRarity.MYTHICAL) {
+            firstStatValue = level * 3;
+        } else {
+            firstStatValue = level * 2;
         }
 
-        ItemSystem.updateEquipmentLoreWithStats(weapon);
+        HashMap<ItemStat, Integer> selectedStats = new HashMap<>(){{
+            put(firstStat, firstStatValue);
+            merge(secondStat, level, Integer::sum);
+        }};
+
+        ItemSystem.setStats(quiver, selectedStats);
+        ItemSystem.updateLoreWithStats(quiver, ItemSystem.sortStats(selectedStats));
     }
 
-    private static void generateSecondaryStats(ItemStack quiver, ItemRarity rarity, int level) {
-        HashMap<ItemStat, Integer> statMap = new HashMap<>();
-        statMap.put(CRITCHANCE, level * 2);
-        statMap.put(CRITDAMAGE, level * 10);
-
-        // divider
-        if (rarity != COMMON) {
-            ItemMeta meta = quiver.getItemMeta();
-            List<String> addedLore = meta.getLore();
-
-            addedLore.add("§7─────────────");
-            meta.setLore(addedLore);
-            quiver.setItemMeta(meta);
-        }
-
-        // generate stat rolls
-        List<Map.Entry<ItemStat, Integer>> statEntries = new ArrayList<>(statMap.entrySet());
-        HashMap<ItemStat, Integer> selectedStats = new HashMap<>();
-        int rolls = 0;
-
-        switch (rarity) {
-            case UNCOMMON -> rolls = 1;
-            case RARE -> rolls = 2;
-            case MYTHICAL -> rolls = 4;
-        }
-
-        for (int i = 0; i < rolls; i++) {
-            Map.Entry<ItemStat, Integer> randomEntry = statEntries.get(new Random().nextInt(statEntries.size()));
-            ItemStat randomItemStat = randomEntry.getKey();
-            int randomStatValue = randomEntry.getValue();
-
-            selectedStats.merge(randomItemStat, randomStatValue, Integer::sum);
-        }
-
-        // update stats
-        for (Map.Entry<ItemStat, Integer> selectedStatEntry : selectedStats.entrySet()) {
-            ItemSystem.setStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
-            ItemSystem.updateLoreWithStat(quiver, selectedStatEntry.getKey(), selectedStatEntry.getValue());
-        }
-    }
+//    private static void generateSecondaryStats(ItemStack quiver, ItemRarity rarity, int level) {
+//        HashMap<ItemStat, Integer> statMap = new HashMap<>(){{
+//            put(CRITCHANCE, level);
+//            put(CRITDAMAGE, level * 5);
+//        }};
+//
+//        if (rarity != COMMON) { // commons dont get extra stat rolls
+//            HashMap<ItemStat, Integer> selectedStats = new HashMap<>();
+//            int rolls = switch (rarity) {
+//                case UNCOMMON -> 1;
+//                case RARE -> 2;
+//                case MYTHICAL -> 4;
+//                default -> 0;
+//            };
+//
+//            ItemSystem.addLoreToItem(quiver, List.of("§7─────────────")); // divider
+//
+//            for (int i = 0; i < rolls; i++) {
+//                Map.Entry<ItemStat, Integer> randomEntry = statMap.entrySet().stream().toList().get(new Random().nextInt(statMap.size()));
+//                ItemStat randomItemStat = randomEntry.getKey();
+//                int randomStatValue = randomEntry.getValue();
+//
+//                selectedStats.merge(randomItemStat, randomStatValue, Integer::sum);
+//            }
+//
+//            ItemSystem.setStats(quiver, selectedStats);
+//            ItemSystem.updateLoreWithStats(quiver, ItemSystem.sortStats(selectedStats));
+//        }
+//    }
 }

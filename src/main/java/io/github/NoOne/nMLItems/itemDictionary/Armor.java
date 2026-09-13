@@ -20,27 +20,29 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 public class Armor {
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType weight, ItemType type, int level) {
         String name = NameGenerator.generateItemName(weight, type, rarity);
-        String title = "§o§fLv. " + level + "§r" +  ItemRarity.toChatColor(rarity) + "§l " + ItemRarity.toString(rarity).toUpperCase() + " " +
-                ItemType.toString(weight).toUpperCase() + " " + ItemType.toString(type).toUpperCase();
-
         ItemStack armor = ItemCreator.createItem(
                 ItemType.toMaterial(weight, type),
                 name,
-                List.of(title, "")
+                List.of(
+                        "§o§fLv. " + level + "§r" +  ItemRarity.toChatColor(rarity) + "§l " + ItemRarity.toString(rarity).toUpperCase() + " " +
+                        ItemType.toString(weight).toUpperCase() + " " + ItemType.toString(type).toUpperCase(),
+                        ""
+                )
         );
+
         ItemMeta meta = armor.getItemMeta();
 
         meta.setUnbreakable(true);
         armor.setItemMeta(meta);
-
         armor.addItemFlags(ItemFlag.HIDE_UNBREAKABLE, ItemFlag.HIDE_ATTRIBUTES);
-        ItemSystem.setItemType(armor, type);
-        ItemSystem.setSecondaryType(armor, weight);
+
+        ItemSystem.setItemTypes(armor, List.of(type, weight));
         ItemSystem.setRarity(armor, rarity);
         ItemSystem.setLevel(armor, level);
         ItemSystem.setOriginalName(armor, name);
         generateArmorStats(armor, weight, rarity, level);
-        ItemSystem.updateUnusableItemName(armor, ItemSystem.isItemUsable(armor, receiver));
+        ItemSystem.setUsability(armor, true);
+        ItemSystem.usableItemCheck(armor, receiver);
 
         return armor;
     }
@@ -68,31 +70,30 @@ public class Armor {
         ItemStat firstStat = possibleFirstDefenseTypes.get(ThreadLocalRandom.current().nextInt(possibleFirstDefenseTypes.size()));
         int firstStatValue = level * 2;
         ItemStat secondStat = possibleSecondDefenseTypes.get(ThreadLocalRandom.current().nextInt(possibleSecondDefenseTypes.size()));
-        int secondStatValue = level;
 
         switch (rarity) {
             case COMMON -> itemStats.put(firstStat, firstStatValue);
             case UNCOMMON, RARE -> {
                 if (firstStat == secondStat) {
-                    itemStats.put(firstStat, firstStatValue + secondStatValue);
+                    itemStats.put(firstStat, firstStatValue + level);
                 } else {
                     itemStats.put(firstStat, firstStatValue);
-                    itemStats.put(secondStat, secondStatValue);
+                    itemStats.put(secondStat, level);
                 }
             }
             case MYTHICAL -> {
                 firstStatValue = level * 3;
 
                 if (firstStat == secondStat) {
-                    itemStats.put(firstStat, firstStatValue + secondStatValue);
+                    itemStats.put(firstStat, firstStatValue + level);
                 } else {
                     itemStats.put(firstStat, firstStatValue);
-                    itemStats.put(secondStat, secondStatValue);
+                    itemStats.put(secondStat, level);
                 }
             }
         }
 
         ItemSystem.setStats(armor, itemStats);
-        ItemSystem.updateEquipmentLoreWithStats(armor);
+        ItemSystem.updateLoreWithStats(armor, itemStats);
     }
 }

@@ -1,21 +1,16 @@
 package io.github.NoOne.nMLItems.itemDictionary;
 
-import io.github.NoOne.nMLItems.NMLItems;
+import io.github.NoOne.nMLItems.ItemCreator;
+import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.GardenModifier;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
-import io.github.NoOne.nMLItems.ItemSystem;
-import io.github.NoOne.nMLItems.ItemCreator;
-import io.github.NoOne.nMLItems.enums.ItemType;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import java.util.List;
 
-import static io.github.NoOne.nMLItems.enums.ItemType.*;
+import static io.github.NoOne.nMLItems.enums.ItemType.GARDEN_MODIFIER;
 
 public class GardenModifiers {
     public static ItemStack fertilizer() {

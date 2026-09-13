@@ -9,9 +9,9 @@ commands:
   generateArmor:
     description: Generates a random piece of armor
     usage: /<command> <level> <rarity> <weight> <type>
-  generateQuiver:
-    description: Generates a random quiver
-    usage: /<command> <level> <rarity>
+  generateOffhand:
+    description: Generates a random offhand
+    usage: /<command> <level> <rarity> <type>
   generateHoe:
     description: Generates a random hoe
     usage: /<command> <level> <rarity>

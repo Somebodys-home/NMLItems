@@ -121,8 +121,8 @@ public class Ingredients {
         LinkedHashMap<String, Integer> filledMap = new LinkedHashMap<>();
         HashMap<ItemStat, Double> itemStats = ItemSystem.getAllStats(bakedPieCrust);
 
-        for (ItemStack item : filledItems) { // putting the list of items into a map to count em
-            String name = item.getItemMeta().getDisplayName();
+        for (ItemStack itemStack : filledItems) { // putting the list of items into a map to count em
+            String name = itemStack.getItemMeta().getDisplayName();
 
             if (filledMap.containsKey(name)) {
                 filledMap.put(name, filledMap.get(name) + 1);

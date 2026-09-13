@@ -1,7 +1,9 @@
 package io.github.NoOne.nMLItems.commands;
 
 import io.github.NoOne.nMLItems.enums.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemType;
 import io.github.NoOne.nMLItems.itemDictionary.Quivers;
+import io.github.NoOne.nMLItems.itemDictionary.Shields;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,16 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GenerateQuiverCommand implements CommandExecutor, TabCompleter {
+public class GenerateOffhandCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player player) {
             int level = Integer.parseInt(args[0]);
             String rarity = args[1];
-            ItemStack quiver = Quivers.generateQuiver(player, ItemRarity.fromString(rarity), level);
+            String itemType = args[2];
+            ItemStack offhand = switch (ItemType.fromString(itemType)) {
+                case SHIELD -> Shields.generateShield(player, ItemRarity.fromString(rarity), level);
+                case QUIVER -> Quivers.generateQuiver(player, ItemRarity.fromString(rarity), level);
+                default -> null;
+            };
 
-            player.getInventory().addItem(quiver);
+            player.getInventory().addItem(offhand);
         }
 
         return true;
@@ -38,6 +45,10 @@ public class GenerateQuiverCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 2) {
             return new ArrayList<>(List.of("common", "uncommon", "rare", "mythical")).stream()
                     .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
+                    .collect(Collectors.toList());
+        } else if (args.length == 3) {
+            return new ArrayList<>(List.of("shield", "quiver")).stream()
+                    .filter(s -> s.toLowerCase().startsWith(args[2].toLowerCase()))
                     .collect(Collectors.toList());
         }
 

@@ -12,7 +12,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
@@ -21,8 +20,8 @@ public class ItemSystem {
     private static SkillSetManager skillSetManager = nmlItems.getSkillSetManager();
     private static NamespacedKey itemTypeKey = new NamespacedKey(nmlItems, "item_type"); // item types stored as (type)/(type)/...
     private static NamespacedKey itemStatsKey = new NamespacedKey(nmlItems, "item_stats"); // stats stored as (stat)-##/(stat)-##/...
-    private static NamespacedKey secondaryTypeKey = new NamespacedKey(nmlItems, "second_item_type");
     private static NamespacedKey originalNameKey = new NamespacedKey(nmlItems, "original_name");
+    private static NamespacedKey usableKey = new NamespacedKey(nmlItems, "usable");
     private static NamespacedKey rarityKey = new NamespacedKey(nmlItems, "rarity");
     private static NamespacedKey levelKey = new NamespacedKey(nmlItems, "level");
     private static NamespacedKey starsKey = new NamespacedKey(nmlItems, "stars");
@@ -34,15 +33,15 @@ public class ItemSystem {
     private static NamespacedKey servingsKey = new NamespacedKey(nmlItems, "servings");
     private static NamespacedKey foodTypeKey = new NamespacedKey(nmlItems, "food_type");
 
-    public static void setStat(ItemStack item, ItemStat itemStat, double amount) {
-        if (!hasStat(item, itemStat)) {
+    public static void setStat(ItemStack itemStack, ItemStat itemStat, double amount) {
+        if (!hasStat(itemStack, itemStat)) {
             if (amount == (int) amount) {
-                setStat(item, itemStat, (int) amount);
+                setStat(itemStack, itemStat, (int) amount);
             } else {
-                ItemMeta meta = item.getItemMeta();
+                ItemMeta meta = itemStack.getItemMeta();
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-                if (!pdc.has(itemStatsKey)) {
+                if (!pdc.has(itemStatsKey)) { // logic changes if the item alr has stats set or not
                     String statString = ItemStat.toString(itemStat) + "-" + amount;
 
                     pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
@@ -54,17 +53,17 @@ public class ItemSystem {
                     pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
                 }
 
-                item.setItemMeta(meta);
+                itemStack.setItemMeta(meta);
             }
         }
     }
 
-    public static void setStat(ItemStack item, ItemStat itemStat, int amount) {
-        if (!hasStat(item, itemStat)) {
-            ItemMeta meta = item.getItemMeta();
+    public static void setStat(ItemStack itemStack, ItemStat itemStat, int amount) {
+        if (!hasStat(itemStack, itemStat)) {
+            ItemMeta meta = itemStack.getItemMeta();
             PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-            if (!pdc.has(itemStatsKey)) {
+            if (!pdc.has(itemStatsKey)) { // logic changes if the item alr has stats set or not
                 String statString = ItemStat.toString(itemStat) + "-" + amount;
 
                 pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
@@ -76,7 +75,7 @@ public class ItemSystem {
                 pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
             }
 
-            item.setItemMeta(meta);
+            itemStack.setItemMeta(meta);
         }
     }
 
@@ -87,19 +86,29 @@ public class ItemSystem {
     }
 
     public static void setItemType(ItemStack itemStack, ItemType itemType) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+        if (!isItemType(itemStack, itemType)) {
+            ItemMeta meta = itemStack.getItemMeta();
+            PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
-        itemStack.setItemMeta(meta);
+            if (!pdc.has(itemTypeKey)) { // logic changes if the item alr has its type set or not
+                pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
+
+            } else {
+                String typeString = pdc.get(itemTypeKey, PersistentDataType.STRING);
+
+                typeString += "/" + ItemType.toString(itemType);
+                pdc.remove(itemTypeKey);
+                pdc.set(itemTypeKey, PersistentDataType.STRING, typeString);
+            }
+
+            itemStack.setItemMeta(meta);
+        }
     }
 
-    public static void setSecondaryType(ItemStack itemStack, ItemType itemType) {
-        ItemMeta meta = itemStack.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
-
-        pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
-        itemStack.setItemMeta(meta);
+    public static void setItemTypes(ItemStack itemStack, List<ItemType> itemTypes) {
+        for (ItemType itemType : itemTypes) {
+            setItemType(itemStack, itemType);
+        }
     }
 
     public static void setOriginalName(ItemStack itemStack, String originalName) {
@@ -107,6 +116,14 @@ public class ItemSystem {
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
         pdc.set(originalNameKey, PersistentDataType.STRING, originalName);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void setUsability(ItemStack itemStack, boolean usable) {
+        ItemMeta meta = itemStack.getItemMeta();
+        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+
+        pdc.set(usableKey, PersistentDataType.BOOLEAN, usable);
         itemStack.setItemMeta(meta);
     }
 
@@ -191,58 +208,32 @@ public class ItemSystem {
         itemStack.setItemMeta(meta);
     }
 
-    public static void updateLoreWithStat(ItemStack item, ItemStat itemStat, double value) {
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = new ArrayList<>(meta.getLore()){{
-            add(makeItemStatString(itemStat, value));
-        }};
-
-        meta.setLore(lore);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        item.setItemMeta(meta);
-    }
-
-    public static void updateLoreWithStat(ItemStack item, ItemStat itemStat, int value) {
-        ItemMeta meta = item.getItemMeta();
-        List<String> lore = new ArrayList<>(meta.getLore()){{
-            add(makeItemStatString(itemStat, value));
-        }};
-
-        meta.setLore(lore);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        item.setItemMeta(meta);
-    }
-
-    public static void updateLoreWithStats(ItemStack item, HashMap<ItemStat, ? extends Number> itemStats) {
-        for (Map.Entry<ItemStat, ? extends Number> entry : itemStats.entrySet()) {
-            updateLoreWithStat(item, entry.getKey(), entry.getValue().doubleValue());
-        }
-    }
-
-    public static void updateEquipmentLoreWithStats(ItemStack itemStack) {
+    public static void updateLoreWithStat(ItemStack itemStack, ItemStat itemStat, double value) {
         ItemMeta meta = itemStack.getItemMeta();
-        List<String> originalLore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
-        List<String> addedLore = new ArrayList<>();
-        HashMap<ItemStat, Double> itemStats = getAllStats(itemStack);
+        List<String> lore = new ArrayList<>(meta.getLore()){{
+            add(makeItemStatString(itemStat, value));
+        }};
 
-        itemStats.entrySet().stream()
-                .sorted((a, b) -> Double.compare(b.getValue(), a.getValue())) // Descending sort
-                .forEachOrdered(entry -> {
-                    ItemStat itemStat = entry.getKey();
-                    double value = entry.getValue();
-                    int valueInt = (int) value;
-
-                    switch (itemStat) {
-                        case CRITCHANCE, CRITDAMAGE -> addedLore.add(ItemStat.toChatColor(itemStat) + "+ " + valueInt + "% " +
-                                ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat));
-                        default ->  addedLore.add(ItemStat.toChatColor(itemStat) + "+ " + valueInt + " " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat));
-                    }
-                });
-
-        originalLore.addAll(addedLore);
-        meta.setLore(originalLore);
+        meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemStack.setItemMeta(meta);
+    }
+
+    public static void updateLoreWithStat(ItemStack itemStack, ItemStat itemStat, int value) {
+        ItemMeta meta = itemStack.getItemMeta();
+        List<String> lore = new ArrayList<>(meta.getLore()){{
+            add(makeItemStatString(itemStat, value));
+        }};
+
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemStack.setItemMeta(meta);
+    }
+
+    public static void updateLoreWithStats(ItemStack itemStack, HashMap<ItemStat, ? extends Number> itemStats) {
+        for (Map.Entry<ItemStat, ? extends Number> entry : itemStats.entrySet()) {
+            updateLoreWithStat(itemStack, entry.getKey(), entry.getValue().doubleValue());
+        }
     }
 
     // updates the lore with the items stats while respecting its final line
@@ -251,14 +242,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         ArrayList<String> lore = new ArrayList<>(meta.getLore());
         String starString = lore.getLast();
-        LinkedHashMap<ItemStat, Double> sortedStats = getAllStats(itemStack).entrySet().stream()
-                .sorted(Map.Entry.<ItemStat, Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, _) -> e1,
-                        LinkedHashMap::new
-                ));
+        LinkedHashMap<ItemStat, Double> sortedStats = sortStats(getAllStats(itemStack));
 
         lore.removeLast();
 
@@ -277,9 +261,9 @@ public class ItemSystem {
         itemStack.setItemMeta(meta);
     }
 
-    public static void updateUnusableItemName(ItemStack item, boolean usable) {
-        ItemMeta meta = item.getItemMeta();
-        String originalName = getOriginalItemName(item);
+    public static void updateUnusableItemName(ItemStack itemStack, boolean usable) {
+        ItemMeta meta = itemStack.getItemMeta();
+        String originalName = getOriginalItemName(itemStack);
         String editedName;
 
         if (!usable) {
@@ -289,7 +273,7 @@ public class ItemSystem {
         }
 
         meta.setDisplayName(editedName);
-        item.setItemMeta(meta);
+        itemStack.setItemMeta(meta);
     }
 
     public static void turnIntoDisplayItem(ItemStack itemStack) {
@@ -326,15 +310,46 @@ public class ItemSystem {
         itemStack.setItemMeta(itemMeta);
     }
 
-    public static String getOriginalItemName(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        PersistentDataContainer pdc = meta.getPersistentDataContainer();
+    public static void usableItemCheck(ItemStack itemStack, Player player) {
+        boolean usable = isItemUsable(itemStack, player);
+        boolean changed = isItemUsable(itemStack) != usable;
 
-        if (!pdc.has(originalNameKey, PersistentDataType.STRING)) {
-            return null;
+        if (changed) { // we don't care if nothing changed about the item's usability
+            if (!usable) {
+                addLoreToItem(itemStack, List.of(
+                        "",
+                        "§cYou cannot use",
+                        "§cthis item!"
+                ));
+            } else {
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                ArrayList<String> itemLore = new ArrayList<>(itemMeta.getLore());
+
+                itemLore.removeAll(List.of(
+                        "",
+                        "§cYou cannot use",
+                        "§cthis item!"
+                ));
+
+                itemMeta.setLore(itemLore);
+                itemStack.setItemMeta(itemMeta);
+            }
+
+            updateUnusableItemName(itemStack, usable);
+            setUsability(itemStack, usable);
+        }
+    }
+
+    public static String getOriginalItemName(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
+
+            if (pdc.has(originalNameKey)) {
+                return pdc.get(originalNameKey, PersistentDataType.STRING);
+            }
         }
 
-        return pdc.get(originalNameKey, PersistentDataType.STRING);
+        return null;
     }
 
     public static String makeItemStatString(ItemStat itemStat, int value) {
@@ -355,29 +370,33 @@ public class ItemSystem {
         }
     }
 
-    public static int getLevel(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static int getLevel(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        if (pdc.has(levelKey)) {
-            return pdc.get(levelKey, PersistentDataType.INTEGER);
+            if (pdc.has(levelKey)) {
+                return pdc.get(levelKey, PersistentDataType.INTEGER);
+            }
         }
 
         return 0;
     }
 
-    public static int getServings(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static int getServings(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        if (pdc.has(servingsKey)) {
-            return pdc.get(servingsKey, PersistentDataType.INTEGER);
+            if (pdc.has(servingsKey)) {
+                return pdc.get(servingsKey, PersistentDataType.INTEGER);
+            }
         }
 
         return 0;
     }
 
-    public static double getStatValue(ItemStack item, ItemStat itemStat) {
-        if (hasStat(item, itemStat)) {
-            PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static double getStatValue(ItemStack itemStack, ItemStat itemStat) {
+        if (hasStat(itemStack, itemStat)) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
             String statString = pdc.get(itemStatsKey, PersistentDataType.STRING);
             String[] statSplits = statString.split("/"); // stats on the key are stored as (stat)-##/(stat)-## etc. so each split is its own stat and value
 
@@ -391,8 +410,8 @@ public class ItemSystem {
         return 0;
     }
 
-    public static double getTotalDamageOfItem(ItemStack item) {
-        HashMap<ItemStat, Double> damageStats = getAllDamageStats(item);
+    public static double getTotalDamageOfItem(ItemStack itemStack) {
+        HashMap<ItemStat, Double> damageStats = getAllDamageStats(itemStack);
         double totalDamage = 0;
 
         for (Map.Entry<ItemStat, Double> damageEntry : damageStats.entrySet()) {
@@ -402,157 +421,153 @@ public class ItemSystem {
         return totalDamage;
     }
 
-    public static double getStars(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static double getStars(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        if (pdc.has(starsKey)) {
-            return pdc.get(starsKey, PersistentDataType.DOUBLE);
+            if (pdc.has(starsKey, PersistentDataType.DOUBLE)) {
+                return pdc.get(starsKey, PersistentDataType.DOUBLE);
+            }
         }
 
         return 0;
     }
 
-    public static boolean hasStat(ItemStack item, ItemStat itemStat) {
-        if (item == null || !item.hasItemMeta()) return false;
+    public static boolean hasStat(ItemStack itemStack, ItemStat itemStat) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+            if (pdc.has(itemStatsKey, PersistentDataType.STRING)) {
+                return pdc.get(itemStatsKey, PersistentDataType.STRING).contains(ItemStat.toString(itemStat));
+            }
 
-        if (pdc.has(itemStatsKey, PersistentDataType.STRING)) {
-            String statString = pdc.get(itemStatsKey, PersistentDataType.STRING);
-
-            return statString.contains(ItemStat.toString(itemStat));
         }
 
         return false;
     }
 
-    public static boolean isItemUsable(ItemStack item, Player player) {
-        if (getItemType(item) == null) {
-            return false;
+    public static boolean isItemUsable(ItemStack itemStack, Player player) {
+        int itemLevel = getLevel(itemStack);
+
+        if (isItemType(itemStack, HOE)) {
+            return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel() >= itemLevel;
+        } else {
+            return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
         }
-
-        int itemLevel = getLevel(item);
-
-        return switch (getItemType(item)) {
-            case HOE -> skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel() >= itemLevel;
-            default -> skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
-        };
     }
 
-    public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
-        if (itemStack == null || !itemStack.hasItemMeta()) return false;
-        
-        PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
+    public static boolean isItemUsable(ItemStack itemStack) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        if (persistentDataContainer.has(itemTypeKey, PersistentDataType.STRING)) {
-            String keyValue = persistentDataContainer.get(itemTypeKey, PersistentDataType.STRING);
-
-            if (keyValue.equals(ItemType.toString(itemType))) {
-                return true;
-            } else if (persistentDataContainer.has(secondaryTypeKey, PersistentDataType.STRING)) {
-                keyValue = persistentDataContainer.get(secondaryTypeKey, PersistentDataType.STRING);
-
-                if (keyValue.equals(ItemType.toString(itemType))) {
-                    return true;
-                }
+            if (pdc.has(usableKey)) {
+                return pdc.get(usableKey, PersistentDataType.BOOLEAN);
             }
         }
 
         return false;
     }
 
-    public static boolean hasDamageStats(ItemStack item) {
-        return hasStat(item, ItemStat.PHYSICALDAMAGE) ||
-                hasStat(item, ItemStat.FIREDAMAGE) ||
-                hasStat(item, ItemStat.COLDDAMAGE) ||
-                hasStat(item, ItemStat.EARTHDAMAGE) ||
-                hasStat(item, ItemStat.LIGHTNINGDAMAGE) ||
-                hasStat(item, ItemStat.AIRDAMAGE) ||
-                hasStat(item, ItemStat.RADIANTDAMAGE) ||
-                hasStat(item, ItemStat.NECROTICDAMAGE) ||
-                hasStat(item, ItemStat.PUREDAMAGE);
+    public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
+
+            if (pdc.has(itemTypeKey, PersistentDataType.STRING)) {
+                return pdc.get(itemTypeKey, PersistentDataType.STRING).contains(ItemType.toString(itemType));
+            }
+        }
+
+        return false;
     }
 
-    public static boolean isEquippable(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return false;
-
-        return isItemType(item, HELMET) ||
-                isItemType(item, CHESTPLATE) ||
-                isItemType(item, LEGGINGS) ||
-                isItemType(item, BOOTS) ||
-                isItemType(item, SHIELD) ||
-                isItemType(item, QUIVER);
+    public static boolean hasDamageStats(ItemStack itemStack) {
+        return hasStat(itemStack, ItemStat.PHYSICALDAMAGE) ||
+                hasStat(itemStack, ItemStat.FIREDAMAGE) ||
+                hasStat(itemStack, ItemStat.COLDDAMAGE) ||
+                hasStat(itemStack, ItemStat.EARTHDAMAGE) ||
+                hasStat(itemStack, ItemStat.LIGHTNINGDAMAGE) ||
+                hasStat(itemStack, ItemStat.AIRDAMAGE) ||
+                hasStat(itemStack, ItemStat.RADIANTDAMAGE) ||
+                hasStat(itemStack, ItemStat.NECROTICDAMAGE) ||
+                hasStat(itemStack, ItemStat.PUREDAMAGE);
     }
 
-    public static boolean isWeapon(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return false;
+    public static boolean isEquippable(ItemStack itemStack) {
+        return isItemType(itemStack, HELMET) ||
+                isItemType(itemStack, CHESTPLATE) ||
+                isItemType(itemStack, LEGGINGS) ||
+                isItemType(itemStack, BOOTS) ||
+                isItemType(itemStack, SHIELD) ||
+                isItemType(itemStack, QUIVER);
+    }
 
-        return isItemType(item, SWORD) ||
-                isItemType(item, DAGGER) ||
-                isItemType(item, AXE) ||
-                isItemType(item, HAMMER) ||
-                isItemType(item, SPEAR) ||
-                isItemType(item, GLOVE) ||
-                isItemType(item, BOW) ||
-                isItemType(item, WAND) ||
-                isItemType(item, STAFF) ||
-                isItemType(item, CATALYST);
+    public static boolean isWeapon(ItemStack itemStack) {
+        return isItemType(itemStack, SWORD) ||
+                isItemType(itemStack, DAGGER) ||
+                isItemType(itemStack, AXE) ||
+                isItemType(itemStack, HAMMER) ||
+                isItemType(itemStack, SPEAR) ||
+                isItemType(itemStack, GLOVE) ||
+                isItemType(itemStack, BOW) ||
+                isItemType(itemStack, WAND) ||
+                isItemType(itemStack, STAFF) ||
+                isItemType(itemStack, CATALYST);
     }
 
     public static boolean hasLevelKey(ItemStack itemStack) {
-        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+        if (!itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
     }
 
     public static boolean hasOriginalNameKey(ItemStack itemStack) {
-        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+        if (!itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(originalNameKey);
     }
 
     public static boolean hasFilledWithKey(ItemStack itemStack) {
-        if (itemStack == null || !itemStack.hasItemMeta()) return false;
+        if (!itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(filledWithKey);
     }
 
-    public static HashMap<ItemStat, Double> getAllStats(ItemStack item) {
+    public static HashMap<ItemStat, Double> getAllStats(ItemStack itemStack) {
         HashMap<ItemStat, Double> stats = new HashMap<>();
 
         for (ItemStat itemStat : ItemStat.values()) {
-            if (hasStat(item, itemStat)) {
-                stats.put(itemStat, getStatValue(item, itemStat));
+            if (hasStat(itemStack, itemStat)) {
+                stats.put(itemStat, getStatValue(itemStack, itemStat));
             }
         }
 
         return stats;
     }
 
-    public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack item) {
+    public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack itemStack) {
         return new HashMap<>(){{
-            for (Entry<ItemStat, Double> statEntry : getAllStats(item).entrySet()) {
+            for (Entry<ItemStat, Double> statEntry : getAllStats(itemStack).entrySet()) {
                 put(ItemStat.toString(statEntry.getKey()).toLowerCase().replaceAll(" ", ""), statEntry.getValue());
             }
         }};
     }
 
-    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack item) {
+    public static HashMap<ItemStat, Double> getAllDamageStats(ItemStack itemStack) {
         HashMap<ItemStat, Double> damageStats = new HashMap<>();
 
-        if (!hasDamageStats(item)) return damageStats;
+        if (!hasDamageStats(itemStack)) return damageStats;
 
         for (ItemStat itemStat : ItemStat.values()) {
-            if (hasStat(item, itemStat)) {
-                damageStats.put(itemStat, getStatValue(item, itemStat));
+            if (hasStat(itemStack, itemStat)) {
+                damageStats.put(itemStat, getStatValue(itemStack, itemStat));
             }
         }
 
         return damageStats;
     }
 
-    public static HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack item, double multiplier) {
-        HashMap<ItemStat, Double> multipliedDamage = getAllDamageStats(item);
+    public static HashMap<ItemStat, Double> multiplyAllDamageStats(ItemStack itemStack, double multiplier) {
+        HashMap<ItemStat, Double> multipliedDamage = getAllDamageStats(itemStack);
 
         for (Map.Entry<ItemStat, Double> damageEntry : multipliedDamage.entrySet()) {
             damageEntry.setValue(damageEntry.getValue() * multiplier);
@@ -561,6 +576,7 @@ public class ItemSystem {
         return multipliedDamage;
     }
 
+    // sorts stats from highest to lowest value
     public static <T extends Number & Comparable<T>> LinkedHashMap<ItemStat, T> sortStats(HashMap<ItemStat, T> itemStats) {
         LinkedHashMap<ItemStat, T> sortedStats = new LinkedHashMap<>();
         List<Map.Entry<ItemStat, T>> entryList = new ArrayList<>(itemStats.entrySet());
@@ -574,22 +590,24 @@ public class ItemSystem {
         return sortedStats;
     }
 
-    public static ItemType getItemType(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return null;
+    public static ArrayList<ItemType> getAllItemTypes(ItemStack itemStack) {
+        ArrayList<ItemType> itemTypes = new ArrayList<>();
 
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+        if (itemStack.hasItemMeta()) {
+            PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
-        if (pdc.has(itemTypeKey)) {
-            return ItemType.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
+            if (pdc.has(itemTypeKey)) {
+                for (String string : pdc.get(itemTypeKey, PersistentDataType.STRING).split("/")) {
+                    itemTypes.add(ItemType.fromString(string));
+                }
+            }
         }
 
-        return null;
+        return itemTypes;
     }
 
-    public static ItemRarity getItemRarity(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) return null;
-
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static ItemRarity getItemRarity(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(rarityKey, PersistentDataType.STRING)) {
             return ItemRarity.fromString(pdc.get(itemTypeKey, PersistentDataType.STRING));
@@ -598,8 +616,8 @@ public class ItemSystem {
         return null;
     }
 
-    public static IngredientType getIngredientType(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static IngredientType getIngredientType(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(ingredientKey)) {
             return IngredientType.fromString(pdc.get(ingredientKey, PersistentDataType.STRING));
@@ -608,8 +626,8 @@ public class ItemSystem {
         return null;
     }
 
-    public static SeedType getSeedType(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static SeedType getSeedType(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(seedKey)) {
             return SeedType.fromString(pdc.get(seedKey, PersistentDataType.STRING));
@@ -618,8 +636,8 @@ public class ItemSystem {
         return null;
     }
 
-    public static CropType getCropType(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static CropType getCropType(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(cropKey)) {
             return CropType.fromString(pdc.get(cropKey, PersistentDataType.STRING));
@@ -628,8 +646,8 @@ public class ItemSystem {
         return null;
     }
 
-    public static GardenModifier getGardenModifierType(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static GardenModifier getGardenModifierType(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(gardenModifierKey)) {
             return GardenModifier.fromString(pdc.get(gardenModifierKey, PersistentDataType.STRING));
@@ -638,8 +656,8 @@ public class ItemSystem {
         return null;
     }
 
-    public static FoodType getFoodType(ItemStack item) {
-        PersistentDataContainer pdc = item.getItemMeta().getPersistentDataContainer();
+    public static FoodType getFoodType(ItemStack itemStack) {
+        PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
         if (pdc.has(foodTypeKey)) {
             return FoodType.fromString(pdc.get(foodTypeKey, PersistentDataType.STRING));

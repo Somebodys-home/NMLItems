@@ -129,12 +129,12 @@ public class Crops {
 
     private static void setCropAndSeedKeys(ItemStack itemStack, CropType cropType, SeedType seedType, int level, double stars) {
         setCropKeys(itemStack, cropType, level, stars);
-        ItemSystem.setSecondaryType(itemStack, SEED);
+        ItemSystem.setItemType(itemStack, SEED);
         ItemSystem.setSeedType(itemStack, seedType);
     }
 
     private static void setIngredientKeys(ItemStack itemStack, IngredientType ingredientType) {
-        ItemSystem.setSecondaryType(itemStack, INGREDIENT);
+        ItemSystem.setItemType(itemStack, INGREDIENT);
         ItemSystem.setIngredientType(itemStack, ingredientType);
     }
 }

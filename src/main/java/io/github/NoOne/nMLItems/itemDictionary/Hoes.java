@@ -19,12 +19,12 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 public class Hoes {
     public static ItemStack generateHoe(Player receiver, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(ItemType.HOE, null, rarity);
-        ItemStack hoe = ItemCreator.createItem(
-                ItemType.toMaterial(ItemType.HOE),
+        ItemStack hoe = ItemCreator.createItem(ItemType.toMaterial(
+                ItemType.HOE),
                 name,
                 List.of(
                         "§o§fLv. " + level + "§r " +  ItemRarity.toChatColor(rarity) + "§l" + ItemRarity.toString(rarity).toUpperCase() + " " +
-                                ItemType.toString(ItemType.HOE).toUpperCase(),
+                        ItemType.toString(ItemType.HOE).toUpperCase(),
                         ""
                 )
         );
@@ -33,14 +33,16 @@ public class Hoes {
 
         meta.setUnbreakable(true);
         hoe.setItemMeta(meta);
-
         hoe.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
+
+        generateHoeStats(hoe, rarity, level);
         ItemSystem.setItemType(hoe, ItemType.HOE);
         ItemSystem.setRarity(hoe, rarity);
         ItemSystem.setLevel(hoe, level);
         ItemSystem.setOriginalName(hoe, name);
-        generateHoeStats(hoe, rarity, level);
-        ItemSystem.updateUnusableItemName(hoe, ItemSystem.isItemUsable(hoe, receiver));
+        ItemSystem.setUsability(hoe, true);
+        ItemSystem.usableItemCheck(hoe, receiver);
+
         return hoe;
     }
 

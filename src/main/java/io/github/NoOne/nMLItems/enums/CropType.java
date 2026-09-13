@@ -8,15 +8,6 @@ public enum CropType {
 
     public static String toString(CropType cropType) {
         return switch (cropType) {
-            case WHEAT_BUNDLE -> "wheat_bundle";
-            case SUGAR_CANE -> "sugar_cane";
-            case JADE_FLOWER -> "jade_flower";
-            case RHUBARB -> "rhubarb";
-        };
-    }
-
-    public static String toFormattedString(CropType cropType) {
-        return switch (cropType) {
             case WHEAT_BUNDLE -> "Wheat Bundle";
             case SUGAR_CANE ->  "Sugar Cane";
             case JADE_FLOWER -> "Jade Flower";
@@ -25,7 +16,7 @@ public enum CropType {
     }
 
     public static CropType fromString(String cropType) {
-        return switch (cropType) {
+        return switch (cropType.toLowerCase().replace(" ", "_")) { // have to do this for its generate command
             case "wheat_bundle" -> WHEAT_BUNDLE;
             case "sugar_cane" -> SUGAR_CANE;
             case "jade_flower" -> JADE_FLOWER;

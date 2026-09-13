@@ -8,8 +8,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class ItemListener implements Listener {
 
     @EventHandler
-    public void dontUseItems(PlayerInteractEvent event) {
-        if (ItemSystem.getItemType(event.getItem()) != null && ItemSystem.getItemType(event.getItem()) != ItemType.FOOD) {
+    public void dontUseItems(PlayerInteractEvent event) { // in here because it might be expanded upon later for other item types
+        if (!ItemSystem.isItemType(event.getItem(), ItemType.FOOD)) {
             event.setCancelled(true);
         }
     }

@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static io.github.NoOne.nMLItems.enums.FoodType.RHUBARB_PIE;
 import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
@@ -94,17 +93,11 @@ public class Food {
         ItemMeta meta = itemStack.getItemMeta();
         ArrayList<String> lore = new ArrayList<>(meta.getLore());
         String starString = lore.getLast();
-        LinkedHashMap<ItemStat, Double> sortedStats = ItemSystem.getAllStats(itemStack).entrySet().stream()
-                .sorted(Map.Entry.<ItemStat, Double>comparingByValue().reversed())
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue,
-                        (e1, _) -> e1,
-                        LinkedHashMap::new
-                ));
+        LinkedHashMap<ItemStat, Double> sortedStats = ItemSystem.sortStats(ItemSystem.getAllStats(itemStack));
 
         lore.removeLast();
 
+        // basically doing the same thing as updating lore normally but adding it's time onto it
         for (Map.Entry<ItemStat, Double> entry : sortedStats.entrySet()) {
             int seconds = ItemStat.getSeconds(entry.getKey());
             double value = entry.getValue();
