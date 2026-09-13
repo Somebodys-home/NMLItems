@@ -58,6 +58,10 @@ public class ItemCreator {
         return createItem(Material.BARRIER, "§c§l<- §r§cBack");
     }
 
+    public static ItemStack createExitButton() {
+        return createItem(Material.BARRIER, "§cExit");
+    }
+
     public static ItemStack createMenuBorder() {
         return createItem(Material.BLACK_STAINED_GLASS_PANE, "§0§l_");
     }

@@ -42,7 +42,6 @@ io\github\NoOne\nMLItems\commands\GenerateCropCommand.class
 io\github\NoOne\nMLItems\ItemSystem$3.class
 io\github\NoOne\nMLItems\commands\GenerateOffhandCommand.class
 io\github\NoOne\nMLItems\NMLItems.class
-io\github\NoOne\nMLItems\ItemListener.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$2.class
