@@ -341,7 +341,7 @@ public class ItemSystem {
     }
 
     public static String getOriginalItemName(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(originalNameKey)) {
@@ -371,7 +371,7 @@ public class ItemSystem {
     }
 
     public static int getLevel(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(levelKey)) {
@@ -383,7 +383,7 @@ public class ItemSystem {
     }
 
     public static int getServings(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(servingsKey)) {
@@ -422,7 +422,7 @@ public class ItemSystem {
     }
 
     public static double getStars(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(starsKey, PersistentDataType.DOUBLE)) {
@@ -434,7 +434,7 @@ public class ItemSystem {
     }
 
     public static boolean hasStat(ItemStack itemStack, ItemStat itemStat) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(itemStatsKey, PersistentDataType.STRING)) {
@@ -457,7 +457,7 @@ public class ItemSystem {
     }
 
     public static boolean isItemUsable(ItemStack itemStack) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(usableKey)) {
@@ -469,7 +469,7 @@ public class ItemSystem {
     }
 
     public static boolean isItemType(ItemStack itemStack, ItemType itemType) {
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(itemTypeKey, PersistentDataType.STRING)) {
@@ -593,7 +593,7 @@ public class ItemSystem {
     public static ArrayList<ItemType> getAllItemTypes(ItemStack itemStack) {
         ArrayList<ItemType> itemTypes = new ArrayList<>();
 
-        if (itemStack.hasItemMeta()) {
+        if (itemStack != null && itemStack.hasItemMeta()) {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(itemTypeKey)) {
