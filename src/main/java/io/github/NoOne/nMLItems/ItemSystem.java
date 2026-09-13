@@ -515,19 +515,19 @@ public class ItemSystem {
     }
 
     public static boolean hasLevelKey(ItemStack itemStack) {
-        if (!itemStack.hasItemMeta()) return false;
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(levelKey);
     }
 
     public static boolean hasOriginalNameKey(ItemStack itemStack) {
-        if (!itemStack.hasItemMeta()) return false;
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(originalNameKey);
     }
 
     public static boolean hasFilledWithKey(ItemStack itemStack) {
-        if (!itemStack.hasItemMeta()) return false;
+        if (itemStack == null || !itemStack.hasItemMeta()) return false;
 
         return itemStack.getItemMeta().getPersistentDataContainer().has(filledWithKey);
     }
