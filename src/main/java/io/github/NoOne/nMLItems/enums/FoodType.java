@@ -5,12 +5,12 @@ public enum FoodType {
 
     public static String toString(FoodType foodType) {
         return switch (foodType) {
-            case RHUBARB_PIE -> "rhubarb_pie";
+            case RHUBARB_PIE -> "Rhubarb Pie";
         };
     }
 
     public static FoodType fromString(String foodType) {
-        return switch (foodType) {
+        return switch (foodType.toLowerCase().replace(" ", "-")) { // have to do this for its generate command
             case "rhubarb_pie" -> RHUBARB_PIE;
             default -> null;
         };

@@ -8,15 +8,15 @@ public enum SeedType {
 
     public static String toString(SeedType seedType) {
         return switch (seedType) {
-            case WHEAT_SEEDS -> "wheat_seeds";
-            case SUGAR_CANE -> "sugar_cane";
-            case JADE_SEEDS -> "jade_seeds";
-            case RHUBARB_SEEDS -> "rhubarb_seeds";
+            case WHEAT_SEEDS -> "Wheat Seeds";
+            case SUGAR_CANE -> "Sugar Cane";
+            case JADE_SEEDS -> "Jade Seeds";
+            case RHUBARB_SEEDS -> "Rhubarb Seeds";
         };
     }
 
     public static SeedType fromString(String string) {
-        return switch (string) {
+        return switch (string.toLowerCase().replace(" ", "_")) { // have to do this for its generate command
             case "wheat_seeds" -> WHEAT_SEEDS;
             case "sugar_cane" -> SUGAR_CANE;
             case "jade_seeds" -> JADE_SEEDS;
