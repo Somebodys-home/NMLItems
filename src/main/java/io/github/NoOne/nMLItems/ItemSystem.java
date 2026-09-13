@@ -326,11 +326,11 @@ public class ItemSystem {
                 ArrayList<String> itemLore = new ArrayList<>(itemMeta.getLore());
 
                 itemLore.removeAll(List.of(
-                        "",
                         "§cYou cannot use",
                         "§cthis item!"
                 ));
 
+                itemLore.removeLast();
                 itemMeta.setLore(itemLore);
                 itemStack.setItemMeta(itemMeta);
             }
