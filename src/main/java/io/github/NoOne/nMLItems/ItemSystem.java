@@ -210,7 +210,7 @@ public class ItemSystem {
 
     public static void updateLoreWithStat(ItemStack itemStack, ItemStat itemStat, double value) {
         ItemMeta meta = itemStack.getItemMeta();
-        List<String> lore = new ArrayList<>(meta.getLore()){{
+        ArrayList<String> lore = new ArrayList<>(meta.hasLore() ? meta.getLore() : new ArrayList<>()){{
             add(makeItemStatString(itemStat, value));
         }};
 
@@ -221,7 +221,7 @@ public class ItemSystem {
 
     public static void updateLoreWithStat(ItemStack itemStack, ItemStat itemStat, int value) {
         ItemMeta meta = itemStack.getItemMeta();
-        List<String> lore = new ArrayList<>(meta.getLore()){{
+        ArrayList<String> lore = new ArrayList<>(meta.hasLore() ? meta.getLore() : new ArrayList<>()){{
             add(makeItemStatString(itemStat, value));
         }};
 
