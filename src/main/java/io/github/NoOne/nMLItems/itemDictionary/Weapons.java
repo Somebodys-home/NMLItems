@@ -109,7 +109,7 @@ public class Weapons {
         }
 
         ItemSystem.setStats(weapon, itemStats);
-        ItemSystem.updateLoreWithStats(weapon, itemStats);
+        ItemSystem.updateLoreWithStats(weapon, ItemSystem.sortStats(itemStats));
     }
 
     private static void generateSecondaryStats(ItemStack weapon, ItemRarity rarity, int level) {
@@ -216,6 +216,6 @@ public class Weapons {
         double multiplier = ItemRarity.getRarityMultiplier(itemRarity) * ThreadLocalRandom.current().nextDouble(.75, 1);
         double baseDamage = (1 + (1.5 * level) / 100.0) * level + 2;
 
-        return (int) Math.round(multiplier * baseDamage);
+        return (int) (multiplier * baseDamage);
     }
 }

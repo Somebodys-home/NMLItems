@@ -94,6 +94,6 @@ public class Armor {
         }
 
         ItemSystem.setStats(armor, itemStats);
-        ItemSystem.updateLoreWithStats(armor, itemStats);
+        ItemSystem.updateLoreWithStats(armor, ItemSystem.sortStats(itemStats));
     }
 }
