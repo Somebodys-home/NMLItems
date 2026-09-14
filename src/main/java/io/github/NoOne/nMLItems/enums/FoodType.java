@@ -10,7 +10,7 @@ public enum FoodType {
     }
 
     public static FoodType fromString(String foodType) {
-        return switch (foodType.toLowerCase().replace(" ", "-")) { // have to do this for its generate command
+        return switch (foodType.toLowerCase().replace(" ", "_")) { // have to do this for its generate command
             case "rhubarb_pie" -> RHUBARB_PIE;
             default -> null;
         };
