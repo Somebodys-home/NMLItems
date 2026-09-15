@@ -22,26 +22,20 @@ public class Armor {
         String name = NameGenerator.generateItemName(weight, type, rarity);
         String typeString = switch (weight) {
             case LIGHT -> switch (type) {
-                case HELMET -> "Hat";
-                case CHESTPLATE -> "Tunic";
-                case LEGGINGS -> "Pants";
-                case BOOTS -> "Shoes";
+                case HELMET -> "HAT";
+                case CHESTPLATE -> "TUNIC";
+                case LEGGINGS -> "PANTS";
+                case BOOTS -> "SHOES";
                 default -> "";
             };
             case MEDIUM -> switch (type) {
-                case HELMET -> "Coif";
-                case CHESTPLATE -> "Hauberk";
-                case LEGGINGS -> "Chausses";
-                case BOOTS -> "Paleos";
+                case HELMET -> "COIF";
+                case CHESTPLATE -> "HAUBERK";
+                case LEGGINGS -> "CHAUSSES";
+                case BOOTS -> "PALEOS";
                 default -> "";
             };
-            case HEAVY -> switch (type) {
-                case HELMET -> "Helmet";
-                case CHESTPLATE -> "Chestplate";
-                case LEGGINGS -> "Leggings";
-                case BOOTS -> "Boots";
-                default -> "";
-            };
+            case HEAVY -> ItemType.toString(type).toUpperCase();
             default -> "";
         };
         ItemStack armor = ItemCreator.createItem(
