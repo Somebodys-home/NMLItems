@@ -20,12 +20,35 @@ import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 public class Armor {
     public static ItemStack generateArmor(Player receiver, ItemRarity rarity, ItemType weight, ItemType type, int level) {
         String name = NameGenerator.generateItemName(weight, type, rarity);
+        String typeString = switch (weight) {
+            case LIGHT -> switch (type) {
+                case HELMET -> "Hat";
+                case CHESTPLATE -> "Tunic";
+                case LEGGINGS -> "Pants";
+                case BOOTS -> "Shoes";
+                default -> "";
+            };
+            case MEDIUM -> switch (type) {
+                case HELMET -> "Coif";
+                case CHESTPLATE -> "Hauberk";
+                case LEGGINGS -> "Chausses";
+                case BOOTS -> "Paleos";
+                default -> "";
+            };
+            case HEAVY -> switch (type) {
+                case HELMET -> "Helmet";
+                case CHESTPLATE -> "Chestplate";
+                case LEGGINGS -> "Leggings";
+                case BOOTS -> "Boots";
+                default -> "";
+            };
+            default -> "";
+        };
         ItemStack armor = ItemCreator.createItem(
                 ItemType.toMaterial(weight, type),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r" +  ItemRarity.toChatColor(rarity) + "§l " + ItemRarity.toString(rarity).toUpperCase() + " " +
-                        ItemType.toString(weight).toUpperCase() + " " + ItemType.toString(type).toUpperCase(),
+                        "§o§fLv. " + level + "§r" +  ItemRarity.toChatColor(rarity) + "§l " + ItemRarity.toString(rarity).toUpperCase() + " " + typeString,
                         ""
                 )
         );

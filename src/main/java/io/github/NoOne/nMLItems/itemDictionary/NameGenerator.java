@@ -68,17 +68,17 @@ public class NameGenerator {
             case HOE -> possibleNames = new ArrayList<>(List.of("Hoe", "Krystal", "Reaper"));
             case LIGHT -> {
                 switch (type2) {
-                    case HELMET -> possibleNames = new ArrayList<>(List.of("Cap"));
-                    case CHESTPLATE -> possibleNames = new ArrayList<>(List.of("Shirt"));
-                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Pants", "GYATT"));
-                    case BOOTS -> possibleNames = new ArrayList<>(List.of("Shoes"));
+                    case HELMET -> possibleNames = new ArrayList<>(List.of("Cap", "Hat"));
+                    case CHESTPLATE -> possibleNames = new ArrayList<>(List.of("Shirt", "Tunic", "Robe"));
+                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Pants", "GYATT", "Leggings"));
+                    case BOOTS -> possibleNames = new ArrayList<>(List.of("Shoes", "Loafers"));
                 }
             }
             case MEDIUM -> {
                 switch (type2) {
                     case HELMET -> possibleNames = new ArrayList<>(List.of("Coif", "Aventail"));
                     case CHESTPLATE -> possibleNames = new ArrayList<>(List.of("Hauberk"));
-                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Chausses", "GYATT"));
+                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Chausses", "GYATT", "Leggings"));
                     case BOOTS -> possibleNames = new ArrayList<>(List.of("Paleos"));
                 }
             }
@@ -86,7 +86,7 @@ public class NameGenerator {
                 switch (type2) {
                     case HELMET -> possibleNames = new ArrayList<>(List.of("Helmet"));
                     case CHESTPLATE -> possibleNames = new ArrayList<>(List.of("Chestplate"));
-                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Chausses", "GYATT"));
+                    case LEGGINGS -> possibleNames = new ArrayList<>(List.of("Chausses", "GYATT", "Leggings"));
                     case BOOTS -> possibleNames = new ArrayList<>(List.of("Boots"));
                 }
             }

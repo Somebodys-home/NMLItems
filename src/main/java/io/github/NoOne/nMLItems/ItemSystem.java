@@ -547,7 +547,14 @@ public class ItemSystem {
     public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack itemStack) {
         return new HashMap<>(){{
             for (Entry<ItemStat, Double> statEntry : getAllStats(itemStack).entrySet()) {
-                put(ItemStat.toString(statEntry.getKey()).toLowerCase().replaceAll(" ", ""), statEntry.getValue());
+                ItemStat itemStat = statEntry.getKey();
+                String statString = ItemStat.toString(itemStat).toLowerCase().replaceAll(" ", "");
+
+                if (itemStat == ItemStat.OVERHEALTH) {
+                    statString = "max" + statString;
+                }
+
+                put(statString, statEntry.getValue());
             }
         }};
     }

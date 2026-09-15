@@ -125,36 +125,30 @@ public enum ItemType {
     }
 
     public static Material toMaterial(ItemType weight, ItemType type) {
-        Material itemTypeMaterial = null;
-
-        switch (weight) {
-            case LIGHT -> {
-                switch (type) {
-                    case HELMET -> itemTypeMaterial = Material.LEATHER_HELMET;
-                    case CHESTPLATE -> itemTypeMaterial = Material.LEATHER_CHESTPLATE;
-                    case LEGGINGS -> itemTypeMaterial = Material.LEATHER_LEGGINGS;
-                    case BOOTS -> itemTypeMaterial = Material.LEATHER_BOOTS;
-                }
-            }
-            case MEDIUM -> {
-                switch (type) {
-                    case HELMET -> itemTypeMaterial = Material.CHAINMAIL_HELMET;
-                    case CHESTPLATE -> itemTypeMaterial = Material.CHAINMAIL_CHESTPLATE;
-                    case LEGGINGS -> itemTypeMaterial = Material.CHAINMAIL_LEGGINGS;
-                    case BOOTS -> itemTypeMaterial = Material.CHAINMAIL_BOOTS;
-                }
-            }
-            case HEAVY -> {
-                switch (type) {
-                    case HELMET -> itemTypeMaterial = Material.IRON_HELMET;
-                    case CHESTPLATE -> itemTypeMaterial = Material.IRON_CHESTPLATE;
-                    case LEGGINGS -> itemTypeMaterial = Material.IRON_LEGGINGS;
-                    case BOOTS -> itemTypeMaterial = Material.IRON_BOOTS;
-                }
-            }
-        }
-
-        return itemTypeMaterial;
+        return switch (weight) {
+            case LIGHT -> switch (type) {
+                case HELMET -> Material.LEATHER_HELMET;
+                case CHESTPLATE -> Material.LEATHER_CHESTPLATE;
+                case LEGGINGS -> Material.LEATHER_LEGGINGS;
+                case BOOTS -> Material.LEATHER_BOOTS;
+                default -> null;
+            };
+            case MEDIUM -> switch (type) {
+                case HELMET -> Material.CHAINMAIL_HELMET;
+                case CHESTPLATE -> Material.CHAINMAIL_CHESTPLATE;
+                case LEGGINGS -> Material.CHAINMAIL_LEGGINGS;
+                case BOOTS -> Material.CHAINMAIL_BOOTS;
+                default -> null;
+            };
+            case HEAVY -> switch (type) {
+                case HELMET -> Material.IRON_HELMET;
+                case CHESTPLATE -> Material.IRON_CHESTPLATE;
+                case LEGGINGS -> Material.IRON_LEGGINGS;
+                case BOOTS -> Material.IRON_BOOTS;
+                default -> null;
+            };
+            default -> null;
+        };
     }
 
     public static ItemType[] getAllWeaponTypes() {
