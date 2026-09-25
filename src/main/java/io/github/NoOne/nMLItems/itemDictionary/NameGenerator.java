@@ -34,7 +34,7 @@ public class NameGenerator {
             case MYTHICAL -> {
                 nameSegments = new String[3];
                 possibleAdjectives = new ArrayList<>(List.of("Amazing", "Godly", "King's", "Queen's", "Fabled", "Based", "Legendary", "Goofy Ass",
-                        "Nobodies'", "Perfect", "Faceguy's", "Facelady's", "Purp"));
+                        "Nobodies'", "Perfect", "Faceguy's", "Facelady's", "Purple"));
             }
         }
 
@@ -48,11 +48,11 @@ public class NameGenerator {
                     case MYTHICAL -> possibleNames.add("Dragon Slayer");
                 }
             }
-            case DAGGER -> possibleNames = new ArrayList<>(List.of("Dagger", "Knife", "Cutlery", "Razor", "Beard Splitter", "Box Cutter", "Black Shard", "Shank", "Shiv"));
-            case AXE -> possibleNames = new ArrayList<>(List.of("Axe", "Cleaver", "Battle Axe", "Tomahawk", "Chopper", "Box Cutter"));
+            case DAGGER -> possibleNames = new ArrayList<>(List.of("Dagger", "Knife", "Cutlery", "Razor", "Beard Splitter", "Box Cutter", "Black Shard", "Shank", "Shiv", "Black Knife"));
+            case AXE -> possibleNames = new ArrayList<>(List.of("Axe", "Cleaver", "Battle Axe", "Tomahawk", "Chopper", "Box Cutter", "Adze", "Rude Buster"));
             case HAMMER -> possibleNames = new ArrayList<>(List.of("Squeaky Toy", "Blunt", "Mallet", "Bonker", "Hammer", "Piko Piko", "Spike Ball", "Ham-mer"));
             case SPEAR -> {
-                possibleNames = new ArrayList<>(List.of("Giant Arrow", "Javelin", "Military Fork", "Trident", "Spear", "Spork", "Pointer"));
+                possibleNames = new ArrayList<>(List.of("Giant Arrow", "Javelin", "Spear", "Spork", "Pointer", "Lance", "Pike", "Harpoon", "Skewer"));
 
                 switch (rarity) {
                     case COMMON -> possibleNames.add("Overcompensator");

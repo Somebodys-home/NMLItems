@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class GenerateArmorCommand implements CommandExecutor, TabCompleter {
             String type = args[2];
             String piece = args[3];
             ItemStack armor = Armor.generateArmor(player, ItemRarity.fromString(rarity), ItemType.fromString(type), ItemType.fromString(piece), level);
+
 
             player.getInventory().addItem(armor);
         }

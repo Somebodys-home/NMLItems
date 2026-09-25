@@ -59,10 +59,15 @@ public class Shields {
                 case MYTHICAL -> (level * 8) + 10;
                 default -> (level * 5) + 10;
             };
-            ItemStat secondType = possibleDefenseStats.get(ThreadLocalRandom.current().nextInt(possibleDefenseStats.size()));
 
             put(GUARD, value); // first stat will always be guard
-            merge(secondType, level, Integer::sum); // second stat will be random from the possible defense stats, combining if its guard
+
+            if (rarity != ItemRarity.COMMON) {
+                ItemStat secondType = possibleDefenseStats.get(ThreadLocalRandom.current().nextInt(possibleDefenseStats.size()));
+
+                // second stat will be random from the possible defense stats, combining if its guard
+                merge(secondType, level, Integer::sum);
+            }
         }};
 
         ItemSystem.setStats(shield, selectedStats);

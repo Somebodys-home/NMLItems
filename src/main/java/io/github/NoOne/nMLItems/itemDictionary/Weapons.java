@@ -198,9 +198,9 @@ public class Weapons {
             ASCII.add("§7♦========< ⭐ >");
             ASCII.add("§7          *   ╱  ╲   *");
         } else if (type == STAFF) {
-            ASCII.add("§7                   *        ╗  ╲  ╱  ");
+            ASCII.add("§7                   *        ╗  ╲  ╱");
             ASCII.add("§7♦========♦========♦║ < ⭐ > ");
-            ASCII.add("§7      *                 *   ╝  ╱  ╲   *");
+            ASCII.add("§7      *                 *   ╝  ╱  ╲");
         } else if (type == CATALYST) {
             ASCII.add("§7          /‾‾/   \\‾‾\\");
             ASCII.add("§7         <   |  ♦  |   >");

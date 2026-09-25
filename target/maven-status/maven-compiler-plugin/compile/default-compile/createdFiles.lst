@@ -1,6 +1,7 @@
 io\github\NoOne\nMLItems\ItemCreator.class
 io\github\NoOne\nMLItems\itemDictionary\Crops$1.class
 io\github\NoOne\nMLItems\itemDictionary\Shields.class
+io\github\NoOne\nMLItems\itemDictionary\Quivers$2.class
 io\github\NoOne\nMLItems\ItemSystem$1.class
 io\github\NoOne\nMLItems\ItemSystem.class
 io\github\NoOne\nMLItems\ItemSystem$5.class
@@ -24,6 +25,7 @@ io\github\NoOne\nMLItems\itemDictionary\Seeds.class
 io\github\NoOne\nMLItems\enums\FoodType.class
 io\github\NoOne\nMLItems\enums\SeedType.class
 io\github\NoOne\nMLItems\commands\GenerateHoeCommand.class
+io\github\NoOne\nMLItems\itemDictionary\Armor$3.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator$1.class
 io\github\NoOne\nMLItems\itemDictionary\Miscellaneous.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons$2.class
@@ -46,6 +48,7 @@ io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$2.class
 io\github\NoOne\nMLItems\itemDictionary\Crops$2.class
+io\github\NoOne\nMLItems\itemDictionary\Armor$2.class
 io\github\NoOne\nMLItems\commands\GenerateIngredientCommand.class
 io\github\NoOne\nMLItems\enums\ItemType.class
 io\github\NoOne\nMLItems\itemDictionary\Shields$1.class

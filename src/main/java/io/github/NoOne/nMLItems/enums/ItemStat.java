@@ -20,6 +20,7 @@ public enum ItemStat {
     EVASION,
     DEFENSE,
     HEALTH,
+    MAXHEALTH,
     OVERHEALTH,
     GUARD,
     PHYSICALRESIST,
@@ -53,6 +54,7 @@ public enum ItemStat {
             case EVASION -> "Evasion";
             case DEFENSE -> "Defense";
             case HEALTH -> "Health";
+            case MAXHEALTH ->  "Max. Health";
             case OVERHEALTH -> "Overhealth";
             case GUARD -> "Guard";
             case PHYSICALRESIST -> "Phys. Resist";
@@ -76,15 +78,14 @@ public enum ItemStat {
         return switch (itemStat) {
             case EVASION, RADIANTDAMAGE, PUREDAMAGE, RADIANTRESIST, GUARD, SPEED -> ChatColor.WHITE;
             case DEFENSE, HARVEST, YIELD, ACRE -> ChatColor.GREEN;
-            case OVERHEALTH -> ChatColor.DARK_BLUE;
             case PHYSICALDAMAGE, PHYSICALRESIST -> ChatColor.DARK_RED;
-            case FIREDAMAGE, FIRERESIST, HEALTH -> ChatColor.RED;
+            case FIREDAMAGE, FIRERESIST, HEALTH, MAXHEALTH -> ChatColor.RED;
             case COLDDAMAGE, COLDRESIST -> ChatColor.AQUA;
             case EARTHDAMAGE, EARTHRESIST -> ChatColor.DARK_GREEN;
             case LIGHTNINGDAMAGE, LIGHTNINGRESIST -> ChatColor.YELLOW;
             case AIRDAMAGE, AIRRESIST -> ChatColor.GRAY;
             case NECROTICDAMAGE, NECROTICRESIST -> ChatColor.DARK_PURPLE;
-            case CRITCHANCE, CRITDAMAGE -> ChatColor.BLUE;
+            case OVERHEALTH, CRITCHANCE, CRITDAMAGE -> ChatColor.BLUE;
         };
     }
 
@@ -107,7 +108,7 @@ public enum ItemStat {
             case YIELD -> "\uD83E\uDD55";
             case ACRE -> "⚂";
             case HARVEST -> "\uD83E\uDEB4";
-            case HEALTH -> "❤";
+            case HEALTH, MAXHEALTH -> "❤";
         };
     }
 

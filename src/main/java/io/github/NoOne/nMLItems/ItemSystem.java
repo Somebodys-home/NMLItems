@@ -438,9 +438,14 @@ public class ItemSystem {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(itemStatsKey, PersistentDataType.STRING)) {
-                return pdc.get(itemStatsKey, PersistentDataType.STRING).contains(ItemStat.toString(itemStat));
-            }
+                for (String string : pdc.get(itemStatsKey, PersistentDataType.STRING).split("/")) {
+                    String statName = string.split("-")[0];
 
+                    if (statName.equals(itemStat.toString(itemStat))) {
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;

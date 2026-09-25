@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -64,53 +64,69 @@ public class Armor {
         return armor;
     }
 
-    public static void generateArmorStats(ItemStack armor, ItemType type, ItemRarity rarity, int level) {
-        List<ItemStat> possibleFirstDefenseTypes = null;
-        List<ItemStat> possibleSecondDefenseTypes = null;
-        HashMap<ItemStat, Integer> itemStats = new HashMap<>();
+    public static void generateArmorStats(ItemStack armor, ItemType weight, ItemRarity rarity, int level) {
+        ItemStat mainDefenseStat = switch (weight) {
+            case LIGHT -> OVERHEALTH;
+            case MEDIUM -> EVASION;
+            case HEAVY -> DEFENSE;
+            default -> MAXHEALTH;
+        };
+        ArrayList<ItemStat> uncommonDefenseStat = new ArrayList<>(){{
+            addAll(List.of(MAXHEALTH, MAXHEALTH, MAXHEALTH, OVERHEALTH, EVASION, DEFENSE));
 
-        switch (type) {
-            case LIGHT -> {
-                possibleFirstDefenseTypes = new ArrayList<>(List.of(OVERHEALTH));
-                possibleSecondDefenseTypes = new ArrayList<>(List.of(PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST));
+            if (weight == ItemType.HEAVY) {
+                add(GUARD);
             }
-            case MEDIUM -> {
-                possibleFirstDefenseTypes = new ArrayList<>(List.of(EVASION));
-                possibleSecondDefenseTypes = new ArrayList<>(List.of(PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST));
-            }
-            case HEAVY -> {
-                possibleFirstDefenseTypes = new ArrayList<>(List.of(DEFENSE));
-                possibleSecondDefenseTypes = new ArrayList<>(List.of(PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST));
-            }
-        }
+        }};
+        List<ItemStat> rareDefenseStat = List.of(PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST);
+        LinkedHashMap<ItemStat, Integer> itemStats = new LinkedHashMap<>(){{
+            put(mainDefenseStat, getStatCalculation(mainDefenseStat, weight, rarity, level, 1));
+        }};
 
-        ItemStat firstStat = possibleFirstDefenseTypes.get(ThreadLocalRandom.current().nextInt(possibleFirstDefenseTypes.size()));
-        int firstStatValue = level * 2;
-        ItemStat secondStat = possibleSecondDefenseTypes.get(ThreadLocalRandom.current().nextInt(possibleSecondDefenseTypes.size()));
+        if (rarity == ItemRarity.UNCOMMON || rarity == ItemRarity.RARE || rarity == ItemRarity.MYTHICAL) {
+            ItemStat secondStat = uncommonDefenseStat.get(ThreadLocalRandom.current().nextInt(uncommonDefenseStat.size()));
 
-        switch (rarity) {
-            case COMMON -> itemStats.put(firstStat, firstStatValue);
-            case UNCOMMON, RARE -> {
-                if (firstStat == secondStat) {
-                    itemStats.put(firstStat, firstStatValue + level);
-                } else {
-                    itemStats.put(firstStat, firstStatValue);
-                    itemStats.put(secondStat, level);
-                }
-            }
-            case MYTHICAL -> {
-                firstStatValue = level * 3;
+            itemStats.merge(secondStat, getStatCalculation(secondStat, weight, rarity, level, 2), Integer::sum);
 
-                if (firstStat == secondStat) {
-                    itemStats.put(firstStat, firstStatValue + level);
-                } else {
-                    itemStats.put(firstStat, firstStatValue);
-                    itemStats.put(secondStat, level);
-                }
+            if (rarity == ItemRarity.MYTHICAL) {
+                ItemStat thirdStat = rareDefenseStat.get(ThreadLocalRandom.current().nextInt(uncommonDefenseStat.size()));
+
+                itemStats.put(thirdStat, getStatCalculation(secondStat, weight, rarity, level, 3));
             }
         }
 
         ItemSystem.setStats(armor, itemStats);
-        ItemSystem.updateLoreWithStats(armor, ItemSystem.sortStats(itemStats));
+        ItemSystem.updateLoreWithStats(armor, itemStats);
+    }
+
+    // stat slot if its the first, second or third stat slot of the item
+    private static int getStatCalculation(ItemStat itemStat, ItemType weight, ItemRarity itemRarity, int level, int statSlot) {
+        double finalMultiplier = ItemRarity.getRarityMultiplier(itemRarity) * ThreadLocalRandom.current().nextDouble(.75, 1);
+        int statValue = Math.toIntExact(Math.round(
+                switch (itemStat) {
+                    case EVASION, DEFENSE -> level; // todo: come up with a better calc for these
+                    case OVERHEALTH -> (Math.pow((level / 100.0), 1.2) * 980) / 4; // overhealth is the primary stat of light armor
+                    case HEALTH -> switch (weight) { // odd multipliers for health to compensate for the statSlotMultiplier
+                        case LIGHT -> level * .125;
+                        case MEDIUM -> (Math.pow((level / 100.0), 2.5) * 280) / 4;
+                        case HEAVY -> (Math.pow((level / 100.0), 1.22) * 730) / 4;
+                        default -> -1;
+                    };
+                    case GUARD -> level;
+                    case PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST -> level * .5;
+                    default -> 0;
+                } * finalMultiplier)
+        );
+
+        // greatly reduce the stat value of the main defense stats if its the secondary roll for that item
+        if (statSlot > 1 && (itemStat == EVASION || itemStat == DEFENSE || itemStat == OVERHEALTH)) {
+            statValue = Math.toIntExact(Math.round(statValue * .3));
+        }
+
+        if (statValue < 1) {
+            statValue = 1;
+        }
+
+        return statValue;
     }
 }
