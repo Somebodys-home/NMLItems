@@ -52,8 +52,8 @@ public class Shields {
     }
 
     public static void generateShieldStats(ItemStack shield, ItemRarity rarity, int level) {
-        List<ItemStat> possibleDefenseStats = new ArrayList<>(List.of(GUARD, DEFENSE, OVERHEALTH, PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST,
-                                                                    AIRRESIST, RADIANTRESIST, NECROTICRESIST));
+        List<ItemStat> possibleDefenseStats = new ArrayList<>(List.of(GUARD, DEFENSE, OVERHEALTH, PHYSICAL_RESIST, FIRE_RESIST, COLD_RESIST, EARTH_RESIST, LIGHTNING_RESIST,
+                AIR_RESIST, RADIANT_RESIST, NECROTIC_RESIST));
         HashMap<ItemStat, Integer> selectedStats = new HashMap<>(){{
             int value = switch (rarity) {
                 case MYTHICAL -> (level * 8) + 10;

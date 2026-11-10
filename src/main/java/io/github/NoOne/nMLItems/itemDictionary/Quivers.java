@@ -51,8 +51,8 @@ public class Quivers {
     }
 
     private static void generateStats(ItemStack quiver, ItemRarity rarity, int level) {
-        List<ItemStat> possibleFirstStats = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
-                                                                    NECROTICDAMAGE, PUREDAMAGE, CRITCHANCE, CRITDAMAGE));
+        List<ItemStat> possibleFirstStats = new ArrayList<>(List.of(PHYSICAL_DAMAGE, FIRE_DAMAGE, COLD_DAMAGE, EARTH_DAMAGE, LIGHTNING_DAMAGE, AIR_DAMAGE, RADIANT_DAMAGE,
+                NECROTIC_DAMAGE, PURE_DAMAGE, CRIT_CHANCE, CRIT_DAMAGE));
         ItemStat firstStat = possibleFirstStats.get(ThreadLocalRandom.current().nextInt(possibleFirstStats.size()));
         ItemStat secondStat = possibleFirstStats.get(ThreadLocalRandom.current().nextInt(possibleFirstStats.size()));
         int firstStatValue = (int) switch (rarity) {

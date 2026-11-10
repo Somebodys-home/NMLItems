@@ -66,18 +66,18 @@ public class Weapons {
 
         switch (itemType) {
             case SWORD, AXE, HAMMER, SPEAR, GLOVE -> {
-                possibleFirstDamageTypes = new ArrayList<>(List.of(PHYSICALDAMAGE));
-                possibleSecondDamageTypes = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
-                                                                    NECROTICDAMAGE));
+                possibleFirstDamageTypes = new ArrayList<>(List.of(PHYSICAL_DAMAGE));
+                possibleSecondDamageTypes = new ArrayList<>(List.of(PHYSICAL_DAMAGE, FIRE_DAMAGE, COLD_DAMAGE, EARTH_DAMAGE, LIGHTNING_DAMAGE, AIR_DAMAGE, RADIANT_DAMAGE,
+                        NECROTIC_DAMAGE));
             }
             case DAGGER, BOW -> {
-                possibleFirstDamageTypes = new ArrayList<>(List.of(PHYSICALDAMAGE));
-                possibleSecondDamageTypes = new ArrayList<>(List.of(PHYSICALDAMAGE, FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE,
-                                                                    NECROTICDAMAGE, PUREDAMAGE));
+                possibleFirstDamageTypes = new ArrayList<>(List.of(PHYSICAL_DAMAGE));
+                possibleSecondDamageTypes = new ArrayList<>(List.of(PHYSICAL_DAMAGE, FIRE_DAMAGE, COLD_DAMAGE, EARTH_DAMAGE, LIGHTNING_DAMAGE, AIR_DAMAGE, RADIANT_DAMAGE,
+                        NECROTIC_DAMAGE, PURE_DAMAGE));
             }
             case WAND, STAFF, CATALYST -> {
-                possibleFirstDamageTypes = new ArrayList<>(List.of(FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE, NECROTICDAMAGE));
-                possibleSecondDamageTypes = new ArrayList<>(List.of(FIREDAMAGE, COLDDAMAGE, EARTHDAMAGE, LIGHTNINGDAMAGE, AIRDAMAGE, RADIANTDAMAGE, NECROTICDAMAGE));
+                possibleFirstDamageTypes = new ArrayList<>(List.of(FIRE_DAMAGE, COLD_DAMAGE, EARTH_DAMAGE, LIGHTNING_DAMAGE, AIR_DAMAGE, RADIANT_DAMAGE, NECROTIC_DAMAGE));
+                possibleSecondDamageTypes = new ArrayList<>(List.of(FIRE_DAMAGE, COLD_DAMAGE, EARTH_DAMAGE, LIGHTNING_DAMAGE, AIR_DAMAGE, RADIANT_DAMAGE, NECROTIC_DAMAGE));
             }
         }
 
@@ -116,8 +116,8 @@ public class Weapons {
         if (rarity == COMMON) return; // common items don't get secondary stats
 
         HashMap<ItemStat, Integer> potentialStats = new HashMap<>(){{ // the integer is the equation for that stat
-            put(CRITCHANCE, level * 2);
-            put(CRITDAMAGE, level * 10);
+            put(CRIT_CHANCE, level * 2);
+            put(CRIT_DAMAGE, level * 10);
         }};
         HashMap<ItemStat, Integer> selectedStats = new HashMap<>();
         int rolls = switch (rarity) {

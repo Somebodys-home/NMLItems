@@ -83,7 +83,7 @@ public class Crops {
 
     public static ItemStack rhubarb(int level, double stars, int amount, boolean displayItem) {
         HashMap<ItemStat, Double> itemStats = new HashMap<>(){{
-            put(PHYSICALDAMAGE, calculateCropStatValue(CropType.RHUBARB, level, stars));
+            put(PHYSICAL_DAMAGE, calculateCropStatValue(CropType.RHUBARB, level, stars));
         }};
         ItemStack rhubarb = ItemCreator.createItem(
                 Material.MANGROVE_PROPAGULE,

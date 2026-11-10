@@ -354,7 +354,7 @@ public class ItemSystem {
 
     public static String makeItemStatString(ItemStat itemStat, int value) {
         return switch (itemStat) {
-            case CRITCHANCE, CRITDAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
+            case CRIT_CHANCE, CRIT_DAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
             default ->  ItemStat.toChatColor(itemStat) + "+ " + value + " " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
         };
     }
@@ -364,7 +364,7 @@ public class ItemSystem {
             return makeItemStatString(itemStat, (int) value);
         } else {
             return switch (itemStat) {
-                case CRITCHANCE, CRITDAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
+                case CRIT_CHANCE, CRIT_DAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
                 default ->  ItemStat.toChatColor(itemStat) + "+ " + value + " " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
             };
         }
@@ -486,15 +486,15 @@ public class ItemSystem {
     }
 
     public static boolean hasDamageStats(ItemStack itemStack) {
-        return hasStat(itemStack, ItemStat.PHYSICALDAMAGE) ||
-                hasStat(itemStack, ItemStat.FIREDAMAGE) ||
-                hasStat(itemStack, ItemStat.COLDDAMAGE) ||
-                hasStat(itemStack, ItemStat.EARTHDAMAGE) ||
-                hasStat(itemStack, ItemStat.LIGHTNINGDAMAGE) ||
-                hasStat(itemStack, ItemStat.AIRDAMAGE) ||
-                hasStat(itemStack, ItemStat.RADIANTDAMAGE) ||
-                hasStat(itemStack, ItemStat.NECROTICDAMAGE) ||
-                hasStat(itemStack, ItemStat.PUREDAMAGE);
+        return hasStat(itemStack, ItemStat.PHYSICAL_DAMAGE) ||
+                hasStat(itemStack, ItemStat.FIRE_DAMAGE) ||
+                hasStat(itemStack, ItemStat.COLD_DAMAGE) ||
+                hasStat(itemStack, ItemStat.EARTH_DAMAGE) ||
+                hasStat(itemStack, ItemStat.LIGHTNING_DAMAGE) ||
+                hasStat(itemStack, ItemStat.AIR_DAMAGE) ||
+                hasStat(itemStack, ItemStat.RADIANT_DAMAGE) ||
+                hasStat(itemStack, ItemStat.NECROTIC_DAMAGE) ||
+                hasStat(itemStack, ItemStat.PURE_DAMAGE);
     }
 
     public static boolean isEquippable(ItemStack itemStack) {

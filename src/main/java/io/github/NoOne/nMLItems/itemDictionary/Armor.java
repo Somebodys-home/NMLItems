@@ -69,16 +69,16 @@ public class Armor {
             case LIGHT -> OVERHEALTH;
             case MEDIUM -> EVASION;
             case HEAVY -> DEFENSE;
-            default -> MAXHEALTH;
+            default -> MAX_HEALTH;
         };
         ArrayList<ItemStat> uncommonDefenseStat = new ArrayList<>(){{
-            addAll(List.of(MAXHEALTH, MAXHEALTH, MAXHEALTH, OVERHEALTH, EVASION, DEFENSE));
+            addAll(List.of(MAX_HEALTH, MAX_HEALTH, MAX_HEALTH, OVERHEALTH, EVASION, DEFENSE));
 
             if (weight == ItemType.HEAVY) {
                 add(GUARD);
             }
         }};
-        List<ItemStat> rareDefenseStat = List.of(PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST);
+        List<ItemStat> rareDefenseStat = List.of(PHYSICAL_RESIST, FIRE_RESIST, COLD_RESIST, EARTH_RESIST, LIGHTNING_RESIST, AIR_RESIST, RADIANT_RESIST, NECROTIC_RESIST);
         LinkedHashMap<ItemStat, Integer> itemStats = new LinkedHashMap<>(){{
             put(mainDefenseStat, getStatCalculation(mainDefenseStat, weight, rarity, level, 1));
         }};
@@ -113,7 +113,8 @@ public class Armor {
                         default -> -1;
                     };
                     case GUARD -> level;
-                    case PHYSICALRESIST, FIRERESIST, COLDRESIST, EARTHRESIST, LIGHTNINGRESIST, AIRRESIST, RADIANTRESIST, NECROTICRESIST -> level * .5;
+                    case PHYSICAL_RESIST, FIRE_RESIST, COLD_RESIST, EARTH_RESIST, LIGHTNING_RESIST, AIR_RESIST,
+                         RADIANT_RESIST, NECROTIC_RESIST -> level * .5;
                     default -> 0;
                 } * finalMultiplier)
         );
