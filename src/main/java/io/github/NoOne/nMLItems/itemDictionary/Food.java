@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.*;
 
 import static io.github.NoOne.nMLItems.enums.FoodType.RHUBARB_PIE;
-import static io.github.NoOne.nMLItems.enums.FoodType.getServings;
 import static io.papermc.paper.datacomponent.DataComponentTypes.ITEM_MODEL;
 import static io.papermc.paper.datacomponent.DataComponentTypes.MAX_STACK_SIZE;
 
@@ -47,7 +46,7 @@ public class Food {
         ItemStack rhubarbPie = ItemCreator.createItem(
                 Material.APPLE,
                 amount,
-                MatrixColorAPI.process(FoodType.toColor(RHUBARB_PIE) + "Rhubarb Pie"),
+                MatrixColorAPI.process(RHUBARB_PIE.toColor() + "Rhubarb Pie"),
                 List.of(
                         "§8Lv. " + level + " Dish",
                         "",
@@ -85,7 +84,7 @@ public class Food {
         ItemSystem.setItemType(itemStack, ItemType.FOOD);
         ItemSystem.setLevel(itemStack, level);
         ItemSystem.setStars(itemStack, stars);
-        ItemSystem.setServings(itemStack, getServings(foodType));
+        ItemSystem.setServings(itemStack, foodType.getServings());
         ItemSystem.setFoodType(itemStack, foodType);
     }
 
@@ -99,12 +98,13 @@ public class Food {
 
         // basically doing the same thing as updating lore normally but adding it's time onto it
         for (Map.Entry<ItemStat, Double> entry : sortedStats.entrySet()) {
-            int seconds = ItemStat.getSeconds(entry.getKey());
+            ItemStat itemStat = entry.getKey();
+            int seconds = itemStat.getSeconds();
             double value = entry.getValue();
             String time = "";
 
             if (seconds > 0) {
-                time = " §r§8(" + formatTime(ItemStat.getSeconds(entry.getKey())) + ")";
+                time = " §r§8(" + formatTime(itemStat.getSeconds()) + ")";
             }
 
             if (value == (int) value) {
@@ -123,7 +123,7 @@ public class Food {
         ItemMeta meta = itemStack.getItemMeta();
         ArrayList<String> lore = new ArrayList<>(meta.getLore());
         String starString = lore.getLast();
-        String servingsString = "§e§oServings: " + getServings(foodType) + "/" + getServings(foodType);
+        String servingsString = "§e§oServings: " + foodType.getServings() + "/" + foodType.getServings();
 
         lore.removeLast();
         lore.addAll(List.of(servingsString, "", starString));

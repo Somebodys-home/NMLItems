@@ -46,7 +46,7 @@ public class GenerateWeaponCommand implements CommandExecutor, TabCompleter {
         } else if (args.length == 3) {
             ArrayList<String> weaponTypes = new ArrayList<>(){{
                 for (ItemType itemType : ItemType.getAllWeaponTypes()) {
-                    add(ItemType.toString(itemType).toLowerCase());
+                    add(itemType.toString().toLowerCase());
                 }
             }};
 

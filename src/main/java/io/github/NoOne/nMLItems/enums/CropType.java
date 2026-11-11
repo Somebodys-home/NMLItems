@@ -6,12 +6,31 @@ public enum CropType {
     JADE_FLOWER,
     RHUBARB;
 
-    public static String toString(CropType cropType) {
-        return switch (cropType) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case WHEAT_BUNDLE -> "Wheat Bundle";
             case SUGAR_CANE ->  "Sugar Cane";
             case JADE_FLOWER -> "Jade Flower";
             case RHUBARB -> "Rhubarb";
+        };
+    }
+
+    public SeedType toSeedType() {
+        return switch (this) {
+            case WHEAT_BUNDLE -> SeedType.WHEAT_SEEDS;
+            case SUGAR_CANE -> SeedType.SUGAR_CANE;
+            case JADE_FLOWER -> SeedType.JADE_SEEDS;
+            case RHUBARB -> SeedType.RHUBARB_SEEDS;
+        };
+    }
+
+    public String toColor(CropType cropType) {
+        return switch (cropType) {
+            case WHEAT_BUNDLE -> "§6";
+            case SUGAR_CANE -> "§a";
+            case JADE_FLOWER -> "<SOLID:#00A86B>";
+            case RHUBARB -> "<SOLID:#FC035A>";
         };
     }
 
@@ -22,24 +41,6 @@ public enum CropType {
             case "jade_flower" -> JADE_FLOWER;
             case "rhubarb" -> RHUBARB;
             default -> null;
-        };
-    }
-
-    public static SeedType toSeedType(CropType cropType) {
-        return switch (cropType) {
-            case WHEAT_BUNDLE -> SeedType.WHEAT_SEEDS;
-            case SUGAR_CANE -> SeedType.SUGAR_CANE;
-            case JADE_FLOWER -> SeedType.JADE_SEEDS;
-            case RHUBARB -> SeedType.RHUBARB_SEEDS;
-        };
-    }
-
-    public static String toColor(CropType cropType) {
-        return switch (cropType) {
-            case WHEAT_BUNDLE -> "§6";
-            case SUGAR_CANE -> "§a";
-            case JADE_FLOWER -> "<SOLID:#00A86B>";
-            case RHUBARB -> "<SOLID:#FC035A>";
         };
     }
 }

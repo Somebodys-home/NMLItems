@@ -50,6 +50,7 @@ public enum MaterialStars {
             case FOUR_STARS -> "★★★★";
             case FOUR_AND_HALF_STAR -> "★★★★⯪";
             case FIVE_STARS -> "★★★★★";
+            case null -> "";
         };
     }
 

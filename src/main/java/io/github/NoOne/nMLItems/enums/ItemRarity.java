@@ -1,7 +1,5 @@
 package io.github.NoOne.nMLItems.enums;
 
-import org.bukkit.ChatColor;
-
 public enum ItemRarity {
     COMMON,
     UNCOMMON,
@@ -9,13 +7,24 @@ public enum ItemRarity {
     MYTHICAL,
     RELIC;
 
-    public static String toString(ItemRarity rarity) {
-        return switch (rarity) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case COMMON -> "common";
             case UNCOMMON -> "uncommon";
             case RARE -> "rare";
             case MYTHICAL -> "mythical";
             case RELIC -> "relic";
+        };
+    }
+
+    public String toChatColor() {
+        return switch (this) {
+            case COMMON -> "§7";
+            case UNCOMMON -> "§a";
+            case RARE -> "§b";
+            case MYTHICAL -> "§d";
+            case RELIC -> "§4";
         };
     }
 
@@ -30,18 +39,8 @@ public enum ItemRarity {
         };
     }
 
-    public static ChatColor toChatColor(ItemRarity rarity) {
-        return switch (rarity) {
-            case COMMON -> ChatColor.GRAY;
-            case UNCOMMON -> ChatColor.GREEN;
-            case RARE -> ChatColor.AQUA;
-            case MYTHICAL -> ChatColor.LIGHT_PURPLE;
-            case RELIC -> ChatColor.DARK_RED;
-        };
-    }
-
-    public static double getRarityMultiplier(ItemRarity itemRarity) {
-        return switch (itemRarity) {
+    public double getRarityMultiplier() {
+        return switch (this) {
             case COMMON -> .85;
             case RARE -> 1.25;
             case MYTHICAL -> 1.5;

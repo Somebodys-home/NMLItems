@@ -15,6 +15,15 @@ public enum SeedType {
         };
     }
 
+    public CropType toCropType() {
+        return switch (this) {
+            case WHEAT_SEEDS -> CropType.WHEAT_BUNDLE;
+            case SUGAR_CANE -> CropType.SUGAR_CANE;
+            case JADE_SEEDS -> CropType.JADE_FLOWER;
+            case RHUBARB_SEEDS -> CropType.RHUBARB;
+        };
+    }
+
     public static SeedType fromString(String string) {
         return switch (string.toLowerCase().replace(" ", "_")) { // have to do this for its generate command
             case "wheat_seeds" -> WHEAT_SEEDS;
@@ -22,15 +31,6 @@ public enum SeedType {
             case "jade_seeds" -> JADE_SEEDS;
             case "rhubarb_seeds" -> RHUBARB_SEEDS;
             default -> null;
-        };
-    }
-
-    public static CropType toCropType(SeedType seedType) {
-        return switch (seedType) {
-            case WHEAT_SEEDS -> CropType.WHEAT_BUNDLE;
-            case SUGAR_CANE -> CropType.SUGAR_CANE;
-            case JADE_SEEDS -> CropType.JADE_FLOWER;
-            case RHUBARB_SEEDS -> CropType.RHUBARB;
         };
     }
 }

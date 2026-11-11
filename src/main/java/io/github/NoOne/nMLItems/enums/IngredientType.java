@@ -9,8 +9,9 @@ public enum IngredientType {
     SUGAR,
     RHUBARB;
 
-    public static String toString(IngredientType ingredientType) {
-        return switch (ingredientType) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case FLOUR -> "Flour";
             case PIE_CRUST -> "Pie Crust";
             case BAKED_PIE_CRUST -> "Baked Pie Crust";
@@ -18,6 +19,16 @@ public enum IngredientType {
             case WATER -> "Water";
             case SUGAR -> "Sugar";
             case RHUBARB -> "Rhubarb";
+        };
+    }
+
+    public String toColor() {
+        return switch (this) {
+            case FLOUR, PIE_CRUST -> "<SOLID:#f0e5c7>";
+            case BAKED_PIE_CRUST, FILLED_PIE_CRUST -> "<SOLID:#DB9015>";
+            case WATER -> "§b";
+            case SUGAR -> "<SOLID:#e6faf7>";
+            case RHUBARB -> "<SOLID:#FC035A>";
         };
     }
 
@@ -31,16 +42,6 @@ public enum IngredientType {
             case "sugar" -> SUGAR;
             case "rhubarb" -> RHUBARB;
             default -> null;
-        };
-    }
-
-    public static String toColor(IngredientType ingredientType) {
-        return switch (ingredientType) {
-            case FLOUR, PIE_CRUST -> "<SOLID:#f0e5c7>";
-            case BAKED_PIE_CRUST, FILLED_PIE_CRUST -> "<SOLID:#DB9015>";
-            case WATER -> "§b";
-            case SUGAR -> "<SOLID:#e6faf7>";
-            case RHUBARB -> "<SOLID:#FC035A>";
         };
     }
 }

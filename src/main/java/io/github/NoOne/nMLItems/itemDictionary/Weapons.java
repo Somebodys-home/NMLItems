@@ -20,7 +20,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.enums.ItemRarity.COMMON;
-import static io.github.NoOne.nMLItems.enums.ItemRarity.toChatColor;
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
 import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
@@ -28,13 +27,13 @@ public class Weapons {
     public static ItemStack generateWeapon(Player receiver, ItemType itemType, ItemRarity rarity, int level) {
         String name = NameGenerator.generateItemName(itemType, null, rarity);
         ArrayList<String> lore = new ArrayList<>(List.of(
-                "§o§fLv. " + level + "§r " + toChatColor(rarity) + "§l" + ItemRarity.toString(rarity).toUpperCase() + " " + ItemType.toString(itemType).toUpperCase(),
+                "§o§fLv. " + level + "§r " + rarity.toChatColor() + "§l" + rarity.toString().toUpperCase() + " " + itemType.toString().toUpperCase(),
                 ""
         ));
 
         lore.addAll(makeWeaponASCIIArt(itemType));
 
-        ItemStack weapon = ItemCreator.createItem(ItemType.toMaterial(itemType), name, lore);
+        ItemStack weapon = ItemCreator.createItem(itemType.toMaterial(), name, lore);
         ItemMeta meta = weapon.getItemMeta();
 
         meta.setUnbreakable(true);
@@ -213,7 +212,7 @@ public class Weapons {
 
     // return what the baseline damage of a weapon should be for its level and rarity
     private static int doDamageCalc(ItemRarity itemRarity, int level) {
-        double multiplier = ItemRarity.getRarityMultiplier(itemRarity) * ThreadLocalRandom.current().nextDouble(.75, 1);
+        double multiplier = itemRarity.getRarityMultiplier() * ThreadLocalRandom.current().nextDouble(.75, 1);
         double baseDamage = (1 + (1.5 * level) / 100.0) * level + 2;
 
         return (int) (multiplier * baseDamage);

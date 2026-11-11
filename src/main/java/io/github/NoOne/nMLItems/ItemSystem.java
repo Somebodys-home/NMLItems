@@ -42,13 +42,13 @@ public class ItemSystem {
                 PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
                 if (!pdc.has(itemStatsKey)) { // logic changes if the item alr has stats set or not
-                    String statString = ItemStat.toString(itemStat) + "-" + amount;
+                    String statString = itemStat + "-" + amount;
 
                     pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
                 } else {
                     String statString = pdc.get(itemStatsKey, PersistentDataType.STRING);
 
-                    statString += "/" + ItemStat.toString(itemStat) + "-" + amount;
+                    statString += "/" + itemStat + "-" + amount;
                     pdc.remove(itemStatsKey);
                     pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
                 }
@@ -64,13 +64,13 @@ public class ItemSystem {
             PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
             if (!pdc.has(itemStatsKey)) { // logic changes if the item alr has stats set or not
-                String statString = ItemStat.toString(itemStat) + "-" + amount;
+                String statString = itemStat + "-" + amount;
 
                 pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
             } else {
                 String statString = pdc.get(itemStatsKey, PersistentDataType.STRING);
 
-                statString += "/" + ItemStat.toString(itemStat) + "-" + amount;
+                statString += "/" + itemStat + "-" + amount;
                 pdc.remove(itemStatsKey);
                 pdc.set(itemStatsKey, PersistentDataType.STRING, statString);
             }
@@ -91,12 +91,12 @@ public class ItemSystem {
             PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
             if (!pdc.has(itemTypeKey)) { // logic changes if the item alr has its type set or not
-                pdc.set(itemTypeKey, PersistentDataType.STRING, ItemType.toString(itemType));
+                pdc.set(itemTypeKey, PersistentDataType.STRING, itemType.toString());
 
             } else {
                 String typeString = pdc.get(itemTypeKey, PersistentDataType.STRING);
 
-                typeString += "/" + ItemType.toString(itemType);
+                typeString += "/" + itemType.toString();
                 pdc.remove(itemTypeKey);
                 pdc.set(itemTypeKey, PersistentDataType.STRING, typeString);
             }
@@ -131,7 +131,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(rarityKey, PersistentDataType.STRING, ItemRarity.toString(itemRarity));
+        pdc.set(rarityKey, PersistentDataType.STRING, itemRarity.toString());
         itemStack.setItemMeta(meta);
     }
 
@@ -163,7 +163,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(cropKey, PersistentDataType.STRING, CropType.toString(cropType));
+        pdc.set(cropKey, PersistentDataType.STRING, cropType.toString());
         itemStack.setItemMeta(meta);
     }
 
@@ -171,7 +171,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(gardenModifierKey, PersistentDataType.STRING, GardenModifier.toString(gardenModifier));
+        pdc.set(gardenModifierKey, PersistentDataType.STRING, gardenModifier.toString());
         itemStack.setItemMeta(meta);
     }
 
@@ -179,7 +179,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(ingredientKey, PersistentDataType.STRING, IngredientType.toString(ingredientType));
+        pdc.set(ingredientKey, PersistentDataType.STRING, ingredientType.toString());
         itemStack.setItemMeta(meta);
     }
 
@@ -204,7 +204,7 @@ public class ItemSystem {
         ItemMeta meta = itemStack.getItemMeta();
         PersistentDataContainer pdc = meta.getPersistentDataContainer();
 
-        pdc.set(foodTypeKey, PersistentDataType.STRING, FoodType.toString(foodType));
+        pdc.set(foodTypeKey, PersistentDataType.STRING, foodType.toString());
         itemStack.setItemMeta(meta);
     }
 
@@ -354,8 +354,8 @@ public class ItemSystem {
 
     public static String makeItemStatString(ItemStat itemStat, int value) {
         return switch (itemStat) {
-            case CRIT_CHANCE, CRIT_DAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
-            default ->  ItemStat.toChatColor(itemStat) + "+ " + value + " " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
+            case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + ItemStat.toEmoji(itemStat);
+            default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + ItemStat.toEmoji(itemStat);
         };
     }
 
@@ -364,8 +364,8 @@ public class ItemSystem {
             return makeItemStatString(itemStat, (int) value);
         } else {
             return switch (itemStat) {
-                case CRIT_CHANCE, CRIT_DAMAGE -> ItemStat.toChatColor(itemStat) + "+ " + value + "% " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
-                default ->  ItemStat.toChatColor(itemStat) + "+ " + value + " " + ItemStat.toString(itemStat) + " " + ItemStat.toEmoji(itemStat);
+                case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + ItemStat.toEmoji(itemStat);
+                default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + ItemStat.toEmoji(itemStat);
             };
         }
     }
@@ -401,7 +401,7 @@ public class ItemSystem {
             String[] statSplits = statString.split("/"); // stats on the key are stored as (stat)-##/(stat)-## etc. so each split is its own stat and value
 
             for (String statSplit : statSplits) {
-                if (statSplit.contains(ItemStat.toString(itemStat))) { // if that split is the one for the stat
+                if (statSplit.contains(itemStat.toString())) { // if that split is the one for the stat
                     return Double.parseDouble(statSplit.split("-")[1]);
                 }
             }
@@ -441,7 +441,7 @@ public class ItemSystem {
                 for (String string : pdc.get(itemStatsKey, PersistentDataType.STRING).split("/")) {
                     String statName = string.split("-")[0];
 
-                    if (statName.equals(itemStat.toString(itemStat))) {
+                    if (statName.equals(itemStat)) {
                         return true;
                     }
                 }
@@ -478,7 +478,7 @@ public class ItemSystem {
             PersistentDataContainer pdc = itemStack.getItemMeta().getPersistentDataContainer();
 
             if (pdc.has(itemTypeKey, PersistentDataType.STRING)) {
-                return pdc.get(itemTypeKey, PersistentDataType.STRING).contains(ItemType.toString(itemType));
+                return pdc.get(itemTypeKey, PersistentDataType.STRING).contains(itemType.toString());
             }
         }
 
@@ -553,7 +553,7 @@ public class ItemSystem {
         return new HashMap<>(){{
             for (Entry<ItemStat, Double> statEntry : getAllStats(itemStack).entrySet()) {
                 ItemStat itemStat = statEntry.getKey();
-                String statString = ItemStat.toString(itemStat).toLowerCase().replaceAll(" ", "");
+                String statString = itemStat.toString().toLowerCase().replace(" ", "");
 
                 if (itemStat == ItemStat.OVERHEALTH) {
                     statString = "max" + statString;

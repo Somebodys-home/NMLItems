@@ -42,8 +42,9 @@ public enum ItemType {
 
     MISC;
 
-    public static String toString(ItemType type) {
-        return switch (type) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case SWORD -> "Sword";
             case DAGGER -> "Dagger";
             case AXE -> "Axe";
@@ -73,40 +74,8 @@ public enum ItemType {
         };
     }
 
-    public static ItemType fromString(String string) {
-        return switch (string.toLowerCase()) { // have to do this for the generate weapon command
-            case "sword" -> SWORD;
-            case "dagger" -> DAGGER;
-            case "axe" -> AXE;
-            case "hammer" -> HAMMER;
-            case "spear" -> SPEAR;
-            case "glove" -> GLOVE;
-            case "bow" -> BOW;
-            case "wand" -> WAND;
-            case "staff" -> STAFF;
-            case "catalyst" -> CATALYST;
-            case "helmet" -> HELMET;
-            case "chestplate" -> CHESTPLATE;
-            case "leggings" -> LEGGINGS;
-            case "boots" -> BOOTS;
-            case "light" -> LIGHT;
-            case "medium" -> MEDIUM;
-            case "heavy" -> HEAVY;
-            case "shield" -> SHIELD;
-            case "quiver" -> QUIVER;
-            case "hoe" -> HOE;
-            case "seed" -> SEED;
-            case "crop" -> CROP;
-            case "garden modifier" -> GARDEN_MODIFIER;
-            case "ingredient" -> INGREDIENT;
-            case "food" -> FOOD;
-            case "misc" -> MISC;
-            default -> null;
-        };
-    }
-
-    public static Material toMaterial(ItemType type) {
-        return switch (type) {
+    public Material toMaterial() {
+        return switch (this) {
             case SWORD -> Material.IRON_SWORD;
             case DAGGER -> Material.WOODEN_SWORD;
             case AXE -> Material.IRON_AXE;
@@ -147,6 +116,38 @@ public enum ItemType {
                 case BOOTS -> Material.IRON_BOOTS;
                 default -> null;
             };
+            default -> null;
+        };
+    }
+
+    public static ItemType fromString(String string) {
+        return switch (string.toLowerCase()) { // have to do this for the generate weapon command
+            case "sword" -> SWORD;
+            case "dagger" -> DAGGER;
+            case "axe" -> AXE;
+            case "hammer" -> HAMMER;
+            case "spear" -> SPEAR;
+            case "glove" -> GLOVE;
+            case "bow" -> BOW;
+            case "wand" -> WAND;
+            case "staff" -> STAFF;
+            case "catalyst" -> CATALYST;
+            case "helmet" -> HELMET;
+            case "chestplate" -> CHESTPLATE;
+            case "leggings" -> LEGGINGS;
+            case "boots" -> BOOTS;
+            case "light" -> LIGHT;
+            case "medium" -> MEDIUM;
+            case "heavy" -> HEAVY;
+            case "shield" -> SHIELD;
+            case "quiver" -> QUIVER;
+            case "hoe" -> HOE;
+            case "seed" -> SEED;
+            case "crop" -> CROP;
+            case "garden modifier" -> GARDEN_MODIFIER;
+            case "ingredient" -> INGREDIENT;
+            case "food" -> FOOD;
+            case "misc" -> MISC;
             default -> null;
         };
     }

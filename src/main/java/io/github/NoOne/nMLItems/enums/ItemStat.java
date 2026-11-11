@@ -1,7 +1,6 @@
 package io.github.NoOne.nMLItems.enums;
 
 import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
-import org.bukkit.ChatColor;
 
 public enum ItemStat {
     // damage stats
@@ -41,8 +40,9 @@ public enum ItemStat {
     // misc stats
     SPEED;
 
-    public static String toString(ItemStat itemStat) {
-        return switch (itemStat) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case PHYSICAL_DAMAGE -> "Phys. Damage";
             case FIRE_DAMAGE -> "Fire Damage";
             case COLD_DAMAGE -> "Cold Damage";
@@ -75,23 +75,23 @@ public enum ItemStat {
         };
     }
 
-    public static ChatColor toChatColor(ItemStat itemStat) {
-        return switch (itemStat) {
-            case EVASION, RADIANT_DAMAGE, PURE_DAMAGE, RADIANT_RESIST, GUARD, SPEED -> ChatColor.WHITE;
-            case DEFENSE, HARVEST, YIELD, ACRE -> ChatColor.GREEN;
-            case PHYSICAL_DAMAGE, PHYSICAL_RESIST -> ChatColor.DARK_RED;
-            case FIRE_DAMAGE, FIRE_RESIST, HEALTH, MAX_HEALTH -> ChatColor.RED;
-            case COLD_DAMAGE, COLD_RESIST -> ChatColor.AQUA;
-            case EARTH_DAMAGE, EARTH_RESIST -> ChatColor.DARK_GREEN;
-            case LIGHTNING_DAMAGE, LIGHTNING_RESIST -> ChatColor.YELLOW;
-            case AIR_DAMAGE, AIR_RESIST -> ChatColor.GRAY;
-            case NECROTIC_DAMAGE, NECROTIC_RESIST -> ChatColor.DARK_PURPLE;
-            case OVERHEALTH, CRIT_CHANCE, CRIT_DAMAGE -> ChatColor.BLUE;
+    public String toChatColor() {
+        return switch (this) {
+            case EVASION, RADIANT_DAMAGE, PURE_DAMAGE, RADIANT_RESIST, GUARD, SPEED -> "§f";
+            case DEFENSE, HARVEST, YIELD, ACRE -> "§a";
+            case PHYSICAL_DAMAGE, PHYSICAL_RESIST -> "§4";
+            case FIRE_DAMAGE, FIRE_RESIST, HEALTH, MAX_HEALTH -> "§c";
+            case COLD_DAMAGE, COLD_RESIST -> "§b";
+            case EARTH_DAMAGE, EARTH_RESIST -> "§2";
+            case LIGHTNING_DAMAGE, LIGHTNING_RESIST -> "§e";
+            case AIR_DAMAGE, AIR_RESIST -> "§7";
+            case NECROTIC_DAMAGE, NECROTIC_RESIST -> "§5";
+            case OVERHEALTH, CRIT_CHANCE, CRIT_DAMAGE -> "§9";
         };
     }
 
-    public static PlayerStat toPlayerStat(ItemStat itemStat) {
-        return switch (itemStat) {
+    public PlayerStat toPlayerStat() {
+        return switch (this) {
             case PHYSICAL_DAMAGE -> PlayerStat.PHYSICAL_DAMAGE;
             case FIRE_DAMAGE -> PlayerStat.FIRE_DAMAGE;
             case COLD_DAMAGE -> PlayerStat.COLD_DAMAGE;
@@ -148,8 +148,8 @@ public enum ItemStat {
     }
 
     // for food
-    public static int getSeconds(ItemStat itemStat) {
-        return switch (itemStat) {
+    public int getSeconds() {
+        return switch (this) {
             case PHYSICAL_DAMAGE -> 300;
             case SPEED -> 150;
             default -> 0;

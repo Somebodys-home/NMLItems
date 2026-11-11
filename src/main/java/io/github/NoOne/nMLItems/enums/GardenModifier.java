@@ -4,8 +4,9 @@ public enum GardenModifier {
     FERTILIZER,
     WATERING_CAN;
 
-    public static String toString(GardenModifier gardenModifier) {
-        return switch (gardenModifier) {
+    @Override
+    public String toString() {
+        return switch (this) {
             case FERTILIZER -> "Fertilizer";
             case WATERING_CAN -> "Watering Can";
         };

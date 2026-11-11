@@ -35,14 +35,14 @@ public class Armor {
                 case BOOTS -> "PALEOS";
                 default -> "";
             };
-            case HEAVY -> ItemType.toString(type).toUpperCase();
+            case HEAVY -> type.toString().toUpperCase();
             default -> "";
         };
         ItemStack armor = ItemCreator.createItem(
                 ItemType.toMaterial(weight, type),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r" +  ItemRarity.toChatColor(rarity) + "§l " + ItemRarity.toString(rarity).toUpperCase() + " " + typeString,
+                        "§o§fLv. " + level + "§r" +  rarity.toChatColor() + "§l " + rarity.toString().toUpperCase() + " " + typeString,
                         ""
                 )
         );
@@ -101,7 +101,7 @@ public class Armor {
 
     // stat slot if its the first, second or third stat slot of the item
     private static int getStatCalculation(ItemStat itemStat, ItemType weight, ItemRarity itemRarity, int level, int statSlot) {
-        double finalMultiplier = ItemRarity.getRarityMultiplier(itemRarity) * ThreadLocalRandom.current().nextDouble(.75, 1);
+        double finalMultiplier = itemRarity.getRarityMultiplier() * ThreadLocalRandom.current().nextDouble(.75, 1);
         int statValue = Math.toIntExact(Math.round(
                 switch (itemStat) {
                     case EVASION, DEFENSE -> level; // todo: come up with a better calc for these

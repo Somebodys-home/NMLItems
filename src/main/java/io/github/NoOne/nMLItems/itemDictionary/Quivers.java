@@ -17,17 +17,17 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
-import static io.github.NoOne.nMLItems.enums.ItemType.QUIVER;
 
 public class Quivers {
     public static ItemStack generateQuiver(Player receiver, ItemRarity rarity, int level) {
-        String name = NameGenerator.generateItemName(QUIVER, null, rarity);
+        ItemType quiverType = ItemType.QUIVER;
+        String name = NameGenerator.generateItemName(quiverType, null, rarity);
         ItemStack quiver = ItemCreator.createItem(
-                ItemType.toMaterial(QUIVER),
+                quiverType.toMaterial(),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r " + ItemRarity.toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() +
-                                " " + ItemType.toString(QUIVER).toUpperCase(),
+                        "§o§fLv. " + level + "§r " + rarity.toChatColor() + ChatColor.BOLD + rarity.toString().toUpperCase() +
+                                " " + quiverType.toString().toUpperCase(),
                         ""
                 )
         );
@@ -38,7 +38,7 @@ public class Quivers {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         quiver.setItemMeta(meta);
 
-        ItemSystem.setItemType(quiver, QUIVER);
+        ItemSystem.setItemType(quiver, quiverType);
         ItemSystem.setRarity(quiver, rarity);
         ItemSystem.setLevel(quiver, level);
         ItemSystem.setOriginalName(quiver, name);

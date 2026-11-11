@@ -6,7 +6,6 @@ import io.github.NoOne.nMLItems.enums.ItemRarity;
 import io.github.NoOne.nMLItems.enums.ItemStat;
 import io.github.NoOne.nMLItems.enums.ItemType;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -18,17 +17,17 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static io.github.NoOne.nMLItems.enums.ItemStat.*;
-import static io.github.NoOne.nMLItems.enums.ItemType.SHIELD;
 
 public class Shields {
     public static ItemStack generateShield(Player receiver, ItemRarity rarity, int level) {
-        String name = NameGenerator.generateItemName(SHIELD, null, rarity);
+        ItemType shieldType = ItemType.SHIELD;
+        String name = NameGenerator.generateItemName(shieldType, null, rarity);
         ItemStack shield = ItemCreator.createItem(
-                Material.SHIELD,
+                shieldType.toMaterial(),
                 name,
                 List.of(
-                        "§o§fLv. " + level + "§r " + ItemRarity.toChatColor(rarity) + ChatColor.BOLD + ItemRarity.toString(rarity).toUpperCase() +
-                                " " + ItemType.toString(SHIELD).toUpperCase(),
+                        "§o§fLv. " + level + "§r " + rarity.toChatColor() + ChatColor.BOLD + rarity.toString().toUpperCase() +
+                                " " + shieldType.toString().toUpperCase(),
                         ""
                 )
 
@@ -40,7 +39,7 @@ public class Shields {
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_UNBREAKABLE);
         shield.setItemMeta(meta);
 
-        ItemSystem.setItemType(shield, SHIELD);
+        ItemSystem.setItemType(shield, shieldType);
         ItemSystem.setRarity(shield, rarity);
         ItemSystem.setLevel(shield, level);
         ItemSystem.setOriginalName(shield, name);
