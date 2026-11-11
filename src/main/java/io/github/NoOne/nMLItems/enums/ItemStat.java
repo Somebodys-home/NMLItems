@@ -124,8 +124,8 @@ public enum ItemStat {
         };
     }
 
-    public static String toEmoji(ItemStat itemStat) {
-        return switch (itemStat) {
+    public String toEmoji() {
+        return switch (this) {
             case PHYSICAL_DAMAGE, PHYSICAL_RESIST -> "⚔";
             case FIRE_DAMAGE, FIRE_RESIST -> "\uD83D\uDD25";
             case COLD_DAMAGE, COLD_RESIST -> "❄";

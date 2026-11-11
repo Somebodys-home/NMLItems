@@ -354,8 +354,8 @@ public class ItemSystem {
 
     public static String makeItemStatString(ItemStat itemStat, int value) {
         return switch (itemStat) {
-            case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + ItemStat.toEmoji(itemStat);
-            default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + ItemStat.toEmoji(itemStat);
+            case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + itemStat.toEmoji();
+            default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + itemStat.toEmoji();
         };
     }
 
@@ -364,8 +364,8 @@ public class ItemSystem {
             return makeItemStatString(itemStat, (int) value);
         } else {
             return switch (itemStat) {
-                case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + ItemStat.toEmoji(itemStat);
-                default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + ItemStat.toEmoji(itemStat);
+                case CRIT_CHANCE, CRIT_DAMAGE -> itemStat.toChatColor() + "+ " + value + "% " + itemStat + " " + itemStat.toEmoji();
+                default ->  itemStat.toChatColor() + "+ " + value + " " + itemStat + " " + itemStat.toEmoji();
             };
         }
     }
