@@ -120,7 +120,7 @@ public enum ItemStat {
             case YIELD -> PlayerStat.YIELD;
             case ACRE -> PlayerStat.ACRE;
             case SPEED -> PlayerStat.SPEED;
-            default -> null;
+            case HEALTH -> PlayerStat.HEALTH;
         };
     }
 
