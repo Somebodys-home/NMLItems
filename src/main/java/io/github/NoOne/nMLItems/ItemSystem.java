@@ -1,6 +1,7 @@
 package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.enums.*;
+import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
 import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -549,17 +550,10 @@ public class ItemSystem {
         return stats;
     }
 
-    public static HashMap<String, Double> convertItemStatsToPlayerStats(ItemStack itemStack) {
+    public static HashMap<PlayerStat, Double> convertItemStatsToPlayerStats(ItemStack itemStack) {
         return new HashMap<>(){{
             for (Entry<ItemStat, Double> statEntry : getAllStats(itemStack).entrySet()) {
-                ItemStat itemStat = statEntry.getKey();
-                String statString = itemStat.toString().toLowerCase().replace(" ", "");
-
-                if (itemStat == ItemStat.OVERHEALTH) {
-                    statString = "max" + statString;
-                }
-
-                put(statString, statEntry.getValue());
+                put(statEntry.getKey().toPlayerStat(), statEntry.getValue());
             }
         }};
     }
