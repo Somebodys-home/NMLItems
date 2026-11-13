@@ -79,6 +79,11 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.MatrixCreations</groupId>
+            <artifactId>MatrixColorAPI</artifactId>
+            <version>v1.0.7</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.Somebodys-home</groupId>
             <artifactId>NMLPlayerStats</artifactId>
             <version>2ae96404c7</version>
@@ -91,9 +96,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.MatrixCreations</groupId>
-            <artifactId>MatrixColorAPI</artifactId>
-            <version>v1.0.7</version>
+            <groupId>com.github.Somebodys-home</groupId>
+            <artifactId>NMLDamages</artifactId>
+            <version>703bea28b6</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

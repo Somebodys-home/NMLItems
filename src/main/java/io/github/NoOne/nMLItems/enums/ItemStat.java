@@ -1,5 +1,6 @@
 package io.github.NoOne.nMLItems.enums;
 
+import io.github.NoOne.nMLDamages.DamageType;
 import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
 
 public enum ItemStat {
@@ -90,6 +91,29 @@ public enum ItemStat {
         };
     }
 
+    public String toEmoji() {
+        return switch (this) {
+            case PHYSICAL_DAMAGE, PHYSICAL_RESIST -> "⚔";
+            case FIRE_DAMAGE, FIRE_RESIST -> "\uD83D\uDD25";
+            case COLD_DAMAGE, COLD_RESIST -> "❄";
+            case EARTH_DAMAGE, EARTH_RESIST -> "\uD83E\uDEA8";
+            case LIGHTNING_DAMAGE, LIGHTNING_RESIST -> "\uD83D\uDDF2";
+            case AIR_DAMAGE, AIR_RESIST -> "☁";
+            case RADIANT_DAMAGE, RADIANT_RESIST, SPEED -> "✦";
+            case NECROTIC_DAMAGE, NECROTIC_RESIST -> "\uD83C\uDF00";
+            case PURE_DAMAGE -> "\uD83D\uDCA2";
+            case DEFENSE -> "\uD83D\uDEE1";
+            case GUARD -> "⛨";
+            case OVERHEALTH -> "\uD83D\uDC99";
+            case EVASION -> "\uD83D\uDCA8";
+            case CRIT_CHANCE, CRIT_DAMAGE -> "☠";
+            case YIELD -> "\uD83E\uDD55";
+            case ACRE -> "⚂";
+            case HARVEST -> "\uD83E\uDEB4";
+            case HEALTH, MAX_HEALTH -> "❤";
+        };
+    }
+
     public PlayerStat toPlayerStat() {
         return switch (this) {
             case PHYSICAL_DAMAGE -> PlayerStat.PHYSICAL_DAMAGE;
@@ -124,26 +148,18 @@ public enum ItemStat {
         };
     }
 
-    public String toEmoji() {
+    public DamageType toDamageType() {
         return switch (this) {
-            case PHYSICAL_DAMAGE, PHYSICAL_RESIST -> "⚔";
-            case FIRE_DAMAGE, FIRE_RESIST -> "\uD83D\uDD25";
-            case COLD_DAMAGE, COLD_RESIST -> "❄";
-            case EARTH_DAMAGE, EARTH_RESIST -> "\uD83E\uDEA8";
-            case LIGHTNING_DAMAGE, LIGHTNING_RESIST -> "\uD83D\uDDF2";
-            case AIR_DAMAGE, AIR_RESIST -> "☁";
-            case RADIANT_DAMAGE, RADIANT_RESIST, SPEED -> "✦";
-            case NECROTIC_DAMAGE, NECROTIC_RESIST -> "\uD83C\uDF00";
-            case PURE_DAMAGE -> "\uD83D\uDCA2";
-            case DEFENSE -> "\uD83D\uDEE1";
-            case GUARD -> "⛨";
-            case OVERHEALTH -> "\uD83D\uDC99";
-            case EVASION -> "\uD83D\uDCA8";
-            case CRIT_CHANCE, CRIT_DAMAGE -> "☠";
-            case YIELD -> "\uD83E\uDD55";
-            case ACRE -> "⚂";
-            case HARVEST -> "\uD83E\uDEB4";
-            case HEALTH, MAX_HEALTH -> "❤";
+            case PHYSICAL_DAMAGE -> DamageType.PHYSICAL;
+            case FIRE_DAMAGE -> DamageType.FIRE;
+            case COLD_DAMAGE -> DamageType.COLD;
+            case EARTH_DAMAGE -> DamageType.EARTH;
+            case LIGHTNING_DAMAGE -> DamageType.LIGHTNING;
+            case AIR_DAMAGE -> DamageType.AIR;
+            case RADIANT_DAMAGE -> DamageType.RADIANT;
+            case NECROTIC_DAMAGE -> DamageType.NECROTIC;
+            case PURE_DAMAGE -> DamageType.PURE;
+            default -> null;
         };
     }
 
