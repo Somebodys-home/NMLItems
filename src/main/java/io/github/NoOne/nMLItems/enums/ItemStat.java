@@ -1,6 +1,6 @@
 package io.github.NoOne.nMLItems.enums;
 
-import io.github.NoOne.nMLDamages.DamageType;
+import io.github.NoOne.nMLDamages.enums.DamageType;
 import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
 
 public enum ItemStat {

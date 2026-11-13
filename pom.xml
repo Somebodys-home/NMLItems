@@ -98,7 +98,7 @@
         <dependency>
             <groupId>com.github.Somebodys-home</groupId>
             <artifactId>NMLDamages</artifactId>
-            <version>703bea28b6</version>
+            <version>36032b87c7</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
