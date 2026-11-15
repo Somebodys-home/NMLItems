@@ -442,7 +442,7 @@ public class ItemSystem {
                 for (String string : pdc.get(itemStatsKey, PersistentDataType.STRING).split("/")) {
                     String statName = string.split("-")[0];
 
-                    if (statName.equals(itemStat)) {
+                    if (statName.equals(itemStat.toString())) {
                         return true;
                     }
                 }
@@ -539,15 +539,13 @@ public class ItemSystem {
     }
 
     public static HashMap<ItemStat, Double> getAllStats(ItemStack itemStack) {
-        HashMap<ItemStat, Double> stats = new HashMap<>();
-
-        for (ItemStat itemStat : ItemStat.values()) {
-            if (hasStat(itemStack, itemStat)) {
-                stats.put(itemStat, getStatValue(itemStack, itemStat));
+        return new HashMap<>(){{
+            for (ItemStat itemStat : ItemStat.values()) {
+                if (hasStat(itemStack, itemStat)) {
+                    put(itemStat, getStatValue(itemStack, itemStat));
+                }
             }
-        }
-
-        return stats;
+        }};
     }
 
     public static HashMap<PlayerStat, Double> convertItemStatsToPlayerStats(ItemStack itemStack) {

@@ -11,9 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GenerateHoeCommand implements CommandExecutor, TabCompleter {
 
@@ -33,13 +31,9 @@ public class GenerateHoeCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("<level>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<level>");
         } else if (args.length == 2) {
-            return new ArrayList<>(List.of("common", "uncommon", "rare", "mythical")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("common", "uncommon", "rare", "mythical");
         }
         return List.of();
     }

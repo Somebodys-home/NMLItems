@@ -37,6 +37,7 @@ io\github\NoOne\nMLItems\itemDictionary\Weapons$1.class
 io\github\NoOne\nMLItems\itemDictionary\Armor$1.class
 io\github\NoOne\nMLItems\itemDictionary\Crops$3.class
 io\github\NoOne\nMLItems\commands\GenerateFoodCommand.class
+io\github\NoOne\nMLItems\ItemSystem$6.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
 io\github\NoOne\nMLItems\itemDictionary\Shields$2.class

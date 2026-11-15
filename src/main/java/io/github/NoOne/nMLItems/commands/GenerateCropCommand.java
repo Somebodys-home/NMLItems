@@ -10,9 +10,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GenerateCropCommand implements CommandExecutor, TabCompleter {
 
@@ -41,23 +39,15 @@ public class GenerateCropCommand implements CommandExecutor, TabCompleter {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1) {
-            return new ArrayList<>(List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower", "rhubarb_seeds", "rhubarb")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower", "rhubarb_seeds", "rhubarb");
         } else if (args.length == 2) {
-            return new ArrayList<>(List.of("<level>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<level>");
         } else if (args.length == 3) {
-            return new ArrayList<>(List.of("<stars>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[2].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<stars>");
         } else if (args.length == 4) {
-            return new ArrayList<>(List.of("<amount>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[3].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<amount>");
+        } else {
+            return List.of();
         }
-
-        return List.of();
     }
 }

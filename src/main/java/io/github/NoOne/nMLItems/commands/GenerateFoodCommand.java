@@ -3,7 +3,6 @@ package io.github.NoOne.nMLItems.commands;
 import io.github.NoOne.nMLItems.itemDictionary.Crops;
 import io.github.NoOne.nMLItems.itemDictionary.Food;
 import io.github.NoOne.nMLItems.itemDictionary.Ingredients;
-import io.github.NoOne.nMLItems.itemDictionary.Seeds;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -60,19 +59,13 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
                     .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
         } else if (args.length == 2) {
-            return new ArrayList<>(List.of("<level>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<level>");
         } else if (args.length == 3) {
-            return new ArrayList<>(List.of("<stars>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[2].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<stars>");
         } else if (args.length == 4) {
-            return new ArrayList<>(List.of("<amount>")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[3].toLowerCase()))
-                    .collect(Collectors.toList());
+            return List.of("<amount>");
+        } else {
+            return List.of();
         }
-
-        return List.of();
     }
 }
