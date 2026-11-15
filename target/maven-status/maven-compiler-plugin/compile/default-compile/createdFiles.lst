@@ -17,6 +17,8 @@ io\github\NoOne\nMLItems\enums\GardenModifier.class
 io\github\NoOne\nMLItems\commands\GenerateWeaponCommand$1.class
 io\github\NoOne\nMLItems\enums\IngredientType.class
 io\github\NoOne\nMLItems\ItemSystem$2.class
+io\github\NoOne\nMLItems\commands\GenerateCropCommand$1.class
+io\github\NoOne\nMLItems\commands\GenerateFoodCommand$1.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator.class
 io\github\NoOne\nMLItems\itemDictionary\Armor.class
 io\github\NoOne\nMLItems\enums\ItemRarity.class
@@ -25,8 +27,10 @@ io\github\NoOne\nMLItems\itemDictionary\Seeds.class
 io\github\NoOne\nMLItems\enums\FoodType.class
 io\github\NoOne\nMLItems\enums\SeedType.class
 io\github\NoOne\nMLItems\commands\GenerateHoeCommand.class
+io\github\NoOne\nMLItems\commands\GenerateOffhandCommand$2.class
 io\github\NoOne\nMLItems\itemDictionary\Armor$3.class
 io\github\NoOne\nMLItems\itemDictionary\NameGenerator$1.class
+io\github\NoOne\nMLItems\commands\GenerateIngredientCommand$1.class
 io\github\NoOne\nMLItems\itemDictionary\Miscellaneous.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons$2.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers.class
@@ -40,11 +44,13 @@ io\github\NoOne\nMLItems\commands\GenerateFoodCommand.class
 io\github\NoOne\nMLItems\ItemSystem$6.class
 io\github\NoOne\nMLItems\itemDictionary\Weapons.class
 io\github\NoOne\nMLItems\itemDictionary\Quivers$1.class
+io\github\NoOne\nMLItems\commands\GenerateHoeCommand$1.class
 io\github\NoOne\nMLItems\itemDictionary\Shields$2.class
 io\github\NoOne\nMLItems\commands\GenerateCropCommand.class
 io\github\NoOne\nMLItems\ItemSystem$3.class
 io\github\NoOne\nMLItems\commands\GenerateOffhandCommand.class
 io\github\NoOne\nMLItems\NMLItems.class
+io\github\NoOne\nMLItems\commands\GenerateArmorCommand$1.class
 io\github\NoOne\nMLItems\itemDictionary\Crops.class
 io\github\NoOne\nMLItems\commands\GenerateItemCommand.class
 io\github\NoOne\nMLItems\itemDictionary\Hoes$2.class

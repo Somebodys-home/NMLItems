@@ -13,7 +13,9 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenerateOffhandCommand implements CommandExecutor, TabCompleter {
 
@@ -37,14 +39,16 @@ public class GenerateOffhandCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return List.of("<level>");
-        } else if (args.length == 2) {
-            return List.of("common", "uncommon", "rare", "mythical");
-        } else if (args.length == 3) {
-            return List.of("shield", "quiver");
-        } else {
-            return List.of();
-        }
+        ArrayList<String> completions = new ArrayList<>(){{
+            switch (args.length) {
+                case 1 -> add("<level>");
+                case 2 -> addAll(List.of("common", "uncommon", "rare", "mythical"));
+                case 3 -> addAll(List.of("shield", "quiver"));
+            }
+        }};
+
+        return completions.stream()
+                .filter(s -> s.startsWith(args[args.length - 1].toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

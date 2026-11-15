@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenerateWeaponCommand implements CommandExecutor, TabCompleter {
 
@@ -33,18 +34,20 @@ public class GenerateWeaponCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return List.of("<level>");
-        } else if (args.length == 2) {
-            return List.of("common", "uncommon", "rare", "mythical");
-        } else if (args.length == 3) {
-            return new ArrayList<>(){{
-                for (ItemType itemType : ItemType.getAllWeaponTypes()) {
-                    add(itemType.toString().toLowerCase());
+        ArrayList<String> completions = new ArrayList<>(){{
+            switch (args.length) {
+                case 1 -> add("<level>");
+                case 2 -> addAll(List.of("common", "uncommon", "rare", "mythical"));
+                case 3 -> {
+                    for (ItemType itemType : ItemType.getAllWeaponTypes()) {
+                        add(itemType.toString().toLowerCase());
+                    }
                 }
-            }};
-        } else {
-            return List.of();
-        }
+            }
+        }};
+
+        return completions.stream()
+                .filter(s -> s.startsWith(args[args.length - 1].toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

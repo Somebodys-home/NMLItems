@@ -10,7 +10,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenerateCropCommand implements CommandExecutor, TabCompleter {
 
@@ -38,16 +40,17 @@ public class GenerateCropCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower", "rhubarb_seeds", "rhubarb");
-        } else if (args.length == 2) {
-            return List.of("<level>");
-        } else if (args.length == 3) {
-            return List.of("<stars>");
-        } else if (args.length == 4) {
-            return List.of("<amount>");
-        } else {
-            return List.of();
-        }
+        ArrayList<String> completions = new ArrayList<>(){{
+            switch (args.length) {
+                case 1 -> addAll(List.of("wheat_seeds", "wheat_bundle", "sugar_cane", "jade_seeds", "jade_flower", "rhubarb_seeds", "rhubarb"));
+                case 2 -> add("<level>");
+                case 3 -> add("<stars>");
+                case 4 -> add("<amount>");
+            }
+        }};
+
+        return completions.stream()
+                .filter(s -> s.startsWith(args[args.length - 1].toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

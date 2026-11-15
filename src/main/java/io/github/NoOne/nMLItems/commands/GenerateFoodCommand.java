@@ -54,18 +54,17 @@ public class GenerateFoodCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            return new ArrayList<>(List.of("rhubarb_pie")).stream()
-                    .filter(s -> s.toLowerCase().startsWith(args[0].toLowerCase()))
-                    .collect(Collectors.toList());
-        } else if (args.length == 2) {
-            return List.of("<level>");
-        } else if (args.length == 3) {
-            return List.of("<stars>");
-        } else if (args.length == 4) {
-            return List.of("<amount>");
-        } else {
-            return List.of();
-        }
+        ArrayList<String> completions = new ArrayList<>(){{
+            switch (args.length) {
+                case 1 -> addAll(List.of("rhubarb_pie"));
+                case 2 -> add("<level>");
+                case 3 -> add("<stars>");
+                case 4 -> add("<amount>");
+            }
+        }};
+
+        return completions.stream()
+                .filter(s -> s.startsWith(args[args.length - 1].toLowerCase()))
+                .collect(Collectors.toList());
     }
 }
