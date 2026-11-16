@@ -4,6 +4,7 @@ import io.github.NoOne.nMLItems.ItemCreator;
 import io.github.NoOne.nMLItems.ItemSystem;
 import io.github.NoOne.nMLItems.enums.GardenModifier;
 import io.github.NoOne.nMLItems.enums.ItemRarity;
+import io.github.NoOne.nMLItems.enums.ItemStat;
 import net.matrixcreations.libraries.MatrixColorAPI;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -28,6 +29,7 @@ public class GardenModifiers {
 
 
         setGardenModifierKeys(fertilizer, GardenModifier.FERTILIZER, ItemRarity.COMMON);
+        ItemSystem.setStat(fertilizer, ItemStat.YIELD, 20);
         return fertilizer;
     }
 
@@ -45,6 +47,7 @@ public class GardenModifiers {
                         "§8§oStay hydrated!"));
 
         setGardenModifierKeys(wateringCan, GardenModifier.WATERING_CAN, ItemRarity.COMMON);
+        ItemSystem.setStat(wateringCan, ItemStat.HARVEST, 15);
         return wateringCan;
     }
 
