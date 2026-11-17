@@ -8,6 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,12 +114,14 @@ public class Crops {
     }
 
     public static double calculateCropStatValue(CropType cropType, int level, double stars) {
-        return switch (cropType) {
+        double value = switch (cropType) {
             case WHEAT_BUNDLE -> Math.max(level / 2.0, 1);
             case SUGAR_CANE -> Math.max(level / 3.0, 1);
             case RHUBARB -> (int) Math.round(level * 1.5);
             default -> 1;
         } * MaterialStars.getStarMultiplier(MaterialStars.toMaterialStars(stars));
+
+        return new BigDecimal(value).setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 
     private static void setCropKeys(ItemStack itemStack, CropType cropType, int level, double stars) {
