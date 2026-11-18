@@ -2,17 +2,17 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.commands.*;
 import io.github.NoOne.nMLSkills.NMLSkills;
-import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
+import io.github.NoOne.nMLSkills.saveSkillsSystem.SaveSkillsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NMLItems extends JavaPlugin {
     private static NMLItems instance;
-    private SkillSetManager skillSetManager;
+    private SaveSkillsManager saveSkillsManager;
 
     @Override
     public void onEnable() {
         instance = this;
-        skillSetManager = JavaPlugin.getPlugin(NMLSkills.class).getSkillSetManager();
+        saveSkillsManager = JavaPlugin.getPlugin(NMLSkills.class).getSaveSkillsManager();
 
         getCommand("generateItem").setExecutor(new GenerateItemCommand());
         getCommand("generateCrop").setExecutor(new GenerateCropCommand());
@@ -28,7 +28,7 @@ public final class NMLItems extends JavaPlugin {
         return instance;
     }
 
-    public SkillSetManager getSkillSetManager() {
-        return skillSetManager;
+    public SaveSkillsManager getSaveSkillsManager() {
+        return saveSkillsManager;
     }
 }

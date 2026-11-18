@@ -2,7 +2,8 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.enums.*;
 import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
-import io.github.NoOne.nMLSkills.skillSetSystem.SkillSetManager;
+import io.github.NoOne.nMLSkills.saveSkillsSystem.SaveSkillsManager;
+import io.github.NoOne.nMLSkills.skillSystem.Skill;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ import static io.github.NoOne.nMLItems.enums.ItemType.*;
 
 public class ItemSystem {
     private static NMLItems nmlItems = NMLItems.getInstance();
-    private static SkillSetManager skillSetManager = nmlItems.getSkillSetManager();
+    private static SaveSkillsManager saveSkillsManager = nmlItems.getSaveSkillsManager();
     private static NamespacedKey itemTypeKey = new NamespacedKey(nmlItems, "item_type"); // item types stored as (type)/(type)/...
     private static NamespacedKey itemStatsKey = new NamespacedKey(nmlItems, "item_stats"); // stats stored as (stat)-##/(stat)-##/...
     private static NamespacedKey originalNameKey = new NamespacedKey(nmlItems, "original_name");
@@ -454,12 +455,13 @@ public class ItemSystem {
 
     public static boolean isItemUsable(ItemStack itemStack, Player player) {
         int itemLevel = getLevel(itemStack);
+        Skill skill = Skill.COMBAT;
 
         if (isItemType(itemStack, HOE)) {
-            return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getFarmingLevel() >= itemLevel;
-        } else {
-            return skillSetManager.getSkillSet(player.getUniqueId()).getSkills().getCombatLevel() >= itemLevel;
+            skill = Skill.FARMING;
         }
+
+        return saveSkillsManager.getSkills(player.getUniqueId()).getSkillLevel(skill) >= itemLevel;
     }
 
     public static boolean isItemUsable(ItemStack itemStack) {
