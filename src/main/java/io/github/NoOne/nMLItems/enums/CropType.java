@@ -25,8 +25,8 @@ public enum CropType {
         };
     }
 
-    public String toColor(CropType cropType) {
-        return switch (cropType) {
+    public String toColor() {
+        return switch (this) {
             case WHEAT_BUNDLE -> "§6";
             case SUGAR_CANE -> "§a";
             case JADE_FLOWER -> "<SOLID:#00A86B>";
