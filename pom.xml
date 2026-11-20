@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.github.Somebodys-home</groupId>
             <artifactId>NMLSkills</artifactId>
-            <version>660295867f</version>
+            <version>a7a981fc11</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -2,7 +2,7 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.commands.*;
 import io.github.NoOne.nMLSkills.NMLSkills;
-import io.github.NoOne.nMLSkills.saveSkillsSystem.SaveSkillsManager;
+import io.github.NoOne.nMLSkills.SaveSkillsManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class NMLItems extends JavaPlugin {

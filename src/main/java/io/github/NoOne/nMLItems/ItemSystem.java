@@ -2,7 +2,7 @@ package io.github.NoOne.nMLItems;
 
 import io.github.NoOne.nMLItems.enums.*;
 import io.github.NoOne.nMLPlayerStats.statSystem.PlayerStat;
-import io.github.NoOne.nMLSkills.saveSkillsSystem.SaveSkillsManager;
+import io.github.NoOne.nMLSkills.SaveSkillsManager;
 import io.github.NoOne.nMLSkills.skillSystem.Skill;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
